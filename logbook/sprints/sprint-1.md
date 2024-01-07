@@ -2,14 +2,14 @@
 
 **Goals**
 
-- [x] Design in Figma
-- [x] Project installation and start
-- [x] Structure of components, folders and files
-- [x] Start working on Database
+- [x] Design in Figma 1 SP
+- [x] Project installation and start 1 SP
+- [x] Structure of components, folders and files 1 SP
+- [x] Start working on Database (5 + 3 SP)
 
 **Bonus task**
 
-- [x] Test db connection
+- [x] Test db connection 3 SP
 
 **Story Points**
 
