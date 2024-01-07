@@ -8,7 +8,9 @@ async function main() {
   console.log("Connect to DB & start server");
 
   try {
-    await mongoose.connect(process.env.MONGODB_CONNECTION_STRING);
+    await mongoose.connect(process.env.MONGODB_CONNECTION_STRING, {
+      dbName: "Database",
+    });
 
     console.log("Connected to MongoDB");
 
