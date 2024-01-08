@@ -2,6 +2,7 @@ GET http://localhost:3000/api/users
 
 ###
 
+//Create a user
 POST http://localhost:3000/api/users/register
 Content-Type: application/json
 
@@ -11,5 +12,19 @@ Content-Type: application/json
     "password": "testpassword"
     
 }
+
+###
+
+//Create a product
+POST http://localhost:3000/api/products
+Content-Type: application/json
+
+{
+    "title": "Capri",
+    "price": 2399,
+    "description": "Shield your eyes in style with these iconic aviator sunglasses, channeling Italian flair and timeless appeal.",
+    "image": "https://images.pexels.com/photos/735273/pexels-photo-735273.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    "inStock": 17
+  }
 
 ###
