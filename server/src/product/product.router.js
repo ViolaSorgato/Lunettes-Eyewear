@@ -6,16 +6,16 @@ const {
   getProductById,
   getProductsByCategory,
   updateProduct,
-} = require("../controllers/product.controller");
+} = require("./product.controller");
 
 const { adminOnly, auth, exists, validate } = require("../middlewares");
 const {
   ProductCreateValidationSchema,
   ProductUpdateValidationSchema,
   ProductModel,
-} = require("../models/product.model");
+} = require("./product.model");
 
-const { CategoryModel } = require("../models/category.model");
+const { CategoryModel } = require("../category/category.model");
 
 const productRouter = Router()
   .get("/products", getAllProducts)

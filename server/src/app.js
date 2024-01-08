@@ -4,10 +4,10 @@ const cookieSession = require("cookie-session");
 require("express-async-errors");
 const secretKey = process.env.COOKIE_SECRET_KEY;
 
-const { productRouter } = require("./routes/product.router");
+const { productRouter } = require("./product/product.router");
 // const { orderRouter } = require("./resources/order/order.router");
-const { userRouter } = require("./routes/user.router");
-const { categoryRouter } = require("./routes/category.router");
+const { userRouter } = require("./user/user.router");
+const { categoryRouter } = require("./category/category.router");
 // const { errorRequestHandler } = require("./error");
 // const {
 
@@ -31,7 +31,6 @@ app.use("/api", productRouter);
 app.use("/api", userRouter);
 // app.use("/api", categoryRouter);
 // app.use("/api", ShippingMethodRouter);
-
 
 // app.use((req, res) => {
 //   console.log("!404!");

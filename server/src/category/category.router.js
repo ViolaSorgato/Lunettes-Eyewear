@@ -3,10 +3,10 @@ const {
   createCategory,
   getAllCategories,
   getCategoryById,
-} = require("../controllers/category.controller");
+} = require("./category.controller");
 
 const { exists } = require("../middlewares");
-const { CategoryModel } = require("../models/category.model");
+const { CategoryModel } = require("./category.model");
 
 const categoryRouter = Router()
   .post("/categories", createCategory)
