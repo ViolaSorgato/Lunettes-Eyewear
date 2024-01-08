@@ -29,8 +29,7 @@ app.use(cors({ origin: true, credentials: true }));
 app.use("/api", productRouter);
 // app.use("/api", orderRouter);
 app.use("/api", userRouter);
-// app.use("/api", categoryRouter);
-// app.use("/api", ShippingMethodRouter);
+app.use("/api", categoryRouter);
 
 // app.use((req, res) => {
 //   console.log("!404!");
