@@ -7,7 +7,7 @@ const secretKey = process.env.COOKIE_SECRET_KEY;
 const { productRouter } = require("./routes/product.router");
 // const { orderRouter } = require("./resources/order/order.router");
 const { userRouter } = require("./routes/user.router");
-// const { categoryRouter } = require("./resources/category/category.router");
+const { categoryRouter } = require("./routes/category.router");
 // const { errorRequestHandler } = require("./error");
 // const {
 
@@ -30,6 +30,8 @@ app.use("/api", productRouter);
 // app.use("/api", orderRouter);
 app.use("/api", userRouter);
 // app.use("/api", categoryRouter);
+// app.use("/api", ShippingMethodRouter);
+
 
 // app.use((req, res) => {
 //   console.log("!404!");
