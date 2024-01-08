@@ -4,15 +4,19 @@ const cookieSession = require("cookie-session");
 require("dotenv").config();
 const secretKey = process.env.COOKIE_SECRET_KEY;
 // require("express-async-errors");
-// const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-// const bodyParser = require("body-parser");
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const bodyParser = require("body-parser");
 
 const app = express();
 
 //Middleware
 app.use(express.json());
-// app.use(bodyParser.json());
-app.use(cors({ origin: true, credentials: true }));
+app.use(bodyParser.json());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 app.use(
   cookieSession({
     name: "session",
@@ -26,12 +30,13 @@ app.use(
 
 //Routers
 const { productRouter } = require("./product/product.router");
+const { checkoutRouter } = require("./checkout/checkout.router");
 const { userRouter } = require("./user/user.router");
 const { categoryRouter } = require("./category/category.router");
 // const { orderRouter } = require("./resources/order/order.router");
 
 app.use("/api", productRouter);
-
+app.use("/api", checkoutRouter);
 app.use("/api", userRouter);
 app.use("/api", categoryRouter);
 // app.use("/api", orderRouter);
