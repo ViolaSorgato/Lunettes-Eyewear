@@ -14,16 +14,16 @@ const { categoryRouter } = require("./category/category.router");
 const app = express();
 app.use(express.json());
 app.use(cors({ origin: true, credentials: true }));
-// app.use(
-//   cookieSession({
-//     name: "session",
-//     keys: [secretKey],
-//     maxAge: 1000 * 60 * 60 * 24, // 24 Hours
-//     sameSite: "strict",
-//     httpOnly: true,
-//     secure: false,
-//   })
-// );
+app.use(
+  cookieSession({
+    name: "session",
+    keys: [secretKey],
+    maxAge: 1000 * 60 * 60 * 24, // 24 Hours
+    sameSite: "strict",
+    httpOnly: true,
+    secure: false,
+  })
+);
 
 // Add routers
 app.use("/api", productRouter);

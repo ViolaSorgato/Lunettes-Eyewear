@@ -1,10 +1,13 @@
 const express = require("express");
-const { register } = require("./user.controller");
+const { register, login, logout, authorize } = require("./user.controller");
+const { UserValidationSchema } = require("./user.model");
+const { validate } = require("../middlewares");
 
 const userRouter = express
   .Router()
-  //   .get("/users", getAllUsers)
-  .post("/users/register", register);
-// Other routes for CRUD operations as needed
+  .post("/users/register", validate(UserValidationSchema), register)
+  .post("/users/login", login)
+  .post("/users/logout", logout)
+  .get("/users/authorize", authorize);
 
 module.exports = { userRouter };
