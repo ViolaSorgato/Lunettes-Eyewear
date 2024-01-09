@@ -7,9 +7,23 @@ POST http://localhost:3000/api/users/register
 Content-Type: application/json
 
 {
-    "username": "testuser",
-    "email": "test@example.com",
+    "username": "Viola Sorgato",
+    "email": "violasorgato@example.com",
     "password": "testpassword"
+    
+}
+
+###
+
+//Create an admin
+POST http://localhost:3000/api/users/register
+Content-Type: application/json
+
+{
+    "username": "Admin Admin",
+    "email": "admin@example.com",
+    "password": "adminpassword",
+    "isAdmin": true
     
 }
 
@@ -24,11 +38,13 @@ Content-Type: application/json
     "price": 2399,
     "description": "Shield your eyes in style with these iconic aviator sunglasses, channeling Italian flair and timeless appeal.",
     "image": "https://images.pexels.com/photos/735273/pexels-photo-735273.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    "inStock": 17
+    "inStock": 17,
+    "category": ["659c098f8a00da83152e7027"]
   }
 
 ###
 
+//Create a category
 POST http://localhost:3000/api/categories
 Content-Type: application/json
 {
