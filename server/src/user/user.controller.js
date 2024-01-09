@@ -22,35 +22,40 @@ async function register(req, res) {
 }
 
 async function login(req, res) {
-  // Check if username and password are correct
-  const existingUser = await UserModel.findOne({
-    email: req.body.email,
-  }).select("+password");
+  try {
+    // Check if username and password are correct
+    const existingUser = await UserModel.findOne({
+      email: req.body.email,
+    }).select("+password");
 
-  if (
-    !existingUser ||
-    !(await bcrypt.compare(req.body.password, existingUser.password))
-  ) {
-    return res.status(401).json("Wrong password or username");
+    if (
+      !existingUser ||
+      !(await bcrypt.compare(req.body.password, existingUser.password))
+    ) {
+      return res.status(401).json("Wrong password or username");
+    }
+
+    const user = existingUser.toJSON();
+    user._id = existingUser._id;
+    delete user.password;
+
+    //Check if user is already logged in
+    if (req.session && req.session._id) {
+      return res.status(200).json({ message: "Already logged in" });
+    }
+
+    //Save info about the user to the session (an encrypted cookie stored on the client)
+    req.session._id = user._id;
+    console.log("req.session.id", req.session._id);
+    res.status(200).json({ message: "Login successful", user });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
-
-  const user = existingUser.toJSON();
-  user._id = existingUser._id;
-  delete user.password;
-
-  //Check if user is already logged in
-  if (req.session._id) {
-    return res.status(200).json(user);
-  }
-
-  //Save info about the user to the session (an encrypted cookie stored on the client)
-  req.session = user;
-  res.status(200).json(user);
 }
 
 //Logout the user and remove the cookie and session
 async function logout(req, res) {
-  if (!req.session._id) {
+  if (!req.session || !req.session._id) {
     return res.status(400).json("Cannot logout when you are not logged in");
   }
   req.session = null;
