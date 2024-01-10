@@ -4,15 +4,34 @@ const CLIENT_URL = "http://localhost:5173";
 
 async function checkout(req, res) {
   try {
-    const lineItems = req.body.items.map((item) => {
-      return {
-        price: item.product,
-        quantity: item.quantity,
-      };
-    });
-    console.log("LINEITEMS", lineItems);
+    // const lineItems = req.body.items.map((item) => {
+    //   return {
+    //     price: item.product,
+    //     quantity: item.quantity,
+    //   };
+    // });
+    // console.log("LINEITEMS", lineItems);
     const session = await stripe.checkout.sessions.create({
-      line_items: lineItems,
+      line_items: [
+        {
+          price_data: {
+            currency: "sek",
+            product_data: {
+              name: "Test",
+              description: "Test",
+            },
+            unit_amount: "249900",
+          },
+          quantity: 2,
+        },
+      ],
+
+      // req.body.items.map((item) => {
+      //   return {
+      //     price: item.product,
+      //     quantity: item.quantity,
+      //   };
+      // }),
       mode: "payment",
       success_url: `${CLIENT_URL}/confirmation`,
       cancel_url: CLIENT_URL,
