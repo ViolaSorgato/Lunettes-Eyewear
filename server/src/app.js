@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const cookieSession = require("cookie-session");
-require("dotenv").config();
+
 const secretKey = process.env.COOKIE_SECRET_KEY;
 // require("express-async-errors");
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);

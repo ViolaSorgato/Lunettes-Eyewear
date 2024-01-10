@@ -1,6 +1,6 @@
+require("dotenv").config();
 const { app } = require("./app");
 const { connectToDatabase } = require("./db");
-require("dotenv").config();
 
 //Function that handles the server
 async function startServer() {

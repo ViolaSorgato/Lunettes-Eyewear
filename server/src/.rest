@@ -31,9 +31,24 @@ Content-Type: application/json
 
 POST http://localhost:3000/api/categories
 Content-Type: application/json
+
 {
     "title":"sunglasses",
     "description":"Embrace the allure of sunny days in style with our selection of sunglasses. From chic aviators to trendy cat-eye frames, shield your eyes with elegance and charm while exuding a fashion-forward statement."
+}
+
+###
+
+POST http://localhost:3000/api/create-checkout-session
+Content-Type: application/json
+
+{
+    "items": [
+        {
+        "product": "price_1OWxorGv0exepu9wR1N3XhYc",
+        "quantity": 2
+        }
+    ]
 }
 
 ###
