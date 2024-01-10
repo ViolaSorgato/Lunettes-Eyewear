@@ -1,6 +1,15 @@
 const { UserModel } = require("../user/user.model");
 const bcrypt = require("bcrypt");
 
+//AUTHORIZATION
+async function authorize(req, res) {
+  if (!req.session.id) {
+    return res.status(401).json("You are not logged in");
+  }
+
+  return req.session, res.status(200).json(req.session);
+}
+
 //Register new user
 async function register(req, res) {
   // Check if the user exists
@@ -22,10 +31,39 @@ async function register(req, res) {
 }
 
 async function login(req, res) {
+  const { username, password } = req.body;
+  try {
+    const fileData = fs.readFileSync(filePath, "utf8");
+    usersArray = JSON.parse(fileData);
+    const user = usersArray.find((user) => user.username === username);
+
+    if (!user) {
+      return res.status(401).json("Wrong username or password");
+    }
+    const passwordOk = await bcrypt.compare(password, user.password);
+
+    if (!passwordOk) {
+      return res.status(401).json({ error: "Incorrect username or password" });
+    }
+
+    delete user.password;
+    req.session = user;
+    res.status(200).json({
+      Message: "Successfully logged in",
+      user: {
+        username: user.username,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+async function login(req, res) {
   try {
     // Check if username and password are correct
     const existingUser = await UserModel.findOne({
-      email: req.body.email,
+      email: email,
     }).select("+password");
 
     if (
@@ -60,13 +98,6 @@ async function logout(req, res) {
   }
   req.session = null;
   res.status(204).json(null);
-}
-
-async function authorize(req, res) {
-  if (!req.session._id) {
-    return res.status(401).json("You are not logged in");
-  }
-  res.status(200).json(req.session);
 }
 
 module.exports = { register, login, logout, authorize };
