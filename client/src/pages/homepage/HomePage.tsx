@@ -1,12 +1,12 @@
 function HomePage() {
   async function handlePayment() {
     try {
-      const response = await fetch("/api/create-checkout-session", {
+      const response = await fetch("/api/checkout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({}),
+        body: JSON.stringify(""),
       });
 
       if (!response.ok) {
@@ -14,6 +14,8 @@ function HomePage() {
       }
 
       const { url } = await response.json();
+      console.log("RESPONSE.JSON", response.json());
+
       window.location = url;
     } catch (error) {
       console.error("Error during payment:", error);
