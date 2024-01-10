@@ -1,7 +1,7 @@
 function HomePage() {
   async function handlePayment() {
     try {
-      const response = await fetch("/api/checkout", {
+      const response = await fetch("/api/create-checkout-session", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -10,7 +10,8 @@ function HomePage() {
       });
 
       if (!response.ok) {
-        throw new Error("Network response was not ok");
+        console.log("RESPONSE", response);
+        return;
       }
 
       const { url } = await response.json();

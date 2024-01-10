@@ -12,7 +12,7 @@ async function checkout(req, res) {
         },
       ],
       mode: "payment",
-      success_url: `${CLIENT_URL}confirmation`,
+      success_url: `${CLIENT_URL}/confirmation`,
       cancel_url: CLIENT_URL,
     });
 
