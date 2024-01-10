@@ -31,64 +31,32 @@ async function register(req, res) {
 }
 
 async function login(req, res) {
-  const { username, password } = req.body;
-  try {
-    const fileData = fs.readFileSync(filePath, "utf8");
-    usersArray = JSON.parse(fileData);
-    const user = usersArray.find((user) => user.username === username);
+  // Check if username and password is correct
+  const existingUser = await UserModel.findOne({
+    email: req.body.email,
+  }).select("+password");
 
-    if (!user) {
-      return res.status(401).json("Wrong username or password");
-    }
-    const passwordOk = await bcrypt.compare(password, user.password);
-
-    if (!passwordOk) {
-      return res.status(401).json({ error: "Incorrect username or password" });
-    }
-
-    delete user.password;
-    req.session = user;
-    res.status(200).json({
-      Message: "Successfully logged in",
-      user: {
-        username: user.username,
-      },
-    });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+  if (
+    !existingUser ||
+    !(await bcrypt.compare(req.body.password, existingUser.password))
+  ) {
+    return res.status(401).json("Wrong password or username");
   }
-}
 
-async function login(req, res) {
-  try {
-    // Check if username and password are correct
-    const existingUser = await UserModel.findOne({
-      email: email,
-    }).select("+password");
+  const user = existingUser.toJSON();
+  user._id = existingUser._id;
+  delete user.password;
 
-    if (
-      !existingUser ||
-      !(await bcrypt.compare(req.body.password, existingUser.password))
-    ) {
-      return res.status(401).json("Wrong password or username");
-    }
+  // // Check if user already is logged in
+  // if (req.session._id) {
+  //   return res.status(200).json(user);
+  // }
 
-    const user = existingUser.toJSON();
-    user._id = existingUser._id;
-    delete user.password;
-
-    //Check if user is already logged in
-    if (req.session && req.session._id) {
-      return res.status(200).json({ message: "Already logged in" });
-    }
-
-    //Save info about the user to the session (an encrypted cookie stored on the client)
-    req.session._id = user._id;
-    console.log("req.session.id", req.session._id);
-    res.status(200).json({ message: "Login successful", user });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+  // Save info about the user to the session (an encrypted cookie stored on the client)
+  req.session = user;
+  res.status(200).json({ Message: "Successfully logged in", user });
+  console.log("REQ.SESSION", req.session);
+  console.log("REQ.SESSION._ID", req.session._id);
 }
 
 //Logout the user and remove the cookie and session

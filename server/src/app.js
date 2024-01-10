@@ -2,11 +2,11 @@ const express = require("express");
 const cors = require("cors");
 const cookieSession = require("cookie-session");
 require("express-async-errors");
-const secretKey = process.env.COOKIE_SECRET_KEY;
 
 const app = express();
 app.use(express.json());
 app.use(cors({ origin: true, credentials: true }));
+const secretKey = process.env.COOKIE_SECRET_KEY;
 app.use(
   cookieSession({
     name: "session",
