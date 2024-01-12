@@ -1,12 +1,22 @@
 const express = require("express");
 const cors = require("cors");
 const cookieSession = require("cookie-session");
-require("express-async-errors");
+const secretKey = process.env.COOKIE_SECRET_KEY;
+// require("express-async-errors");
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const bodyParser = require("body-parser");
 
 const app = express();
+require("express-async-errors");
+
+//Middleware
 app.use(express.json());
-app.use(cors({ origin: true, credentials: true }));
-const secretKey = process.env.COOKIE_SECRET_KEY;
+app.use(bodyParser.json());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 app.use(
   cookieSession({
     name: "session",
@@ -18,17 +28,20 @@ app.use(
   })
 );
 
+//Routers
 const { productRouter } = require("./product/product.router");
-// const { orderRouter } = require("./resources/order/order.router");
+const { checkoutRouter } = require("./checkout/checkout.router");
 const { userRouter } = require("./user/user.router");
 const { categoryRouter } = require("./category/category.router");
+// const { orderRouter } = require("./resources/order/order.router");
 // const { errorRequestHandler } = require("./error");
 
 // Add routers
 app.use("/api", productRouter);
-// app.use("/api", orderRouter);
+app.use("/api", checkoutRouter);
 app.use("/api", userRouter);
 app.use("/api", categoryRouter);
+// app.use("/api", orderRouter);
 
 // app.use((req, res) => {
 //   console.log("!404!");
