@@ -1,10 +1,6 @@
 require("dotenv").config();
 const { app } = require("./app");
 const { connectToDatabase } = require("./db");
-const mongoose = require("mongoose");
-const { app } = require("./app");
-
-main().catch((err) => console.log(err));
 
 //Function that handles the server
 async function startServer() {
