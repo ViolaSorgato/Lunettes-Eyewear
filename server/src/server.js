@@ -6,9 +6,6 @@ const { app } = require("./app");
 
 main().catch((err) => console.log(err));
 
-async function main() {
-  console.log("Connect to DB & start server");
-
 //Function that handles the server
 async function startServer() {
   try {
