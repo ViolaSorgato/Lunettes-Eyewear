@@ -1,0 +1,14 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Urbanist", sans-serif;
+}
+
+body {
+  background-color: rgb(249, 249, 249);
+}
+
+#root {
+  min-width: 100%;
+}

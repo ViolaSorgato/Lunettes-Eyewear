@@ -1,3 +1,6 @@
+import Campaign from "../../components/Campaign/Campaign";
+import Slider from "../../components/Slider/Slider";
+
 function HomePage() {
   async function handlePayment() {
     try {
@@ -35,7 +38,8 @@ function HomePage() {
 
   return (
     <div>
-      <h1>HomePage</h1>
+      <Campaign />
+      <Slider />
       <button onClick={handlePayment}>to checkout</button>
     </div>
   );
