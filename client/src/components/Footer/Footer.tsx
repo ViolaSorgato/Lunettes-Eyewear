@@ -9,6 +9,7 @@ import {
 } from "@mui/icons-material";
 import { Stack, List, ListItem, Container } from "@mui/material";
 import "./Footer.css";
+import { NavLink } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -41,7 +42,13 @@ const Footer = () => {
               <ListItem className="list-item">Accessories</ListItem>
             </List>
             <List className="list">
-              <ListItem className="list-item">About us</ListItem>
+              <NavLink
+                to={"/about-us"}
+                style={{ textDecoration: "none" }}
+                className="nav-link"
+              >
+                <ListItem className="list-item">About us</ListItem>
+              </NavLink>
               <ListItem className="list-item">My account</ListItem>
               <ListItem className="list-item">Wishlist</ListItem>
               <ListItem className="list-item">Order Tracking</ListItem>
