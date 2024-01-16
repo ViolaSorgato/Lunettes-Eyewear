@@ -1,5 +1,7 @@
 import Campaign from "../../components/Campaign/Campaign";
-import Slider from "../../components/Slider/Slider";
+import Categories from "../../components/Categories/Categories";
+import Newsletter from "../../components/Newsletter/Newsletter";
+// import Slider from "../../components/Slider/Slider";
 
 function HomePage() {
   async function handlePayment() {
@@ -39,8 +41,10 @@ function HomePage() {
   return (
     <div>
       <Campaign />
-      <Slider />
-      <button onClick={handlePayment}>to checkout</button>
+      {/* <Slider /> */}
+      <Categories />
+      {/* <button onClick={handlePayment}>to checkout</button> */}
+      <Newsletter />
     </div>
   );
 }

@@ -12,24 +12,22 @@ import "./Footer.css";
 
 const Footer = () => {
   return (
-    <Container
-      style={{ maxWidth: "100%", maxHeight: "30%", position: "absolute" }}
-    >
+    <div className="footer-container">
       <Stack
-        direction="row"
+        direction={{ sm: "column", md: "row" }}
+        spacing={{ xs: 1, sm: 2, md: 4 }}
         justifyContent="space-around"
         alignItems="center"
-        spacing={2}
       >
         <Container className="column">
-          <div className="logo">Lunettes Eyewear</div>
-          <div className="desc">
+          <div className="logo">Welcome to Lunettes</div>
+          <p className="desc">
             Step into a world of timeless elegance at Lunettes Eyewear, your
             premier destination for exquisitely crafted Italian eyewear. Our
             curated collection captures the essence of Italy's artistic legacy,
             offering a range of frames that seamlessly blend sophistication,
             style, and unparalleled craftsmanship.
-          </div>
+          </p>
         </Container>
         <Container className="column">
           <div className="logo">Useful Links</div>
@@ -79,7 +77,7 @@ const Footer = () => {
           {/* <Payment src="https://i.ibb.co/Qfvn4z6/payment.png" /> */}
         </Container>
       </Stack>
-    </Container>
+    </div>
   );
 };
 

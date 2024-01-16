@@ -1,0 +1,28 @@
+.categories-container {
+  height: 50vh;
+  min-width: 100%;
+  padding: 10px;
+  gap: 0;
+}
+
+.category {
+  height: 100%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
+}
+
+.category-left {
+  background-image: url("../../assets/pic4.jpeg");
+}
+
+.category-right {
+  background-image: url("../../assets/pic10.jpeg");
+}
+
+.text {
+  color: rgb(48, 45, 45);
+}

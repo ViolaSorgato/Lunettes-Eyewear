@@ -23,11 +23,6 @@
   padding: 5px;
 }
 
-/* .input = styled.input`
-  border: none;
-  ${mobile({ width: "50px" })}
-`; */
-
 .center {
   flex: 1;
   text-align: center;
@@ -35,7 +30,7 @@
 
 .logo {
   font-weight: bold;
-  /* ${mobile({ fontSize: "24px" })} */
+  color: rgb(58, 55, 55);
 }
 
 .right {
@@ -49,5 +44,4 @@
   font-size: 14px;
   cursor: pointer;
   margin-left: 25px;
-  /* ${mobile({ fontSize: "12px", marginLeft: "10px" })} */
 }

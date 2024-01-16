@@ -1,7 +1,21 @@
 .campaign-container {
   background-image: url("../../assets/bg.jpg");
-  background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
   height: 100vh;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  font-size: x-large;
+  padding-top: 50px;
+  padding-left: 20px;
+}
+
+@media (min-width: 1225px) {
+  .info {
+    padding-top: 100px;
+    padding-left: 300px;
+  }
 }

@@ -16,6 +16,7 @@ const Navbar = () => {
           <div className="logo">Lunettes Eyewear</div>
         </div>
         <div className="right">
+          <div className="menu-item">SHOP</div>
           <div className="menu-item">REGISTER</div>
           <div className="menu-item">SIGN IN</div>
           <div className="menu-item">

@@ -15,8 +15,5 @@ export const themeOptions: ThemeOptions = {
       main: "rgba(204, 213, 174, 1)",
       light: "rgba(233, 237, 201, 1)",
     },
-    info: {
-      main: "#0288d1",
-    },
   },
 };
