@@ -52,6 +52,8 @@ export const ProductProvider = ({ children }: PropsWithChildren<{}>) => {
       const response = await fetch("api/products");
       const data = await response.json();
 
+      console.log("DATA FROM JSON", data);
+
       const productList = data.data.map((product: Product) => ({
         name: product.name,
         description: product.description,

@@ -46,6 +46,9 @@ POST http://localhost:3000/api/users/logout
 Content-Type: application/json
 
 ###
+GET http://localhost:3000/api/products
+
+###
 
 //Create a product
 POST http://localhost:3000/api/products

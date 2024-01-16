@@ -1,5 +1,12 @@
+import ProductList from "../../components/ProductList/ProductList";
+import "./ProductPage.css";
+
 const ProductPage = () => {
-  return <div>ProductPage</div>;
+  return (
+    <div>
+      <ProductList />
+    </div>
+  );
 };
 
 export default ProductPage;

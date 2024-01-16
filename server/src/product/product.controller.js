@@ -1,9 +1,23 @@
 const { ProductModel } = require("./product.model");
+const { initStripe } = require("../stripe");
+const stripe = initStripe();
 
-//Get all products
+// //Get all products
+// async function getAllProducts(req, res) {
+//   const products = await ProductModel.find({ deleted: false });
+//   res.status(200).json(products);
+// }
+
 async function getAllProducts(req, res) {
-  const products = await ProductModel.find({ deleted: false });
-  res.status(200).json(products);
+  try {
+    const products = await stripe.products.list({
+      limit: 10,
+      expand: ["data.default_price"],
+    });
+    res.status(200).json(products);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 }
 
 //Get specific product
