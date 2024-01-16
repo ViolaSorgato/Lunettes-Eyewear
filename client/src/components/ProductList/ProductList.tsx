@@ -2,16 +2,15 @@ import { useProductContext } from "../../context/product.context";
 import "./ProductList.css";
 import { useShoppingCart } from "../../context/cart.context";
 import { Button, Container, Grid } from "@mui/material";
-// import ProductCard from "../ProductCard/ProductCard";
 
 //RETURNS LIST OF STRIPE PRODUCTS AND CALLS ADDTOCART FUNCTION
-export default function ProductList() {
+const ProductList = () => {
   const { products } = useProductContext();
   const { addToCart } = useShoppingCart();
 
   return (
     <Container>
-      <h1 className="title-list">Our Products</h1>
+      <p className="title-list">Our Products</p>
       <Grid
         container
         spacing={10}
@@ -51,4 +50,6 @@ export default function ProductList() {
       </Grid>
     </Container>
   );
-}
+};
+
+export default ProductList;
