@@ -34,17 +34,17 @@ const Footer = () => {
           <div className="list-container">
             {" "}
             <List className="list">
-              <ListItem className="list-item">Home</ListItem>
-              <ListItem className="list-item">Cart</ListItem>
+              <ListItem className="list-item">New Collection</ListItem>
               <ListItem className="list-item">Man Fashion</ListItem>
               <ListItem className="list-item">Woman Fashion</ListItem>
+              <ListItem className="list-item">Offers</ListItem>
               <ListItem className="list-item">Accessories</ListItem>
             </List>
             <List className="list">
-              <ListItem className="list-item">My Account</ListItem>
+              <ListItem className="list-item">About us</ListItem>
+              <ListItem className="list-item">My account</ListItem>
+              <ListItem className="list-item">Wishlist</ListItem>
               <ListItem className="list-item">Order Tracking</ListItem>
-              <ListItem className="list-item">Wishlist</ListItem>
-              <ListItem className="list-item">Wishlist</ListItem>
               <ListItem className="list-item">Terms</ListItem>
             </List>
           </div>
@@ -52,7 +52,7 @@ const Footer = () => {
         <Container className="column">
           <div className="logo">Contact</div>
           <div className="contact-item">
-            <Room /> Via Modigliani 15, Milano, Italy
+            <Room /> Via Modigliani 15 Milan Italy
           </div>
           <div className="contact-item">
             <Phone /> +39 348 634 323
