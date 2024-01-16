@@ -6,6 +6,7 @@ import Footer from "./components/Footer/Footer";
 import "./App.css";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { themeOptions } from "./components/ThemeOptions";
+import ProductPage from "./pages/productpage/ProductPage";
 
 const theme = createTheme(themeOptions);
 
@@ -17,6 +18,7 @@ const App = () => {
           <Header />
           <Routes>
             <Route path="/" element={<Homepage />} />
+            <Route path="/shop" element={<ProductPage />} />
             <Route path="confirmation" element={<Confirmationpage />} />
           </Routes>
           <Footer />
