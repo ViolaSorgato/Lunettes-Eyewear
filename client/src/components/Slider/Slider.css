@@ -1,0 +1,71 @@
+.bannerContainer {
+  display: flex;
+  height: 75vh;
+  margin: 0;
+}
+
+.slideshow {
+  margin: auto;
+  margin-top: 50px;
+
+  width: 70%;
+  height: 90%;
+  aspect-ratio: calc(16 / 9);
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.prevBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  opacity: 0.5;
+  width: 50px;
+  font-size: 18px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+}
+.prevBtn:hover {
+  opacity: 1;
+}
+
+.nextBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  opacity: 0.5;
+  width: 50px;
+  font-size: 18px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  color: white;
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+}
+.nextBtn:hover {
+  opacity: 1;
+}
+
+.slides {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
