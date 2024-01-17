@@ -60,7 +60,7 @@ const UserProvider = ({ children }: Props) => {
 
   const register = async (user: UserType) => {
     try {
-      const response = await fetch("your-backend-register-endpoint", {
+      const response = await fetch("/api/users/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

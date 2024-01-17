@@ -1,7 +1,8 @@
 import { useState, useContext } from "react";
+import { UserContextType } from "../../context/user.context";
 import { TextField, Button, Box, Typography } from "@mui/material";
 import { NavLink } from "react-router-dom";
-import { UserContextType } from "../../context/user.context";
+import "./RegisterPage.css";
 
 const RegisterPage = () => {
   const [username, setUsername] = useState("");
@@ -39,7 +40,7 @@ const RegisterPage = () => {
           }}
         >
           <div className="imgContainer">
-            <div className="centered">Welcome {loggedInUser.userName}!</div>
+            {/* <div className="centered">Welcome {loggedInUser.userName}!</div> */}
             <img src="" width={"85%"} />
             <div className="messageDiv">You are registered and logged in.</div>
           </div>
