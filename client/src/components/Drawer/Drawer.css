@@ -24,8 +24,10 @@
   font-weight: bold;
 }
 
-.info {
+.cart-info {
   color: rgba(34, 48, 48, 1);
+  font-size: larger;
+  font-weight: 200;
 }
 
 .info-container {

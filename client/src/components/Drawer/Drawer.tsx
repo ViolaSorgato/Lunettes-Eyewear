@@ -57,7 +57,7 @@ export default function ShoppingDrawer({ open, setOpen }: ShoppingDrawerProps) {
         <div className="total-price">
           {isCartEmpty ? (
             <div className="info-container">
-              <p>Your Shopping Cart is empty.</p>
+              <p className="cart-info">Your cart is empty.</p>
               <Link to="/shop">
                 <Button
                   variant="contained"
@@ -78,7 +78,7 @@ export default function ShoppingDrawer({ open, setOpen }: ShoppingDrawerProps) {
           )}
         </div>
 
-        {!isCartEmpty && (
+        {!isCartEmpty && loggedInUser && (
           <Stack
             direction={{ xs: "column", sm: "row" }}
             spacing={{ xs: 1, sm: 2, md: 4 }}
@@ -107,7 +107,9 @@ export default function ShoppingDrawer({ open, setOpen }: ShoppingDrawerProps) {
 
         {!isCartEmpty && !loggedInUser && (
           <div className="info-container">
-            <p>Please sign in to proceed with your purchase.</p>
+            <p className="cart-info">
+              Please sign in to proceed with your purchase.
+            </p>
           </div>
         )}
       </div>
