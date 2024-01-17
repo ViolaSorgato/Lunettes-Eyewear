@@ -1,11 +1,12 @@
-import Button from "@mui/material/Button";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import Box from "@mui/material/Box";
+import { Box, Button } from "@mui/material";
+import {
+  Add,
+  Remove,
+  DeleteForeverOutlined,
+  AddShoppingCart,
+} from "@mui/icons-material";
 import { useShoppingCart } from "../../context/cart.context";
 import { Product } from "../../context/product.context";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
-import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
 
 type Props = {
   product: Product;
@@ -33,7 +34,7 @@ export default function AddToCartBtn({ product }: Props) {
       <Button
         variant="contained"
         color="secondary"
-        startIcon={<AddShoppingCartIcon />}
+        startIcon={<AddShoppingCart />}
         onClick={() => increaseCartQuantity(product._id)}
       >
         Add to cart
@@ -52,38 +53,38 @@ export default function AddToCartBtn({ product }: Props) {
         marginBottom: "1rem",
       }}
     >
-      <Button
-        variant="contained"
-        color="secondary"
-        onClick={() => increaseCartQuantity(product._id)}
-      >
-        <AddIcon />
-      </Button>
-
-      <div>
-        <span>{quantity}</span> in cart
-      </div>
-
       {quantity > 1 ? (
         <Button
           variant="contained"
           color="secondary"
           onClick={() => decreaseCartQuantity(product._id)}
         >
-          <RemoveIcon />
+          <Remove />
         </Button>
       ) : (
         <Button variant="contained" color="secondary">
-          <RemoveIcon />
+          <Remove />
         </Button>
       )}
+
+      <div>
+        <span>{quantity}</span> in cart
+      </div>
+
+      <Button
+        variant="contained"
+        color="secondary"
+        onClick={() => increaseCartQuantity(product._id)}
+      >
+        <Add />
+      </Button>
 
       <Button
         variant="contained"
         color="secondary"
         onClick={() => removeFromCart(product._id)}
       >
-        <DeleteForeverOutlinedIcon />
+        <DeleteForeverOutlined />
       </Button>
     </Box>
   );
