@@ -13,13 +13,15 @@ import { NavLink } from "react-router-dom";
 import { Search } from "@mui/icons-material";
 import "./Navbar.css";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import ShoppingCartIcon from "../ShoppingCartIcon/ShoppingCartIcon";
+import { UserContextType } from "../../context/user.context";
 
 const Navbar = () => {
   const theme: Theme = useTheme();
   const isMobile: boolean = useMediaQuery(theme.breakpoints.down("sm"));
   const [isDrawerOpen, setDrawerOpen] = useState(false);
+  const { loggedInUser, logout } = useContext(UserContextType);
 
   const toggleDrawer = () => {
     setDrawerOpen(!isDrawerOpen);
@@ -51,27 +53,36 @@ const Navbar = () => {
                   <div className="menu-item">SHOP</div>
                 </ListItem>
               </NavLink>
-              <NavLink
-                to="/register"
-                className="nav-link"
-                style={{ textDecoration: "none" }}
-                onClick={toggleDrawer}
-              >
-                <ListItem>
-                  <div className="menu-item">REGISTER</div>
-                </ListItem>
-              </NavLink>
+              {loggedInUser ? (
+                <div className="menu-item" onClick={logout}>
+                  SIGN OUT
+                </div>
+              ) : (
+                <>
+                  <NavLink
+                    to="/register"
+                    className="nav-link"
+                    style={{ textDecoration: "none" }}
+                    onClick={toggleDrawer}
+                  >
+                    <ListItem>
+                      <div className="menu-item">REGISTER</div>
+                    </ListItem>
+                  </NavLink>
 
-              <NavLink
-                to="/login"
-                className="nav-link"
-                style={{ textDecoration: "none" }}
-                onClick={toggleDrawer}
-              >
-                <ListItem>
-                  <div className="menu-item">SIGN IN</div>
-                </ListItem>
-              </NavLink>
+                  <NavLink
+                    to="/login"
+                    className="nav-link"
+                    style={{ textDecoration: "none" }}
+                    onClick={toggleDrawer}
+                  >
+                    <ListItem>
+                      <div className="menu-item">SIGN IN</div>
+                    </ListItem>
+                  </NavLink>
+                </>
+              )}
+
               <ListItem style={{ marginLeft: "25px" }}>
                 <ShoppingCartIcon />
               </ListItem>
@@ -106,22 +117,30 @@ const Navbar = () => {
               >
                 <div className="menu-item">SHOP</div>
               </NavLink>
-              <NavLink
-                to="/shop"
-                className="nav-link"
-                style={{ textDecoration: "none" }}
-                onClick={toggleDrawer}
-              >
-                <div className="menu-item">REGISTER</div>
-              </NavLink>
-              <NavLink
-                to="/shop"
-                className="nav-link"
-                style={{ textDecoration: "none" }}
-                onClick={toggleDrawer}
-              >
-                <div className="menu-item">SIGN IN</div>
-              </NavLink>
+              {loggedInUser ? (
+                <div className="menu-item" onClick={logout}>
+                  SIGN OUT
+                </div>
+              ) : (
+                <>
+                  <NavLink
+                    to="/register"
+                    className="nav-link"
+                    style={{ textDecoration: "none" }}
+                    onClick={toggleDrawer}
+                  >
+                    <div className="menu-item">REGISTER</div>
+                  </NavLink>
+                  <NavLink
+                    to="/login"
+                    className="nav-link"
+                    style={{ textDecoration: "none" }}
+                    onClick={toggleDrawer}
+                  >
+                    <div className="menu-item">SIGN IN</div>
+                  </NavLink>
+                </>
+              )}
               <ShoppingCartIcon />
             </div>
           </div>
