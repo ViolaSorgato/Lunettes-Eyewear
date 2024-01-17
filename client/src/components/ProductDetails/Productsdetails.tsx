@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { Container, Stack } from "@mui/material";
 import AddToCartBtn from "../AddToCartBtn/AddToCartBtn";
 import "./ProductDetails.css";
-import { Margin } from "@mui/icons-material";
 
 export default function ProductDetails() {
   function inStockProduct(inStock: number) {
