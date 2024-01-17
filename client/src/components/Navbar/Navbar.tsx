@@ -107,7 +107,7 @@ const Navbar = () => {
                 <div className="menu-item">SHOP</div>
               </NavLink>
               <NavLink
-                to="/shop"
+                to="/register"
                 className="nav-link"
                 style={{ textDecoration: "none" }}
                 onClick={toggleDrawer}
@@ -115,7 +115,7 @@ const Navbar = () => {
                 <div className="menu-item">REGISTER</div>
               </NavLink>
               <NavLink
-                to="/shop"
+                to="/login"
                 className="nav-link"
                 style={{ textDecoration: "none" }}
                 onClick={toggleDrawer}

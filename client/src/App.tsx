@@ -11,6 +11,9 @@ import ProductProvider from "./context/product.context";
 import AboutUsPage from "./pages/aboutuspage/AboutUsPage";
 import ShoppingCartProvider from "./context/cart.context";
 import ProductDetails from "./components/ProductDetails/Productsdetails";
+import LoginPage from "./pages/loginpage/LoginPage";
+import UserProvider from "./context/user.context";
+import RegisterPage from "./pages/registerpage/RegisterPage";
 
 const theme = createTheme(themeOptions);
 
@@ -18,21 +21,25 @@ const App = () => {
   return (
     <div>
       <ThemeProvider theme={theme}>
-        <ShoppingCartProvider>
-          <ProductProvider>
-            <BrowserRouter>
-              <Header />
-              <Routes>
-                <Route path="/about-us" element={<AboutUsPage />} />
-                <Route path="/" element={<Homepage />} />
-                <Route path="/shop" element={<ProductPage />} />
-                <Route path="/:id" element={<ProductDetails />} />
-                <Route path="confirmation" element={<Confirmationpage />} />
-              </Routes>
-              <Footer />
-            </BrowserRouter>
-          </ProductProvider>
-        </ShoppingCartProvider>
+        <UserProvider>
+          <ShoppingCartProvider>
+            <ProductProvider>
+              <BrowserRouter>
+                <Header />
+                <Routes>
+                  <Route path="/about-us" element={<AboutUsPage />} />
+                  <Route path="/" element={<Homepage />} />
+                  <Route path="/shop" element={<ProductPage />} />
+                  <Route path="/:id" element={<ProductDetails />} />
+                  <Route path="confirmation" element={<Confirmationpage />} />
+                  <Route path="/login" element={<LoginPage />} />
+                  <Route path="/register" element={<RegisterPage />} />
+                </Routes>
+                <Footer />
+              </BrowserRouter>
+            </ProductProvider>
+          </ShoppingCartProvider>
+        </UserProvider>
       </ThemeProvider>
     </div>
   );

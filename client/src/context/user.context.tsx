@@ -1,14 +1,14 @@
 import { ReactNode, createContext, useState, useEffect } from "react";
 
 export type User = {
-  firstName: string;
-  lastName: string;
+  userName: string;
   email: string;
   password: string;
   isAdmin?: boolean;
 };
 
 export type UserType = {
+  username: string;
   email: string;
   password: string;
   isAdmin?: boolean;
@@ -16,6 +16,7 @@ export type UserType = {
 
 interface UserContextType {
   loggedInUser?: User | null;
+  register: (user: UserType) => Promise<void>;
   login: (user: UserType) => Promise<void>;
   logout: () => Promise<void>;
   isAdmin: (user: UserType) => void;
@@ -27,6 +28,7 @@ type Props = {
 
 export const UserContextType = createContext<UserContextType>({
   loggedInUser: null,
+  register: async () => {},
   login: async () => {},
   logout: async () => {},
   isAdmin: () => {},
@@ -53,6 +55,28 @@ const UserProvider = ({ children }: Props) => {
   //Check if user is an admin
   const isAdmin = (user: UserType) => {
     if (user.isAdmin == false) {
+    }
+  };
+
+  const register = async (user: UserType) => {
+    try {
+      const response = await fetch("your-backend-register-endpoint", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      });
+
+      if (response.ok) {
+        const registeredUser = await response.json();
+        setloggedInUser(registeredUser);
+      } else {
+        const errorMessage = await response.text();
+        console.error("Registration failed:", errorMessage);
+      }
+    } catch (error) {
+      console.error("Error during registration:", error);
     }
   };
 
@@ -96,7 +120,13 @@ const UserProvider = ({ children }: Props) => {
 
   return (
     <UserContextType.Provider
-      value={{ loggedInUser, isAdmin: isAdmin, login: login, logout: logout }}
+      value={{
+        register: register,
+        loggedInUser,
+        isAdmin: isAdmin,
+        login: login,
+        logout: logout,
+      }}
     >
       {children}
     </UserContextType.Provider>
