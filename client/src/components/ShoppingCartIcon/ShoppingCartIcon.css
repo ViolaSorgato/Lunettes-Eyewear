@@ -1,0 +1,8 @@
+.shopping-cart-icon {
+  transition: transform 0.3s;
+}
+
+.shopping-cart-icon:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
