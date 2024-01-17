@@ -1,85 +1,60 @@
 import {
-  Dispatch,
-  SetStateAction,
   createContext,
-  useContext,
-  useEffect,
   useState,
+  useEffect,
+  useContext,
   PropsWithChildren,
 } from "react";
 
-//INTERFACES
 export interface Product {
-  id: string;
-  name: string;
+  _id: string;
+  title: string;
   description: string;
-  images: [];
-  default_price: Price;
-  price: Price;
+  price: number;
+  image: string;
+  inStock: number;
+  categories: string[];
 }
 
-export interface Price {
-  id: string;
-  unit_amount: string;
-  currency: string;
-}
-
-//CONTEXT
-export interface ProductContext {
+interface ProductContext {
   products: Product[];
-  setProducts: Dispatch<SetStateAction<Product[]>>;
-  fetchProducts: () => void;
+  getAllProducts: () => Promise<void>;
 }
 
-//DEFAULT VALUES
-const defaultValues = {
-  products: [],
-  setProducts: () => {},
-  fetchProducts: () => {},
-};
+export interface NewProduct {
+  title: string;
+  description: string;
+  price: number;
+  image: string;
+  inStock: number;
+}
 
-//CREATE AND USE CONTEXT
-export const ProductContext = createContext<ProductContext>(defaultValues);
+const ProductContext = createContext<ProductContext>({
+  products: [],
+  getAllProducts: async () => {},
+});
+
 export const useProductContext = () => useContext(ProductContext);
 
-//PROVIDER
-export const ProductProvider = ({ children }: PropsWithChildren<{}>) => {
+const ProductProvider = ({ children }: PropsWithChildren) => {
   const [products, setProducts] = useState<Product[]>([]);
 
-  //GET LIST OF PRODUCTS
-  const fetchProducts = async () => {
+  const getAllProducts = async () => {
     try {
-      const response = await fetch("api/products");
+      const response = await fetch("api/getproducts");
       const data = await response.json();
-
-      console.log("DATA FROM JSON", data);
-
-      const productList = data.data.map((product: Product) => ({
-        name: product.name,
-        description: product.description,
-        images: product.images,
-        id: product.id,
-        price: {
-          currency: product.default_price.currency,
-          unit_amount: (
-            parseFloat(product.default_price.unit_amount) / 100
-          ).toFixed(2),
-          id: product.default_price.id,
-        },
-      }));
-
-      setProducts(productList);
-    } catch (error) {
-      console.log(error);
+      setProducts(data);
+    } catch (err) {
+      console.log(err);
     }
   };
 
   useEffect(() => {
-    fetchProducts();
+    getAllProducts();
   }, []);
 
   return (
-    <ProductContext.Provider value={{ products, setProducts, fetchProducts }}>
+    <ProductContext.Provider value={{ products, getAllProducts }}>
       {children}
     </ProductContext.Provider>
   );

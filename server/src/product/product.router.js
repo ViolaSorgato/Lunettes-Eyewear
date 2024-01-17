@@ -2,6 +2,7 @@ const { Router } = require("express");
 const {
   addProduct,
   deleteProduct,
+  getProducts,
   getAllProducts,
   getProductById,
   getProductsByCategory,
@@ -19,6 +20,7 @@ const { CategoryModel } = require("../category/category.model");
 
 const productRouter = Router()
   .get("/products", getAllProducts)
+  .get("/getproducts", getProducts)
   .get("/products/:id", exists(ProductModel), getProductById)
   .get("/products/byCategory/:id", exists(CategoryModel), getProductsByCategory)
   .post(

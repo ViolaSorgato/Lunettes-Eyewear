@@ -1,51 +1,40 @@
-import { useProductContext } from "../../context/product.context";
+import { useState } from "react";
+import Grid from "@mui/material/Grid";
 import "./ProductList.css";
-import { useShoppingCart } from "../../context/cart.context";
-import { Button, Container, Grid } from "@mui/material";
+import { Product } from "../../context/product.context";
+import ProductCard from "../ProductCard/ProductCard";
+import { Container } from "@mui/material";
 
-//RETURNS LIST OF STRIPE PRODUCTS AND CALLS ADDTOCART FUNCTION
 const ProductList = () => {
-  const { products } = useProductContext();
-  const { addToCart } = useShoppingCart();
+  const [products, setProducts] = useState<Product[]>([]);
+
+  const getAllProducts = async () => {
+    try {
+      const response = await fetch("api/getproducts");
+      const data = await response.json();
+      setProducts(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  getAllProducts();
 
   return (
     <Container>
       <p className="title-list">Our Products</p>
       <Grid
         container
-        spacing={10}
-        columnGap={5}
-        rowGap={5}
+        columns={{ xs: 1, sm: 1, md: 2, lg: 2, xl: 2 }}
+        gap={2}
+        direction="row"
         justifyContent="center"
         alignItems="center"
         marginTop="50px"
         paddingBottom="50px"
       >
         {products.map((product) => (
-          <div key={product.id} className="product-card">
-            <div>
-              {product.images.map((image, index) => (
-                <img
-                  className="img"
-                  key={index}
-                  src={image}
-                  alt={`${product.name} Image ${index + 1}`}
-                />
-              ))}
-            </div>
-
-            <h3>{product.name}</h3>
-            <p>Price: {product.price.unit_amount} kr</p>
-            <Button
-              variant="contained"
-              color="secondary"
-              onClick={() =>
-                addToCart(product.price.id, product.name, product.price)
-              }
-            >
-              Add to cart
-            </Button>
-          </div>
+          <ProductCard product={product} key={product._id} />
         ))}
       </Grid>
     </Container>

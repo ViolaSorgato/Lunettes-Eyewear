@@ -2,11 +2,11 @@ const { ProductModel } = require("./product.model");
 const { initStripe } = require("../stripe");
 const stripe = initStripe();
 
-// //Get all products
-// async function getAllProducts(req, res) {
-//   const products = await ProductModel.find({ deleted: false });
-//   res.status(200).json(products);
-// }
+//Get all products
+async function getProducts(req, res) {
+  const products = await ProductModel.find({ deleted: false });
+  res.status(200).json(products);
+}
 
 async function getAllProducts(req, res) {
   try {
@@ -70,6 +70,7 @@ async function deleteProduct(req, res) {
 }
 
 module.exports = {
+  getProducts,
   getAllProducts,
   getProductById,
   addProduct,

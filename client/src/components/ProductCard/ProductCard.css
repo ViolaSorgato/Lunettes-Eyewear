@@ -1,0 +1,13 @@
+.MuiCardContent-root,
+.css-46bh2p-MuiCardContent-root {
+  padding: 0;
+  padding-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title-list {
+  padding-top: 30px;
+  font-size: x-large;
+}
