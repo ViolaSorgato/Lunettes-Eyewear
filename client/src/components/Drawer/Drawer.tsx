@@ -39,26 +39,38 @@ export default function ShoppingDrawer({ open, setOpen }: ShoppingDrawerProps) {
   const isCartEmpty = cartItems.length === 0;
 
   async function handlePayment() {
-    const itemsToCheckout = cartItems.map((cartItem) => ({
-      product: cartItem.id,
-      quantity: cartItem.quantity,
-    }));
+    try {
+      // Log cartItems to check if they are correct
+      console.log("Cart Items:", cartItems);
+      const itemsToCheckout = cartItems.map((cartItem) => ({
+        price_data: {
+          currency: "sek",
+          unit_amount: cartItem.price * 100,
+          product_data: cartItem.title,
+        },
+        quantity: cartItem.quantity,
+      }));
 
-    const response = await fetch("/api/create-checkout-session", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ items: itemsToCheckout }),
-    });
+      console.log("ITEMSTOCHECKOUT", itemsToCheckout);
 
-    if (!response.ok) {
-      console.error("Error creating checkout session:", response.statusText);
-      return;
+      const response = await fetch("/api/create-checkout-session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ items: itemsToCheckout }),
+      });
+
+      if (!response.ok) {
+        console.error("Error creating checkout session:", response.statusText);
+        return;
+      }
+
+      const { url } = await response.json();
+      window.location = url;
+    } catch (error) {
+      console.error("An error occurred during payment:", error);
     }
-
-    const { url } = await response.json();
-    window.location = url;
   }
 
   return (

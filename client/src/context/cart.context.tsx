@@ -3,13 +3,15 @@ import useLocalStorage from "../../src/hooks/useLocalStorage";
 
 export type CartItem = {
   id: string;
+  title: string;
+  price: number;
   quantity: number;
 };
 
 type ShoppingCartContext = {
   getItemQuantity: (id: string) => number;
-  increaseCartQuantity: (id: string) => void;
-  decreaseCartQuantity: (id: string) => void;
+  increaseCartQuantity: (id: string, title: string, price: number) => void;
+  decreaseCartQuantity: (id: string, title: string, price: number) => void;
   removeFromCart: (id: string) => void;
   emptyCart: () => void;
   cartQuantity: number;
@@ -42,10 +44,10 @@ export default function ShoppingCartProvider({
     return cartItems.find((item) => item.id === id)?.quantity || 0;
   }
 
-  function increaseCartQuantity(id: string) {
+  function increaseCartQuantity(id: string, title: string, price: number) {
     setCartItems((currItems) => {
       if (currItems.find((item) => item.id === id) == null) {
-        return [...currItems, { id, quantity: 1 }];
+        return [...currItems, { id, title, price, quantity: 1 }];
       } else {
         return currItems.map((item) => {
           if (item.id === id) {

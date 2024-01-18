@@ -35,7 +35,9 @@ export default function AddToCartBtn({ product }: Props) {
         variant="contained"
         color="secondary"
         startIcon={<AddShoppingCart />}
-        onClick={() => increaseCartQuantity(product._id)}
+        onClick={() =>
+          increaseCartQuantity(product._id, product.title, product.price)
+        }
       >
         Add to cart
       </Button>
@@ -57,7 +59,9 @@ export default function AddToCartBtn({ product }: Props) {
         <Button
           variant="contained"
           color="secondary"
-          onClick={() => decreaseCartQuantity(product._id)}
+          onClick={() =>
+            decreaseCartQuantity(product._id, product.title, product.price)
+          }
         >
           <Remove />
         </Button>
@@ -74,7 +78,9 @@ export default function AddToCartBtn({ product }: Props) {
       <Button
         variant="contained"
         color="secondary"
-        onClick={() => increaseCartQuantity(product._id)}
+        onClick={() =>
+          increaseCartQuantity(product._id, product.title, product.price)
+        }
       >
         <Add />
       </Button>
