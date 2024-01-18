@@ -38,6 +38,29 @@ export default function ShoppingDrawer({ open, setOpen }: ShoppingDrawerProps) {
 
   const isCartEmpty = cartItems.length === 0;
 
+  async function handlePayment() {
+    const itemsToCheckout = cartItems.map((cartItem) => ({
+      product: cartItem.id,
+      quantity: cartItem.quantity,
+    }));
+
+    const response = await fetch("/api/create-checkout-session", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ items: itemsToCheckout }),
+    });
+
+    if (!response.ok) {
+      console.error("Error creating checkout session:", response.statusText);
+      return;
+    }
+
+    const { url } = await response.json();
+    window.location = url;
+  }
+
   return (
     <Drawer anchor="right" open={open} onClose={toggleDrawer()}>
       <div className="drawer">
@@ -78,21 +101,20 @@ export default function ShoppingDrawer({ open, setOpen }: ShoppingDrawerProps) {
           )}
         </div>
 
-        {!isCartEmpty && loggedInUser && (
+        {!isCartEmpty && (
+          // loggedInUser &&
           <Stack
             direction={{ xs: "column", sm: "row" }}
             spacing={{ xs: 1, sm: 2, md: 4 }}
             alignItems="center"
           >
-            <Link to="/checkout">
-              <Button
-                variant="contained"
-                color="secondary"
-                onClick={handleButtonClick}
-              >
-                To checkout
-              </Button>
-            </Link>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={handlePayment}
+            >
+              To checkout
+            </Button>
             <Link to="/shop">
               <Button
                 variant="contained"
