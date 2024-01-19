@@ -38,6 +38,41 @@ export default function ShoppingDrawer({ open, setOpen }: ShoppingDrawerProps) {
 
   const isCartEmpty = cartItems.length === 0;
 
+  async function handlePayment() {
+    try {
+      // Log cartItems to check if they are correct
+      console.log("Cart Items:", cartItems);
+      const itemsToCheckout = cartItems.map((cartItem) => ({
+        price_data: {
+          currency: "sek",
+          unit_amount: cartItem.price * 100,
+          product_data: cartItem.title,
+        },
+        quantity: cartItem.quantity,
+      }));
+
+      console.log("ITEMSTOCHECKOUT", itemsToCheckout);
+
+      const response = await fetch("/api/create-checkout-session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ items: itemsToCheckout }),
+      });
+
+      if (!response.ok) {
+        console.error("Error creating checkout session:", response.statusText);
+        return;
+      }
+
+      const { url } = await response.json();
+      window.location = url;
+    } catch (error) {
+      console.error("An error occurred during payment:", error);
+    }
+  }
+
   return (
     <Drawer anchor="right" open={open} onClose={toggleDrawer()}>
       <div className="drawer">
@@ -78,21 +113,20 @@ export default function ShoppingDrawer({ open, setOpen }: ShoppingDrawerProps) {
           )}
         </div>
 
-        {!isCartEmpty && loggedInUser && (
+        {!isCartEmpty && (
+          // loggedInUser &&
           <Stack
             direction={{ xs: "column", sm: "row" }}
             spacing={{ xs: 1, sm: 2, md: 4 }}
             alignItems="center"
           >
-            <Link to="/checkout">
-              <Button
-                variant="contained"
-                color="secondary"
-                onClick={handleButtonClick}
-              >
-                To checkout
-              </Button>
-            </Link>
+            <Button
+              variant="contained"
+              color="secondary"
+              onClick={handlePayment}
+            >
+              To checkout
+            </Button>
             <Link to="/shop">
               <Button
                 variant="contained"
