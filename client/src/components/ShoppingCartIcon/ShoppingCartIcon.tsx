@@ -20,7 +20,7 @@ export default function MyShoppingCart() {
   return (
     <div>
       <div onClick={open ? handleClose : handleOpen}>
-        <Badge color="secondary" badgeContent={cartQuantity} showZero>
+        <Badge color="secondary" badgeContent={cartQuantity}>
           <ShoppingCart className="shopping-cart-icon" />
         </Badge>
       </div>

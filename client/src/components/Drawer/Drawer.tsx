@@ -17,7 +17,7 @@ interface ShoppingDrawerProps {
 }
 
 export default function ShoppingDrawer({ open, setOpen }: ShoppingDrawerProps) {
-  const { cartItems } = useShoppingCart();
+  const { cartItems, emptyCart } = useShoppingCart();
   const { products } = useProductContext();
   const { loggedInUser } = useContext(UserContextType);
 
@@ -67,6 +67,7 @@ export default function ShoppingDrawer({ open, setOpen }: ShoppingDrawerProps) {
       }
 
       const { url } = await response.json();
+      emptyCart();
       window.location = url;
     } catch (error) {
       console.error("An error occurred during payment:", error);
