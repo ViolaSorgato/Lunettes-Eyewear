@@ -2,8 +2,8 @@ const { Router } = require("express");
 const {
   addProduct,
   deleteProduct,
+  deleteAllProducts,
   getProducts,
-  getAllProducts,
   getProductById,
   getProductsByCategory,
   updateProduct,
@@ -19,8 +19,13 @@ const {
 const { CategoryModel } = require("../category/category.model");
 
 const productRouter = Router()
-  .get("/products", getAllProducts)
   .get("/getproducts", getProducts)
+  .delete(
+    "/products/deleteAll",
+    // auth,
+    // adminOnly,
+    deleteAllProducts
+  )
   .get("/products/:id", exists(ProductModel), getProductById)
   .get("/products/byCategory/:id", exists(CategoryModel), getProductsByCategory)
   .post(

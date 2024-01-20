@@ -1,12 +1,13 @@
-import { useState } from "react";
-import Grid from "@mui/material/Grid";
+import { useState, useEffect } from "react";
 import "./ProductList.css";
 import { Product } from "../../context/product.context";
 import ProductCard from "../ProductCard/ProductCard";
-import { Container } from "@mui/material";
+import { Container, Grid, Pagination } from "@mui/material";
 
 const ProductList = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 6;
 
   const getAllProducts = async () => {
     try {
@@ -18,10 +19,28 @@ const ProductList = () => {
     }
   };
 
-  getAllProducts();
+  useEffect(() => {
+    getAllProducts();
+  }, []);
+
+  const indexOfLastProduct = currentPage * productsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+  const currentProducts = products.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+
+  const handlePageChange = (
+    _event: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
+    setCurrentPage(value);
+  };
 
   return (
-    <Container>
+    <Container
+      sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
       <p className="title-list">Our Products</p>
       <Grid
         container
@@ -33,10 +52,16 @@ const ProductList = () => {
         marginTop="50px"
         paddingBottom="50px"
       >
-        {products.map((product) => (
+        {currentProducts.map((product) => (
           <ProductCard product={product} key={product._id} />
         ))}
       </Grid>
+      <Pagination
+        count={Math.ceil(products.length / productsPerPage)}
+        page={currentPage}
+        onChange={handlePageChange}
+        color="secondary"
+      />
     </Container>
   );
 };
