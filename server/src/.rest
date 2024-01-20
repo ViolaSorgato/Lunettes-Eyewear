@@ -73,11 +73,11 @@ POST http://localhost:3000/api/products
 Content-Type: application/json
 
 {
-   "title": "Sirmione",
-    "price": 2999,
-    "description": "Experience comfort and fashion in perfect harmony with our lightweight, Italian-inspired round glasses.",
-    "image": "https://images.pexels.com/photos/1669595/pexels-photo-1669595.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    "inStock": 48,
+   "title": "Roma",
+    "price": 2599,
+    "description": "Discover timeless chic with our oval glasses Roma, a nod to vintage elegance. The oval-shaped frames evoke a sense of classic sophistication, making them the perfect accessory for any occasion. Elevate your style quotient with these glasses that effortlessly blend grace and charm.",
+    "image": "https://images.pexels.com/photos/7923927/pexels-photo-7923927.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    "inStock": 10,
     "category": ["659c098f8a00da83152e7027"]
   }
 
