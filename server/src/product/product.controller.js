@@ -8,18 +8,6 @@ async function getProducts(req, res) {
   res.status(200).json(products);
 }
 
-async function getAllProducts(req, res) {
-  try {
-    const products = await stripe.products.list({
-      limit: 10,
-      expand: ["data.default_price"],
-    });
-    res.status(200).json(products);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-}
-
 //Get specific product
 async function getProductById(req, res) {
   const product = await ProductModel.findOne({
@@ -63,18 +51,30 @@ async function updateProduct(req, res) {
   res.status(200).json(product);
 }
 
-//Delete product
+//Delete specific product
 async function deleteProduct(req, res) {
   await ProductModel.findOneAndDelete({ _id: req.params.id });
   res.status(204).json(null);
 }
 
+// Delete all products
+async function deleteAllProducts(req, res) {
+  try {
+    const result = await ProductModel.deleteMany({});
+    res.status(204).json(null);
+  } catch (err) {
+    // Handle errors appropriately
+    console.error(err);
+    res.status(500).json(err);
+  }
+}
+
 module.exports = {
   getProducts,
-  getAllProducts,
   getProductById,
   addProduct,
   updateProduct,
   deleteProduct,
+  deleteAllProducts,
   getProductsByCategory,
 };
