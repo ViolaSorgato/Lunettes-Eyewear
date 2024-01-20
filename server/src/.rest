@@ -53,16 +53,31 @@ GET http://localhost:3000/api/getproducts
 
 ###
 
-//Create a product
+//Create a product "sunglasses"
 POST http://localhost:3000/api/products
 Content-Type: application/json
 
 {
-    "title": "Capri",
-    "price": 2399,
-    "description": "Shield your eyes in style with these iconic aviator sunglasses, channeling Italian flair and timeless appeal.",
-    "image": "https://images.pexels.com/photos/735273/pexels-photo-735273.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    "inStock": 17,
+    "title": "Matera",
+    "price": 2199,
+    "description": "Unveil your glamorous side with these cat-eye sunglasses, an epitome of Italian chic and refined allure.",
+    "image": "https://images.pexels.com/photos/2229930/pexels-photo-2229930.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    "inStock": 73,
+    "category": ["659c09d08a00da83152e7029"]
+  }
+
+###
+
+//Create a product "glasses"
+POST http://localhost:3000/api/products
+Content-Type: application/json
+
+{
+   "title": "Sirmione",
+    "price": 2999,
+    "description": "Experience comfort and fashion in perfect harmony with our lightweight, Italian-inspired round glasses.",
+    "image": "https://images.pexels.com/photos/1669595/pexels-photo-1669595.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    "inStock": 48,
     "category": ["659c098f8a00da83152e7027"]
   }
 
