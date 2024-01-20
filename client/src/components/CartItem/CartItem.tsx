@@ -50,7 +50,9 @@ export default function CartItem({ id, quantity }: CartItemProps) {
           {quantity > 1 ? (
             <Button
               className="cartitem-qty-btn"
-              onClick={() => item && decreaseCartQuantity(item?._id)}
+              onClick={() =>
+                item && decreaseCartQuantity(item?._id, item.title, item.price)
+              }
             >
               <RemoveIcon className="icon" />
             </Button>
@@ -64,7 +66,9 @@ export default function CartItem({ id, quantity }: CartItemProps) {
           </Box>
           <Button
             className="cartitem-qty-btn"
-            onClick={() => item && increaseCartQuantity(item?._id)}
+            onClick={() =>
+              item && increaseCartQuantity(item?._id, item.title, item.price)
+            }
           >
             <AddIcon className="icon" />
           </Button>
