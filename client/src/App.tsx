@@ -14,6 +14,10 @@ import ProductDetails from "./components/ProductDetails/Productsdetails";
 import LoginPage from "./pages/loginpage/LoginPage";
 import UserProvider from "./context/user.context";
 import RegisterPage from "./pages/registerpage/RegisterPage";
+import AdminProducts from "./pages/admin/AdminProducts";
+import AddNewProduct from "./pages/admin/AddNewProduct";
+import AdminPage from "./pages/admin/AdminPage";
+import AdminOrders from "./pages/admin/AdminOrders";
 
 const theme = createTheme(themeOptions);
 
@@ -34,6 +38,10 @@ const App = () => {
                   <Route path="confirmation" element={<Confirmationpage />} />
                   <Route path="/login" element={<LoginPage />} />
                   <Route path="/register" element={<RegisterPage />} />
+                  <Route path="/admin" element={<AdminPage />} />
+                  <Route path="/adminproducts" element={<AdminProducts />} />
+                  <Route path="/addnewproduct" element={<AddNewProduct />} />
+                  <Route path="/adminorders" element={<AdminOrders />} />
                 </Routes>
                 <Footer />
               </BrowserRouter>
