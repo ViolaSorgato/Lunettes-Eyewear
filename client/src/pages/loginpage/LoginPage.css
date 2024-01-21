@@ -13,17 +13,16 @@ form {
   font-size: 4.5vw;
 }
 
-.imgContainer {
-  position: relative;
-  text-align: center;
+.account-container {
+  background-image: url("../../assets/bg3.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
 }
 
-.messageDiv {
-  margin-top: 10px;
-  margin-bottom: 20px;
-  font-size: 3vw;
-}
-
-.imgStyle {
-  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+.account-title {
+  padding-top: 50px;
+  font-size: x-large;
 }

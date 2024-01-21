@@ -30,53 +30,22 @@ const LoginPage = () => {
   return (
     <>
       {loggedInUser?.isAdmin == true ? (
-        <Box
-          sx={{
-            width: "85%",
-            opacity: 0.8,
-            display: "flex",
-            alignItems: "center",
-            margin: "auto",
-            marginTop: 10,
-            marginBottom: 10,
-            flexDirection: "column",
-          }}
-        >
-          <div className="imgContainer">
-            <div className="centered">Welcome {loggedInUser.userName}!!</div>
-            <img
-              className="imgStyle"
-              src="https://images.pexels.com/photos/3728085/pexels-photo-3728085.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-              width={"85%"}
-            />
-          </div>
-          <div className="messageDiv">
-            You are logged in as an administrator
+        <div className="account-container">
+          <div>
+            <p className="account-title">You are logged in as an Admin.</p>
           </div>
           <NavLink to="/admin">
             <Button variant="text" startIcon={<AdminPanelSettingsIcon />}>
               Go to AdminPanel
             </Button>
           </NavLink>
-        </Box>
+        </div>
       ) : loggedInUser ? (
-        <Box
-          sx={{
-            width: "85%",
-            opacity: 0.8,
-            display: "flex",
-            alignItems: "center",
-            margin: "auto",
-            marginTop: 10,
-            marginBottom: 10,
-          }}
-        >
-          <div className="imgContainer">
-            <div className="centered">Welcome {loggedInUser.userName}!!</div>
-            <img src="" width={"85%"} />
-            <div className="messageDiv">You are logged in as a member</div>
+        <div className="account-container">
+          <div>
+            <p className="account-title">You are logged in as a member.</p>
           </div>
-        </Box>
+        </div>
       ) : (
         <form onSubmit={handleLogin}>
           <Box
