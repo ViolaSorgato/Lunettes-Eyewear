@@ -10,7 +10,6 @@ const getOrder = async (req, res) => {
   const order = await OrderModel.findById(req.params.id)
     .populate("customer")
     .populate("orderItems.product");
-  // .populate("shippingMethod");
   if (
     !req.session.isAdmin &&
     req.session._id.toString() !== order.customer._id.toString()
