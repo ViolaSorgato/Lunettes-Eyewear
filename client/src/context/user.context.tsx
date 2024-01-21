@@ -52,10 +52,11 @@ const UserProvider = ({ children }: Props) => {
     authorization();
   }, []);
 
-  //Check if user is an admin
+  // Check if user is an admin
   const isAdmin = (user: UserType) => {
-    if (user.isAdmin == false) {
-    }
+    console.log("Checking isAdmin for user:", user);
+    console.log("Is Admin:", user.isAdmin);
+    return user.isAdmin;
   };
 
   const register = async (user: UserType) => {
@@ -93,7 +94,7 @@ const UserProvider = ({ children }: Props) => {
         const data = await response.json();
 
         if (response.status === 200) {
-          setloggedInUser(data);
+          setloggedInUser({ ...data, isAdmin: isAdmin(data) });
         }
       } catch (err) {
         console.log(err);

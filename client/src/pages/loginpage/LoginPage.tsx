@@ -23,7 +23,9 @@ const LoginPage = () => {
     setPassword("");
     setUsername("");
 
-    isAdmin(user);
+    const isAdminUser = isAdmin(user);
+    console.log("Is Admin:", isAdminUser);
+
     await login(user);
   };
 
