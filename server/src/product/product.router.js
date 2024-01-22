@@ -19,7 +19,7 @@ const {
 const { CategoryModel } = require("../category/category.model");
 
 const productRouter = Router()
-  .get("/getproducts", getProducts)
+  .get("/products", getProducts)
   .delete(
     "/products/deleteAll",
     // auth,

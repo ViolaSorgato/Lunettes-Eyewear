@@ -1,37 +1,57 @@
 const { UserModel } = require("../user/user.model");
 const bcrypt = require("bcrypt");
 
-//AUTHORIZATION
+// AUTHORIZATION
 async function authorize(req, res) {
-  if (!req.session.id) {
-    return res.status(401).json("You are not logged in");
+  // Check if the user is logged in
+  if (!req.session._id) {
+    return res.status(401).json({ error: "You are not logged in" });
   }
 
-  return req.session, res.status(200).json(req.session);
+  // Return user session information if logged in
+  return res.status(200).json(req.session);
 }
 
-//Register new user
+// Get all users
+async function getUsers(req, res) {
+  try {
+    // Fetch all users from the database
+    const users = await UserModel.find();
+
+    // Respond with the list of users
+    res.status(200).json(users);
+  } catch (error) {
+    // Handle any errors that occur during the database query
+    console.error("Error fetching users:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}
+
+// Register new user
 async function register(req, res) {
-  // Check if the user exists
+  // Check if the user already exists with the provided email
   const existingUser = await UserModel.findOne({ email: req.body.email });
   if (existingUser) {
-    return res.status(409).json("Email already registred");
+    return res.status(409).json({ error: "Email already registered" });
   }
 
-  //Hash password
+  // Hash the user's password before saving to the database
   const user = new UserModel(req.body);
   user.password = await bcrypt.hash(user.password, 10);
   await user.save();
 
+  // Prepare the user data to be sent in the response
   const jsonUser = user.toJSON();
   jsonUser._id = user._id;
   delete jsonUser.password;
 
+  // Send a success response with the user data
   res.status(201).send(jsonUser);
 }
 
+// Login user
 async function login(req, res) {
-  // Check if username and password is correct
+  // Check if the username and password are correct
   const existingUser = await UserModel.findOne({
     email: req.body.email,
   }).select("+password");
@@ -40,32 +60,37 @@ async function login(req, res) {
     !existingUser ||
     !(await bcrypt.compare(req.body.password, existingUser.password))
   ) {
-    return res.status(401).json("Wrong password or username");
+    return res.status(401).json({ error: "Wrong password or username" });
   }
 
+  // Prepare user data for response
   const user = existingUser.toJSON();
   user._id = existingUser._id;
   delete user.password;
 
-  // // Check if user already is logged in
-  // if (req.session._id) {
-  //   return res.status(200).json(user);
-  // }
+  // Check if the user is already logged in
+  if (req.session._id) {
+    return res.status(200).json(user);
+  }
 
-  // Save info about the user to the session (an encrypted cookie stored on the client)
+  // Save user info to the session (encrypted cookie stored on the client)
   req.session = user;
-  res.status(200).json({ Message: "Successfully logged in", user });
-  console.log("REQ.SESSION", req.session);
-  console.log("REQ.SESSION._ID", req.session._id);
+  res.status(200).json(user);
 }
 
-//Logout the user and remove the cookie and session
+// Logout the user and remove the cookie and session
 async function logout(req, res) {
+  // Check if the user is logged in
   if (!req.session || !req.session._id) {
-    return res.status(400).json("Cannot logout when you are not logged in");
+    return res
+      .status(400)
+      .json({ error: "Cannot logout when you are not logged in" });
   }
+
+  // Remove the session
   req.session = null;
+  await req.session.save();
   res.status(204).json(null);
 }
 
-module.exports = { register, login, logout, authorize };
+module.exports = { getUsers, register, login, logout, authorize };
