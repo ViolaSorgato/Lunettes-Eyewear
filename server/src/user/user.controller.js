@@ -89,7 +89,6 @@ async function logout(req, res) {
 
   // Remove the session
   req.session = null;
-  await req.session.save();
   res.status(204).json(null);
 }
 
