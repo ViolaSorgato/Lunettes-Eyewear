@@ -41,7 +41,7 @@ const ProductProvider = ({ children }: PropsWithChildren) => {
 
   const getAllProducts = async () => {
     try {
-      const response = await fetch("api/getproducts");
+      const response = await fetch("api/products");
       const data = await response.json();
       setProducts(data);
     } catch (err) {

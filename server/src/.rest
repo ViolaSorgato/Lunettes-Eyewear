@@ -1,8 +1,11 @@
+//USERS
+
+//Get all users
 GET http://localhost:3000/api/users
 
 ###
 
-//Create a user
+//Register as a user (no admin)
 POST http://localhost:3000/api/users/register
 Content-Type: application/json
 
@@ -10,12 +13,11 @@ Content-Type: application/json
     "username": "Viola Sorgato",
     "email": "violasorgato@example.com",
     "password": "testpassword"
-    
 }
 
 ###
 
-//Create an admin
+//Register as an admin
 POST http://localhost:3000/api/users/register
 Content-Type: application/json
 
@@ -24,12 +26,11 @@ Content-Type: application/json
     "email": "admino@example.com",
     "password": "adminpassword",
     "isAdmin": true
-    
 }
 
 ###
 
-//Login admin
+//Login as an admin
 POST http://localhost:3000/api/users/login
 Content-Type: application/json
 
@@ -46,14 +47,15 @@ POST http://localhost:3000/api/users/logout
 Content-Type: application/json
 
 ###
+
+//PRODUCTS
+
+//Get all products
 GET http://localhost:3000/api/products
 
 ###
-GET http://localhost:3000/api/getproducts
 
-###
-
-//Create a product "sunglasses"
+//Create a product with category "sunglasses"
 POST http://localhost:3000/api/products
 Content-Type: application/json
 
@@ -68,7 +70,7 @@ Content-Type: application/json
 
 ###
 
-//Create a product "glasses"
+//Create a product with category "glasses"
 POST http://localhost:3000/api/products
 Content-Type: application/json
 
@@ -83,6 +85,13 @@ Content-Type: application/json
 
 ###
 
+//Delete all products (for db cleaning)
+DELETE http://localhost:3000/api/products/deleteAll
+
+###
+
+//CATEGORIES
+
 //Create a category
 POST http://localhost:3000/api/categories
 Content-Type: application/json
@@ -94,6 +103,9 @@ Content-Type: application/json
 
 ###
 
+//CHECKOUT
+
+//Create a checkout session with one test product
 POST http://localhost:3000/api/create-checkout-session
 Content-Type: application/json
 
@@ -105,9 +117,3 @@ Content-Type: application/json
         }
     ]
 }
-
-###
-
-DELETE http://localhost:3000/api/products/deleteAll
-
-###

@@ -1,4 +1,11 @@
-import { TextField, Button, Box, Typography } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Box,
+  Typography,
+  Alert,
+  AlertTitle,
+} from "@mui/material";
 import "./LoginPage.css";
 import { UserType, UserContextType } from "../../context/user.context";
 import { useContext, useState } from "react";
@@ -9,7 +16,8 @@ const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login, loggedInUser, isAdmin } = useContext(UserContextType);
+  const { login, loggedInUser, isAdmin, alert, setAlert } =
+    useContext(UserContextType);
 
   const handleLogin = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -37,8 +45,12 @@ const LoginPage = () => {
             <p className="account-title">You are logged in as an Admin.</p>
           </div>
           <NavLink to="/admin">
-            <Button variant="text" startIcon={<AdminPanelSettingsIcon />}>
-              Go to AdminPanel
+            <Button
+              variant="contained"
+              color="primary"
+              startIcon={<AdminPanelSettingsIcon />}
+            >
+              Go to Admin Panel
             </Button>
           </NavLink>
         </div>
@@ -110,6 +122,14 @@ const LoginPage = () => {
             >
               <p className="title-list">New User? Register here.</p>
             </NavLink>
+            {alert && (
+              <Alert severity={alert.type} onClose={() => setAlert(null)}>
+                <AlertTitle>
+                  {alert.type.charAt(0).toUpperCase() + alert.type.slice(1)}
+                </AlertTitle>
+                {alert.message}
+              </Alert>
+            )}
           </Box>
         </form>
       )}

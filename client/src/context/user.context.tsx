@@ -1,4 +1,11 @@
-import { ReactNode, createContext, useState, useEffect } from "react";
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 
 export type User = {
   userName: string;
@@ -14,12 +21,19 @@ export type UserType = {
   isAdmin?: boolean;
 };
 
+interface AlertType {
+  type: "success" | "info" | "warning" | "error";
+  message: string;
+}
+
 interface UserContextType {
   loggedInUser?: User | null;
   register: (user: UserType) => Promise<void>;
   login: (user: UserType) => Promise<void>;
   logout: () => Promise<void>;
   isAdmin: (user: UserType) => void;
+  alert: AlertType | null;
+  setAlert: Dispatch<SetStateAction<AlertType | null>>;
 }
 
 type Props = {
@@ -32,10 +46,13 @@ export const UserContextType = createContext<UserContextType>({
   login: async () => {},
   logout: async () => {},
   isAdmin: () => {},
+  alert: null,
+  setAlert: () => {},
 });
 
 const UserProvider = ({ children }: Props) => {
   const [loggedInUser, setloggedInUser] = useState<User | null>(null);
+  const [alert, setAlert] = useState<AlertType | null>(null);
 
   useEffect(() => {
     const authorization = async () => {
@@ -54,8 +71,6 @@ const UserProvider = ({ children }: Props) => {
 
   // Check if user is an admin
   const isAdmin = (user: UserType) => {
-    console.log("Checking isAdmin for user:", user);
-    console.log("Is Admin:", user.isAdmin);
     return user.isAdmin;
   };
 
@@ -94,10 +109,18 @@ const UserProvider = ({ children }: Props) => {
         const data = await response.json();
 
         if (response.status === 200) {
-          setloggedInUser({ ...data, isAdmin: isAdmin(data) });
+          setloggedInUser(data);
+          setAlert({
+            type: "success",
+            message: "Login successful.",
+          });
         }
       } catch (err) {
         console.log(err);
+        setAlert({
+          type: "error",
+          message: "Login failed. Please check your credentials.",
+        });
       }
     }
   };
@@ -127,6 +150,8 @@ const UserProvider = ({ children }: Props) => {
         isAdmin: isAdmin,
         login: login,
         logout: logout,
+        alert,
+        setAlert,
       }}
     >
       {children}
