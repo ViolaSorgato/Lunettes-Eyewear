@@ -27,6 +27,8 @@ interface AlertType {
 }
 
 interface UserContextType {
+  registeredUser?: User | null;
+  setRegisteredUser: Dispatch<SetStateAction<User | null>>;
   loggedInUser?: User | null;
   register: (user: UserType) => Promise<void>;
   login: (user: UserType) => Promise<void>;
@@ -42,15 +44,18 @@ type Props = {
 
 export const UserContextType = createContext<UserContextType>({
   loggedInUser: null,
+  registeredUser: null,
   register: async () => {},
   login: async () => {},
   logout: async () => {},
   isAdmin: () => {},
   alert: null,
   setAlert: () => {},
+  setRegisteredUser: () => {},
 });
 
 const UserProvider = ({ children }: Props) => {
+  const [registeredUser, setRegisteredUser] = useState<User | null>(null);
   const [loggedInUser, setloggedInUser] = useState<User | null>(null);
   const [alert, setAlert] = useState<AlertType | null>(null);
 
@@ -84,12 +89,23 @@ const UserProvider = ({ children }: Props) => {
         body: JSON.stringify(user),
       });
 
-      if (response.ok) {
-        const registeredUser = await response.json();
-        setloggedInUser(registeredUser);
+      if (response.status === 201) {
+        const data = await response.json();
+        setRegisteredUser(data);
+        setAlert({
+          type: "success",
+          message: "Registration successful.",
+        });
+      } else if (response.status === 409) {
+        setAlert({
+          type: "error",
+          message: "Email already registered. Please use a different email.",
+        });
       } else {
-        const errorMessage = await response.text();
-        console.error("Registration failed:", errorMessage);
+        setAlert({
+          type: "error",
+          message: "Registration failed. Please check your credentials.",
+        });
       }
     } catch (error) {
       console.error("Error during registration:", error);
@@ -110,9 +126,15 @@ const UserProvider = ({ children }: Props) => {
 
         if (response.status === 200) {
           setloggedInUser(data);
+          setRegisteredUser(null);
           setAlert({
             type: "success",
             message: "Login successful.",
+          });
+        } else {
+          setAlert({
+            type: "error",
+            message: "Login failed. Please check your credentials.",
           });
         }
       } catch (err) {
@@ -147,11 +169,13 @@ const UserProvider = ({ children }: Props) => {
       value={{
         register: register,
         loggedInUser,
+        registeredUser,
         isAdmin: isAdmin,
         login: login,
         logout: logout,
         alert,
         setAlert,
+        setRegisteredUser,
       }}
     >
       {children}

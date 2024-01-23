@@ -14,9 +14,9 @@ const UserModel = models.User || model("User", UserSchema);
 
 // Define a Joi validation schema for user input validation
 const UserValidationSchema = Joi.object({
-  username: Joi.string().strict().required().min(3).max(25),
-  email: Joi.string().email().strict().required().min(5).max(50),
-  password: Joi.string().strict().required().min(6).max(25),
+  username: Joi.string().strict().required(),
+  email: Joi.string().email().strict().required(),
+  password: Joi.string().strict().required().min(6),
   isAdmin: Joi.boolean().strict(),
 });
 
