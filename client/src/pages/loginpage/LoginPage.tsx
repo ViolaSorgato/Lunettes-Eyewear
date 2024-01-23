@@ -1,4 +1,12 @@
-import { TextField, Button, Box, Typography } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Box,
+  Typography,
+  Snackbar,
+  AlertTitle,
+  Alert,
+} from "@mui/material";
 import "./LoginPage.css";
 import { UserType, UserContextType } from "../../context/user.context";
 import { useContext, useState } from "react";
@@ -9,7 +17,9 @@ const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login, loggedInUser, isAdmin } = useContext(UserContextType);
+  const [open, setOpen] = useState(false);
+  const { login, loggedInUser, isAdmin, alert, setAlert } =
+    useContext(UserContextType);
 
   const handleLogin = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -23,60 +33,48 @@ const LoginPage = () => {
     setPassword("");
     setUsername("");
 
-    isAdmin(user);
+    const isAdminUser = isAdmin(user);
+    console.log("Is Admin:", isAdminUser);
+    setOpen(true);
     await login(user);
+  };
+
+  const handleClose = (
+    _event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setAlert(null);
+    setOpen(false);
   };
 
   return (
     <>
       {loggedInUser?.isAdmin == true ? (
-        <Box
-          sx={{
-            width: "85%",
-            opacity: 0.8,
-            display: "flex",
-            alignItems: "center",
-            margin: "auto",
-            marginTop: 10,
-            marginBottom: 10,
-            flexDirection: "column",
-          }}
-        >
-          <div className="imgContainer">
-            <div className="centered">Welcome {loggedInUser.username}!!</div>
-            <img
-              className="imgStyle"
-              src="https://images.pexels.com/photos/3728085/pexels-photo-3728085.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-              width={"85%"}
-            />
-          </div>
-          <div className="messageDiv">
-            You are logged in as an administrator
+        <div className="account-container">
+          <div>
+            <p className="account-title">You are logged in as an Admin.</p>
           </div>
           <NavLink to="/admin">
-            <Button variant="text" startIcon={<AdminPanelSettingsIcon />}>
-              Go to AdminPanel
+            <Button
+              variant="contained"
+              color="primary"
+              startIcon={<AdminPanelSettingsIcon />}
+            >
+              Go to Admin Panel
             </Button>
           </NavLink>
-        </Box>
+        </div>
       ) : loggedInUser ? (
-        <Box
-          sx={{
-            width: "85%",
-            opacity: 0.8,
-            display: "flex",
-            alignItems: "center",
-            margin: "auto",
-            marginTop: 10,
-            marginBottom: 10,
-          }}
-        >
-          <div className="imgContainer">
-            <div className="centered">Welcome {loggedInUser.username}!!</div>
-            <img src="" width={"85%"} />
-            <div className="messageDiv">You are logged in as a member</div>
+
+        <div className="account-container">
+          <div>
+            <p className="account-title">You are logged in as a member.</p>
+
           </div>
-        </Box>
+        </div>
       ) : (
         <form onSubmit={handleLogin}>
           <Box
@@ -141,6 +139,23 @@ const LoginPage = () => {
             </NavLink>
           </Box>
         </form>
+      )}
+
+      {alert && (
+        <Snackbar autoHideDuration={3000} open={open} onClose={handleClose}>
+          <Alert
+            elevation={6}
+            variant="filled"
+            severity={alert.type}
+            onClose={handleClose}
+            sx={{ width: "100%" }}
+          >
+            <AlertTitle>
+              {alert.type.charAt(0).toUpperCase() + alert.type.slice(1)}
+            </AlertTitle>
+            {alert.message}
+          </Alert>
+        </Snackbar>
       )}
     </>
   );

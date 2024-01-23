@@ -19,7 +19,7 @@ app.use(
 );
 app.use(
   cookieSession({
-    name: "session",
+    name: "MYCOOKIE",
     keys: [secretKey],
     maxAge: 1000 * 60 * 60 * 24, // 24 Hours
     sameSite: "strict",

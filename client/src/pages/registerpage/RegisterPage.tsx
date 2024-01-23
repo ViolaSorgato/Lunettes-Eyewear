@@ -1,6 +1,15 @@
 import { useState, useContext } from "react";
 import { UserContextType } from "../../context/user.context";
-import { TextField, Button, Box, Typography } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Box,
+  Typography,
+  Snackbar,
+  AlertTitle,
+  Alert,
+  Stack,
+} from "@mui/material";
 import { NavLink } from "react-router-dom";
 import "./RegisterPage.css";
 
@@ -8,7 +17,9 @@ const RegisterPage = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { register, loggedInUser } = useContext(UserContextType);
+  const [open, setOpen] = useState(false);
+  const { register, registeredUser, alert, setAlert, setRegisteredUser } =
+    useContext(UserContextType);
 
   const handleRegister = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -22,29 +33,56 @@ const RegisterPage = () => {
     setEmail("");
     setPassword("");
 
+    setOpen(true);
     await register(user);
+  };
+
+  const handleClose = (
+    _event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setAlert(null);
+    setOpen(false);
   };
 
   return (
     <>
-      {loggedInUser ? (
-        <Box
-          sx={{
-            width: "85%",
-            opacity: 0.8,
-            display: "flex",
-            alignItems: "center",
-            margin: "auto",
-            marginTop: 10,
-            marginBottom: 10,
-          }}
+      {registeredUser ? (
+        <Stack
+          direction={{ sm: "column", md: "row" }}
+          spacing={10}
+          marginLeft="10%"
+          width="80%"
+          justifyContent={"space-between"}
         >
-          <div className="imgContainer">
-            {/* <div className="centered">Welcome {loggedInUser.username}!</div> */}
-            <img src="" width={"85%"} />
-            <div className="messageDiv">You are registered and logged in.</div>
+          <div className="message-container">
+            <p className="title-list">
+              Welcome to Lunettes Eyewear! Congratulations on becoming a part of
+              our stylish eyewear community. Feel free to browse our collection
+              and discover the eyewear that suits your lifestyle. If you have
+              any questions or need assistance, our team is here to help.
+            </p>
+            <p className="title-list"></p>
+            <NavLink
+              to="/login"
+              className="nav-link"
+              style={{ textDecoration: "none" }}
+            >
+              <p>Log in here to access your account.</p>
+            </NavLink>
+            <div
+              style={{ cursor: "pointer" }}
+              onClick={() => setRegisteredUser(null)}
+            >
+              Click here to register with a different account.
+            </div>
           </div>
-        </Box>
+
+          <div className="picture"></div>
+        </Stack>
       ) : (
         <form onSubmit={handleRegister}>
           <Box
@@ -99,6 +137,7 @@ const RegisterPage = () => {
               label="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              helperText="Password should be at least 6 characters long"
             />
             <br />
             <Button
@@ -119,6 +158,23 @@ const RegisterPage = () => {
             </NavLink>
           </Box>
         </form>
+      )}
+
+      {alert && (
+        <Snackbar autoHideDuration={3000} open={open} onClose={handleClose}>
+          <Alert
+            elevation={6}
+            variant="filled"
+            severity={alert.type}
+            onClose={handleClose}
+            sx={{ width: "100%" }}
+          >
+            <AlertTitle>
+              {alert.type.charAt(0).toUpperCase() + alert.type.slice(1)}
+            </AlertTitle>
+            {alert.message}
+          </Alert>
+        </Snackbar>
       )}
     </>
   );
