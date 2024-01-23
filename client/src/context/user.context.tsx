@@ -8,7 +8,7 @@ import {
 } from "react";
 
 export type User = {
-  userName: string;
+  username: string;
   email: string;
   password: string;
   isAdmin?: boolean;

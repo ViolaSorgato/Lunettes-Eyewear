@@ -1,25 +1,17 @@
 const { model, Schema, models } = require("mongoose");
 const Joi = require("joi");
 
-const AddressSchema = new Schema(
-  {
-    street: { type: String, required: true },
-    zipcode: { type: String, required: true },
-    city: { type: String, required: true },
-    country: { type: String, required: true },
-  },
-  { _id: false }
-);
-
+// Define the schema for each order item in an order
 const OrderItemSchema = new Schema(
   {
     product: { type: Schema.Types.ObjectId, ref: "product", required: true },
     quantity: { type: Number, required: true },
     price: { type: Number, default: 0 },
   },
-  { _id: false }
+  { _id: false } // Exclude _id for order items
 );
 
+// Define the main schema for an order
 const OrderSchema = new Schema(
   {
     orderNumber: {
@@ -29,21 +21,17 @@ const OrderSchema = new Schema(
     },
     customer: { type: Schema.Types.ObjectId, ref: "user", required: true },
     orderItems: { type: [OrderItemSchema], required: true },
-    deliveryAddress: { type: AddressSchema, required: true },
     shipped: { type: Boolean, required: false, default: false },
-    // shippingMethod: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: "shippingMethod",
-    //   required: true,
-    // },
   },
   {
-    timestamps: true,
+    timestamps: true, // Add timestamps for created and updated
   }
 );
 
+// Create a model for the order using the schema
 const OrderModel = models.order || model("order", OrderSchema);
 
+// Validation schema using Joi for creating a new order
 const OrderValidationSchema = Joi.object({
   orderItems: Joi.array()
     .items(
@@ -55,21 +43,14 @@ const OrderValidationSchema = Joi.object({
     )
     .strict()
     .required(),
-  deliveryAddress: Joi.object({
-    street: Joi.string().strict().required(),
-    zipcode: Joi.string().strict().required(),
-    city: Joi.string().strict().required(),
-    country: Joi.string().strict().required(),
-  })
-    .strict()
-    .required(),
-  //   shippingMethod: Joi.string().strict().required(),
 });
 
+// Validation schema using Joi for updating an existing order
 const OrderUpdateValidationSchema = OrderValidationSchema.keys({
   _id: Joi.string().strict().required(),
 });
 
+// Export the models and validation schemas
 module.exports = {
   OrderModel,
   OrderValidationSchema,

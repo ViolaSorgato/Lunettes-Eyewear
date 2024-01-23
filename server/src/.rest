@@ -117,3 +117,41 @@ Content-Type: application/json
         }
     ]
 }
+
+###
+
+DELETE http://localhost:3000/api/products/deleteAll
+
+###
+
+//ORDERS
+
+GET http://localhost:3000/api/orders
+
+###
+
+GET http://localhost:3000/api/orders/65afbfeea43a68bcf85a6818
+
+###
+
+POST http://localhost:3000/api/orders
+Content-Type: application/json
+
+{
+  "orderItems": [
+    {
+      "product": "65ac12a2a8d4b618a7414f57",
+      "quantity": 2
+    },
+    {
+      "product": "65ac12dda8d4b618a7415ef5",
+      "quantity": 1
+    }
+  ]
+}
+
+###
+
+PUT http://localhost:3000/api/orders/65afbfeea43a68bcf85a6818
+###
+

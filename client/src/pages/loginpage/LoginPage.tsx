@@ -68,9 +68,11 @@ const LoginPage = () => {
           </NavLink>
         </div>
       ) : loggedInUser ? (
+
         <div className="account-container">
           <div>
             <p className="account-title">You are logged in as a member.</p>
+
           </div>
         </div>
       ) : (

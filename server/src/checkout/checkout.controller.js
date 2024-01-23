@@ -5,9 +5,6 @@ const CLIENT_URL = "http://localhost:5173";
 async function checkout(req, res) {
   console.log("REQ.BODY.ITEMS", req.body.items);
   const lineItems = req.body.items.map((item) => {
-    console.log("Item:", item);
-    console.log("Price:", item.price_data.unit_amount);
-    console.log("Title:", item.price_data.product_data);
     return {
       price_data: {
         currency: "sek",
