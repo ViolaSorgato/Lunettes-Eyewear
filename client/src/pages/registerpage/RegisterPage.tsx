@@ -1,6 +1,14 @@
 import { useState, useContext } from "react";
 import { UserContextType } from "../../context/user.context";
-import { TextField, Button, Box, Typography } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Box,
+  Typography,
+  Snackbar,
+  AlertTitle,
+  Alert,
+} from "@mui/material";
 import { NavLink } from "react-router-dom";
 import "./RegisterPage.css";
 
@@ -8,7 +16,9 @@ const RegisterPage = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { register, loggedInUser } = useContext(UserContextType);
+  const [open, setOpen] = useState(false);
+  const { register, loggedInUser, alert, setAlert } =
+    useContext(UserContextType);
 
   const handleRegister = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -22,7 +32,19 @@ const RegisterPage = () => {
     setEmail("");
     setPassword("");
 
+    setOpen(true);
     await register(user);
+  };
+
+  const handleClose = (
+    _event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setAlert(null);
+    setOpen(false);
   };
 
   return (
@@ -40,7 +62,7 @@ const RegisterPage = () => {
           }}
         >
           <div className="imgContainer">
-            {/* <div className="centered">Welcome {loggedInUser.userName}!</div> */}
+            <div className="centered">Welcome {loggedInUser.userName}!</div>
             <img src="" width={"85%"} />
             <div className="messageDiv">You are registered and logged in.</div>
           </div>
@@ -99,6 +121,7 @@ const RegisterPage = () => {
               label="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              helperText="Password should be at least 6 characters long"
             />
             <br />
             <Button
@@ -119,6 +142,23 @@ const RegisterPage = () => {
             </NavLink>
           </Box>
         </form>
+      )}
+
+      {alert && (
+        <Snackbar autoHideDuration={3000} open={open} onClose={handleClose}>
+          <Alert
+            elevation={6}
+            variant="filled"
+            severity={alert.type}
+            onClose={handleClose}
+            sx={{ width: "100%" }}
+          >
+            <AlertTitle>
+              {alert.type.charAt(0).toUpperCase() + alert.type.slice(1)}
+            </AlertTitle>
+            {alert.message}
+          </Alert>
+        </Snackbar>
       )}
     </>
   );

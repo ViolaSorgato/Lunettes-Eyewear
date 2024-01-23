@@ -84,12 +84,23 @@ const UserProvider = ({ children }: Props) => {
         body: JSON.stringify(user),
       });
 
-      if (response.ok) {
+      if (response.status === 201) {
         const registeredUser = await response.json();
         setloggedInUser(registeredUser);
+        setAlert({
+          type: "success",
+          message: "Registration successful.",
+        });
+      } else if (response.status === 409) {
+        setAlert({
+          type: "error",
+          message: "Email already registered. Please use a different email.",
+        });
       } else {
-        const errorMessage = await response.text();
-        console.error("Registration failed:", errorMessage);
+        setAlert({
+          type: "error",
+          message: "Registration failed. Please check your credentials.",
+        });
       }
     } catch (error) {
       console.error("Error during registration:", error);
@@ -113,6 +124,11 @@ const UserProvider = ({ children }: Props) => {
           setAlert({
             type: "success",
             message: "Login successful.",
+          });
+        } else {
+          setAlert({
+            type: "error",
+            message: "Login failed. Please check your credentials.",
           });
         }
       } catch (err) {

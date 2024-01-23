@@ -3,8 +3,9 @@ import {
   Button,
   Box,
   Typography,
-  Alert,
+  Snackbar,
   AlertTitle,
+  Alert,
 } from "@mui/material";
 import "./LoginPage.css";
 import { UserType, UserContextType } from "../../context/user.context";
@@ -16,6 +17,7 @@ const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [open, setOpen] = useState(false);
   const { login, loggedInUser, isAdmin, alert, setAlert } =
     useContext(UserContextType);
 
@@ -33,8 +35,19 @@ const LoginPage = () => {
 
     const isAdminUser = isAdmin(user);
     console.log("Is Admin:", isAdminUser);
-
+    setOpen(true);
     await login(user);
+  };
+
+  const handleClose = (
+    _event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setAlert(null);
+    setOpen(false);
   };
 
   return (
@@ -122,16 +135,25 @@ const LoginPage = () => {
             >
               <p className="title-list">New User? Register here.</p>
             </NavLink>
-            {alert && (
-              <Alert severity={alert.type} onClose={() => setAlert(null)}>
-                <AlertTitle>
-                  {alert.type.charAt(0).toUpperCase() + alert.type.slice(1)}
-                </AlertTitle>
-                {alert.message}
-              </Alert>
-            )}
           </Box>
         </form>
+      )}
+
+      {alert && (
+        <Snackbar autoHideDuration={3000} open={open} onClose={handleClose}>
+          <Alert
+            elevation={6}
+            variant="filled"
+            severity={alert.type}
+            onClose={handleClose}
+            sx={{ width: "100%" }}
+          >
+            <AlertTitle>
+              {alert.type.charAt(0).toUpperCase() + alert.type.slice(1)}
+            </AlertTitle>
+            {alert.message}
+          </Alert>
+        </Snackbar>
       )}
     </>
   );
