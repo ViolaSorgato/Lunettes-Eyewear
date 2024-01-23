@@ -8,6 +8,7 @@ import {
   Snackbar,
   AlertTitle,
   Alert,
+  Stack,
 } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import "./RegisterPage.css";
@@ -17,7 +18,7 @@ const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [open, setOpen] = useState(false);
-  const { register, loggedInUser, alert, setAlert } =
+  const { register, registeredUser, alert, setAlert } =
     useContext(UserContextType);
 
   const handleRegister = async (e: { preventDefault: () => void }) => {
@@ -49,24 +50,32 @@ const RegisterPage = () => {
 
   return (
     <>
-      {loggedInUser ? (
-        <Box
-          sx={{
-            width: "85%",
-            opacity: 0.8,
-            display: "flex",
-            alignItems: "center",
-            margin: "auto",
-            marginTop: 10,
-            marginBottom: 10,
-          }}
+      {registeredUser ? (
+        <Stack
+          direction={{ sm: "column", md: "row" }}
+          spacing={10}
+          marginLeft="10%"
+          width="80%"
+          justifyContent={"space-between"}
         >
-          <div className="imgContainer">
-            <div className="centered">Welcome {loggedInUser.userName}!</div>
-            <img src="" width={"85%"} />
-            <div className="messageDiv">You are registered and logged in.</div>
+          <div className="message-container">
+            <p className="title-list">
+              Welcome to Lunettes Eyewear! Congratulations on becoming a part of
+              our stylish eyewear community. Feel free to browse our collection
+              and discover the eyewear that suits your lifestyle. If you have
+              any questions or need assistance, our team is here to help.
+            </p>
+            <p className="title-list"></p>
+            <NavLink
+              to="/login"
+              className="nav-link"
+              style={{ textDecoration: "none" }}
+            >
+              <p>Log in here to access your account.</p>
+            </NavLink>
           </div>
-        </Box>
+          <div className="picture"></div>
+        </Stack>
       ) : (
         <form onSubmit={handleRegister}>
           <Box

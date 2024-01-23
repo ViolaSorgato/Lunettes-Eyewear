@@ -27,6 +27,7 @@ interface AlertType {
 }
 
 interface UserContextType {
+  registeredUser?: User | null;
   loggedInUser?: User | null;
   register: (user: UserType) => Promise<void>;
   login: (user: UserType) => Promise<void>;
@@ -42,6 +43,7 @@ type Props = {
 
 export const UserContextType = createContext<UserContextType>({
   loggedInUser: null,
+  registeredUser: null,
   register: async () => {},
   login: async () => {},
   logout: async () => {},
@@ -51,6 +53,7 @@ export const UserContextType = createContext<UserContextType>({
 });
 
 const UserProvider = ({ children }: Props) => {
+  const [registeredUser, setRegisteredUser] = useState<User | null>(null);
   const [loggedInUser, setloggedInUser] = useState<User | null>(null);
   const [alert, setAlert] = useState<AlertType | null>(null);
 
@@ -85,8 +88,8 @@ const UserProvider = ({ children }: Props) => {
       });
 
       if (response.status === 201) {
-        const registeredUser = await response.json();
-        setloggedInUser(registeredUser);
+        const data = await response.json();
+        setRegisteredUser(data);
         setAlert({
           type: "success",
           message: "Registration successful.",
@@ -121,6 +124,7 @@ const UserProvider = ({ children }: Props) => {
 
         if (response.status === 200) {
           setloggedInUser(data);
+          setRegisteredUser(null);
           setAlert({
             type: "success",
             message: "Login successful.",
@@ -163,6 +167,7 @@ const UserProvider = ({ children }: Props) => {
       value={{
         register: register,
         loggedInUser,
+        registeredUser,
         isAdmin: isAdmin,
         login: login,
         logout: logout,
