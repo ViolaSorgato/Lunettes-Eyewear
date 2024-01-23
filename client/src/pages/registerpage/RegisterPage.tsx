@@ -18,7 +18,7 @@ const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [open, setOpen] = useState(false);
-  const { register, registeredUser, alert, setAlert } =
+  const { register, registeredUser, alert, setAlert, setRegisteredUser } =
     useContext(UserContextType);
 
   const handleRegister = async (e: { preventDefault: () => void }) => {
@@ -73,7 +73,14 @@ const RegisterPage = () => {
             >
               <p>Log in here to access your account.</p>
             </NavLink>
+            <div
+              style={{ cursor: "pointer" }}
+              onClick={() => setRegisteredUser(null)}
+            >
+              Click here to register with a different account.
+            </div>
           </div>
+
           <div className="picture"></div>
         </Stack>
       ) : (

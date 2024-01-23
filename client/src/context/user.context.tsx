@@ -28,6 +28,7 @@ interface AlertType {
 
 interface UserContextType {
   registeredUser?: User | null;
+  setRegisteredUser: Dispatch<SetStateAction<User | null>>;
   loggedInUser?: User | null;
   register: (user: UserType) => Promise<void>;
   login: (user: UserType) => Promise<void>;
@@ -50,6 +51,7 @@ export const UserContextType = createContext<UserContextType>({
   isAdmin: () => {},
   alert: null,
   setAlert: () => {},
+  setRegisteredUser: () => {},
 });
 
 const UserProvider = ({ children }: Props) => {
@@ -173,6 +175,7 @@ const UserProvider = ({ children }: Props) => {
         logout: logout,
         alert,
         setAlert,
+        setRegisteredUser,
       }}
     >
       {children}
