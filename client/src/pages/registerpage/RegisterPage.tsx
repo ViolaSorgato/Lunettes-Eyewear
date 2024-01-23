@@ -40,7 +40,7 @@ const RegisterPage = () => {
           }}
         >
           <div className="imgContainer">
-            {/* <div className="centered">Welcome {loggedInUser.userName}!</div> */}
+            {/* <div className="centered">Welcome {loggedInUser.username}!</div> */}
             <img src="" width={"85%"} />
             <div className="messageDiv">You are registered and logged in.</div>
           </div>

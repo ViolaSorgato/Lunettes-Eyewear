@@ -43,7 +43,7 @@ const LoginPage = () => {
           }}
         >
           <div className="imgContainer">
-            <div className="centered">Welcome {loggedInUser.userName}!!</div>
+            <div className="centered">Welcome {loggedInUser.username}!!</div>
             <img
               className="imgStyle"
               src="https://images.pexels.com/photos/3728085/pexels-photo-3728085.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
@@ -72,7 +72,7 @@ const LoginPage = () => {
           }}
         >
           <div className="imgContainer">
-            <div className="centered">Welcome {loggedInUser.userName}!!</div>
+            <div className="centered">Welcome {loggedInUser.username}!!</div>
             <img src="" width={"85%"} />
             <div className="messageDiv">You are logged in as a member</div>
           </div>

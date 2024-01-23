@@ -118,6 +118,10 @@ GET http://localhost:3000/api/orders
 
 ###
 
+GET http://localhost:3000/api/orders/65afbfeea43a68bcf85a6818
+
+###
+
 POST http://localhost:3000/api/orders
 Content-Type: application/json
 
@@ -134,4 +138,7 @@ Content-Type: application/json
   ]
 }
 
+###
+
+PUT http://localhost:3000/api/orders/65afbfeea43a68bcf85a6818
 ###
