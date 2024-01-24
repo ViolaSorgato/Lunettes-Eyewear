@@ -34,7 +34,6 @@ const LoginPage = () => {
     setUsername("");
 
     const isAdminUser = isAdmin(user);
-    console.log("Is Admin:", isAdminUser);
     setOpen(true);
     await login(user);
   };
@@ -68,11 +67,9 @@ const LoginPage = () => {
           </NavLink>
         </div>
       ) : loggedInUser ? (
-
         <div className="account-container">
           <div>
             <p className="account-title">You are logged in as a member.</p>
-
           </div>
         </div>
       ) : (
@@ -103,7 +100,7 @@ const LoginPage = () => {
             <TextField
               required
               color="secondary"
-              id="standard-required"
+              id="email"
               fullWidth={true}
               label="Email address"
               value={email}
@@ -113,7 +110,7 @@ const LoginPage = () => {
             <TextField
               required
               color="secondary"
-              id="standard-required"
+              id="password"
               fullWidth={true}
               type="password"
               label="Password"
