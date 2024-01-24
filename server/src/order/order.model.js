@@ -19,7 +19,7 @@ const OrderSchema = new Schema(
       required: true,
       default: Math.floor(Math.random() * 1000000),
     },
-    customer: { type: Schema.Types.ObjectId, ref: "user", required: true },
+    customer: { type: Schema.Types.ObjectId, ref: "User", required: true },
     orderItems: { type: [OrderItemSchema], required: true },
     shipped: { type: Boolean, required: false, default: false },
   },
