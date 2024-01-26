@@ -86,18 +86,18 @@ export default function ShoppingCartProvider({
     setCartItems([]);
   }
 
+  const contextValue = {
+    getItemQuantity,
+    increaseCartQuantity,
+    decreaseCartQuantity,
+    removeFromCart,
+    emptyCart,
+    cartQuantity,
+    cartItems,
+  };
+
   return (
-    <ShoppingCartContext.Provider
-      value={{
-        getItemQuantity,
-        increaseCartQuantity,
-        decreaseCartQuantity,
-        removeFromCart,
-        emptyCart,
-        cartQuantity,
-        cartItems,
-      }}
-    >
+    <ShoppingCartContext.Provider value={contextValue}>
       {children}
     </ShoppingCartContext.Provider>
   );

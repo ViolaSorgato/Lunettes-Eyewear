@@ -5,7 +5,7 @@
   height: 100vh;
 }
 
-.info {
+.campaign-info {
   display: flex;
   flex-direction: column;
   font-size: x-large;
@@ -13,8 +13,9 @@
   padding-left: 20px;
 }
 
+/* Positions the info in the right part of the screen */
 @media (min-width: 1225px) {
-  .info {
+  .campaign-info {
     padding-top: 100px;
     padding-left: 300px;
   }

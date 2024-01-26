@@ -1,16 +1,3 @@
-.cartitem-qty-btn {
-  width: 40px;
-  height: 40px;
-  justify-content: center;
-  align-items: center;
-}
-
-.qty-div {
-  font-size: large;
-  text-align: center;
-  transform: translateY(50%);
-}
-
 .cartitem-title {
   font-size: 13px;
   font-weight: bold;
@@ -21,6 +8,19 @@
   font-style: italic;
 }
 
-.icon {
+.cartitem-quantity {
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+}
+
+.cartitem-quantity-number {
+  font-size: large;
+  text-align: center;
+  transform: translateY(50%);
+}
+
+.cartitem-icon {
   color: rgba(34, 48, 48, 1);
 }

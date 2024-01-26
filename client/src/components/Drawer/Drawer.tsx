@@ -1,26 +1,30 @@
-import Drawer from "@mui/material/Drawer";
-import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
-import Stack from "@mui/material/Stack";
 import "./Drawer.css";
+import { Dispatch, SetStateAction, useContext } from "react";
+import { Drawer, Button, Stack } from "@mui/material";
+import { Link } from "react-router-dom";
 import { useShoppingCart } from "../../context/cart.context";
 import { useProductContext } from "../../context/product.context";
 import CartItem from "../CartItem/CartItem";
 import { formatCurrency } from "../../utilities/formatCurrency";
-import CloseIcon from "@mui/icons-material/Close";
+import { Close } from "@mui/icons-material";
 import { UserContextType } from "../../context/user.context";
-import { useContext } from "react";
+import img from "../../assets/emptycart.jpg";
 
 interface ShoppingDrawerProps {
   open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function ShoppingDrawer({ open, setOpen }: ShoppingDrawerProps) {
+/*Renders the Drawer with the Shopping Cart.
+The content is rendered depending on whether the cart is empty or not,
+and whether the user is logged in or not.*/
+
+const ShoppingDrawer = ({ open, setOpen }: ShoppingDrawerProps) => {
   const { cartItems } = useShoppingCart();
   const { products } = useProductContext();
   const { loggedInUser } = useContext(UserContextType);
 
+  // Function to close the drawer
   const toggleDrawer = () => (event: { type: string; key: string }) => {
     if (
       event.type === "keydown" &&
@@ -28,20 +32,21 @@ export default function ShoppingDrawer({ open, setOpen }: ShoppingDrawerProps) {
     ) {
       return;
     }
-
     setOpen(false);
   };
 
+  // Function to handle close button click
   const handleButtonClick = () => {
     setOpen(false);
   };
 
+  // Check if the cart is empty
   const isCartEmpty = cartItems.length === 0;
 
+  // Function to handle payment
   async function handlePayment() {
     try {
-      // Log cartItems to check if they are correct
-      console.log("Cart Items:", cartItems);
+      // Map cart items to the required format for payment
       const itemsToCheckout = cartItems.map((cartItem) => ({
         price_data: {
           currency: "sek",
@@ -51,8 +56,7 @@ export default function ShoppingDrawer({ open, setOpen }: ShoppingDrawerProps) {
         quantity: cartItem.quantity,
       }));
 
-      console.log("ITEMSTOCHECKOUT", itemsToCheckout);
-
+      // Send a POST request to create a checkout session
       const response = await fetch("/api/create-checkout-session", {
         method: "POST",
         headers: {
@@ -61,13 +65,13 @@ export default function ShoppingDrawer({ open, setOpen }: ShoppingDrawerProps) {
         body: JSON.stringify({ items: itemsToCheckout }),
       });
 
-      if (!response.ok) {
+      // If the request is successful, redirect to the checkout URL
+      if (response.ok) {
+        const { url } = await response.json();
+        window.location = url;
+      } else {
         console.error("Error creating checkout session:", response.statusText);
-        return;
       }
-
-      const { url } = await response.json();
-      window.location = url;
     } catch (error) {
       console.error("An error occurred during payment:", error);
     }
@@ -76,11 +80,10 @@ export default function ShoppingDrawer({ open, setOpen }: ShoppingDrawerProps) {
   return (
     <Drawer anchor="right" open={open} onClose={toggleDrawer()}>
       <div className="drawer">
-        <CloseIcon
-          className="close-drawer"
-          onClick={handleButtonClick}
-        ></CloseIcon>
+        {/* Close button */}
+        <Close className="drawer-close" onClick={handleButtonClick}></Close>
 
+        {/* Cart items */}
         <div className="body-drawer">
           <Stack>
             {cartItems.map((item) => (
@@ -89,21 +92,29 @@ export default function ShoppingDrawer({ open, setOpen }: ShoppingDrawerProps) {
           </Stack>
         </div>
 
-        <div className="total-price">
+        {/* Total price */}
+        <div>
           {isCartEmpty ? (
-            <div className="info-container">
-              <p className="cart-info">Your cart is empty.</p>
+            // Display message and SHOP button if the cart is empty
+            <div className="drawer-info-container">
+              <p className="drawer-info">Your cart is empty.</p>
+              <img
+                src={img}
+                alt="glasses"
+                style={{ width: "200px", objectFit: "cover", opacity: "0.5" }}
+              />
               <Link to="/shop">
                 <Button
                   variant="contained"
                   color="secondary"
                   onClick={handleButtonClick}
                 >
-                  SHOP
+                  TO SHOP
                 </Button>
               </Link>
             </div>
           ) : (
+            // Display total price if the cart is not empty
             `Total ${formatCurrency(
               cartItems.reduce((total, cartItem) => {
                 const item = products.find((i) => i._id === cartItem.id);
@@ -113,13 +124,14 @@ export default function ShoppingDrawer({ open, setOpen }: ShoppingDrawerProps) {
           )}
         </div>
 
-        {!isCartEmpty && (
-          // loggedInUser &&
+        {/*The Checkout button is displayed only if the cart is NOT empty but user is logged in */}
+        {!isCartEmpty && loggedInUser && (
           <Stack
             direction={{ xs: "column", sm: "row" }}
             spacing={{ xs: 1, sm: 2, md: 4 }}
             alignItems="center"
           >
+            {/* Checkout button */}
             <Button
               variant="contained"
               color="secondary"
@@ -127,6 +139,7 @@ export default function ShoppingDrawer({ open, setOpen }: ShoppingDrawerProps) {
             >
               To checkout
             </Button>
+            {/* Shop more button */}
             <Link to="/shop">
               <Button
                 variant="contained"
@@ -139,6 +152,7 @@ export default function ShoppingDrawer({ open, setOpen }: ShoppingDrawerProps) {
           </Stack>
         )}
 
+        {/*SignIn message is displayed if cart NOT empty and user NOT logged in */}
         {!isCartEmpty && !loggedInUser && (
           <div className="info-container">
             <p className="cart-info">
@@ -149,4 +163,6 @@ export default function ShoppingDrawer({ open, setOpen }: ShoppingDrawerProps) {
       </div>
     </Drawer>
   );
-}
+};
+
+export default ShoppingDrawer;
