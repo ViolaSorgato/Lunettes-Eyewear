@@ -155,3 +155,5 @@ Content-Type: application/json
 PUT http://localhost:3000/api/orders/65afbfeea43a68bcf85a6818
 ###
 
+//Delete all orders (for db cleaning)
+DELETE http://localhost:3000/api/orders/deleteAll

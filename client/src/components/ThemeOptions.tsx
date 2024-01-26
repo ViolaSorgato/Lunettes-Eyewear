@@ -4,6 +4,9 @@ import { ThemeOptions } from "@mui/material/styles";
 //secondary: paste green tones
 
 export const themeOptions: ThemeOptions = {
+  typography: {
+    fontFamily: "Urbanist, sans-serif",
+  },
   palette: {
     mode: "light",
     primary: {

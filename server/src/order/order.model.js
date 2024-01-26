@@ -5,6 +5,7 @@ const Joi = require("joi");
 const OrderItemSchema = new Schema(
   {
     product: { type: Schema.Types.ObjectId, ref: "product", required: true },
+    title: { type: String, required: true },
     quantity: { type: Number, required: true },
     price: { type: Number, default: 0 },
   },
@@ -37,6 +38,7 @@ const OrderValidationSchema = Joi.object({
     .items(
       Joi.object({
         product: Joi.string().strict().required(),
+        title: Joi.string().strict().required(),
         quantity: Joi.number().strict().required(),
         price: Joi.number(),
       })

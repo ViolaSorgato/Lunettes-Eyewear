@@ -4,6 +4,7 @@ const {
   getOrder,
   addOrder,
   markAsShipped,
+  deleteAllOrders,
 } = require("./order.controller");
 const { adminOnly, auth, exists, validate } = require("../middlewares");
 const { OrderModel, OrderValidationSchema } = require("./order.model");
@@ -31,7 +32,8 @@ const orderRouter = Router()
     "/orders/:id",
     // auth,
     markAsShipped
-  ); // Mark an order as shipped (user authentication required)
+  ) // Mark an order as shipped (user authentication required)
+  .delete("/orders/deleteAll", deleteAllOrders);
 
 // Export the order router
 module.exports = { orderRouter };
