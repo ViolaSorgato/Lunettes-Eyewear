@@ -30,8 +30,6 @@ export default function AdminOrders() {
     }
   };
 
-  console.log(orders);
-
   // useEffect to fetch orders when the component mounts
   useEffect(() => {
     getOrders();
@@ -80,7 +78,11 @@ export default function AdminOrders() {
       <div style={{ width: "80vw" }}>
         {/* Heading */}
         <p className="title-list">List of Orders</p>
-        <p>Here you can visualize all orders and mark them as shipped.</p>
+        {orders.length === 0 ? (
+          <p>There are no orders at the moment.</p>
+        ) : (
+          <p>Here you can visualize all orders and mark them as shipped.</p>
+        )}
 
         {/* Display orders */}
         {orders.map((order) => (

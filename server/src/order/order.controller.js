@@ -79,10 +79,23 @@ async function markAsShipped(req, res) {
   res.status(200).json(order);
 }
 
+// Delete all orders
+async function deleteAllOrders(req, res) {
+  try {
+    const result = await OrderModel.deleteMany({});
+    res.status(204).json(null);
+  } catch (err) {
+    // Handle errors appropriately
+    console.error(err);
+    res.status(500).json(err);
+  }
+}
+
 // Export all the controller functions
 module.exports = {
   getAllOrders,
   getOrder,
   addOrder,
   markAsShipped,
+  deleteAllOrders,
 };
