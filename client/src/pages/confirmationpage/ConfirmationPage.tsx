@@ -1,60 +1,63 @@
-import { Box, Container, Typography } from "@mui/material";
+import { Box, CircularProgress, Container, Typography } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { Order, useOrderContext } from "../../context/order.context";
 import { UserContextType } from "../../context/user.context";
 import { formatCurrency } from "../../utilities/formatCurrency";
 
 const ConfirmationPage = () => {
-  // const [isLoading, setIsLoading] = useState(true);
-  // const { cartItems, emptyCart } = useShoppingCart();
+  const [isLoading, setIsLoading] = useState(true);
   const { order, setOrder } = useOrderContext();
   const { loggedInUser } = useContext(UserContextType);
 
-  console.log("Initial Order State:", order);
-
   useEffect(() => {
-    cartIntoOrder();
+    // Fetch data when the component mounts
+    updateOrderFromCart();
   }, []);
 
-  const cartIntoOrder = async () => {
+  const updateOrderFromCart = async () => {
+    // Retrieve the shopping cart from local storage
     const cart = localStorage.getItem("shopping-cart");
+    // Parse the cart data or default to an empty array
     const parsedCart = JSON.parse(cart || "[]");
 
+    // Update the order state with the cart contents
     const orderFinish = { ...order, orderItems: parsedCart };
 
-    await setOrder(orderFinish);
-    sendOrderToDataBase(orderFinish);
+    // Send the updated order to the database
+    createOrder(orderFinish);
   };
 
-  const sendOrderToDataBase = async (orderData: Order) => {
+  const createOrder = async (orderData: Order) => {
     const { orderItems } = orderData;
-    const orderItems2 = orderItems.map((item) => ({
+
+    // Map order items to the required format for the backend
+    const newOrderItems = orderItems.map((item) => ({
       product: item.id,
       quantity: item.quantity,
     }));
 
-    console.log("Sending order to database with:", orderItems2);
-
     try {
+      // Send a POST request to the server with the order data
       const orderResponse = await fetch("/api/orders", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          orderItems: orderItems2,
+          orderItems: newOrderItems,
         }),
       });
 
       if (orderResponse.ok) {
+        // If the request is successful, update the order state with the order number
         const order = await orderResponse.json();
         setOrder((prevOrder) => ({
           ...prevOrder,
           orderNumber: order.orderNumber,
-          orderItems: order.orderItems, // Add this line to update orderItems
+          orderItems: order.orderItems,
         }));
+        setIsLoading(false);
         console.log("Order response from server:", order);
-        console.log("ORDER.NUMBER", order.orderNumber);
         console.log("ORDER.NUMBER", order.orderNumber);
       } else {
         console.error("Failed to create order. Response:", orderResponse);
@@ -64,26 +67,24 @@ const ConfirmationPage = () => {
     }
   };
 
-  console.log("ORDER DETAILS:", order);
-
-  // if (isLoading) {
-  //   return (
-  //     <Box
-  //       sx={{
-  //         display: "flex",
-  //         flexDirection: "column",
-  //         justifyContent: "center",
-  //         alignItems: "center",
-  //         height: "60vh",
-  //         gap: "30px",
-  //       }}
-  //     >
-  //       <br />
-  //       <CircularProgress sx={{ color: "primary.dark" }} />
-  //       <p>Your order is being processed.</p>
-  //     </Box>
-  //   );
-  // }
+  if (isLoading) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "60vh",
+          gap: "30px",
+        }}
+      >
+        <br />
+        <CircularProgress sx={{ color: "primary.dark" }} />
+        <p>Your order is being processed.</p>
+      </Box>
+    );
+  }
 
   console.log("Order details:", order);
 
