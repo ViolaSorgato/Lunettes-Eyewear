@@ -2,8 +2,21 @@ import { useEffect, useState } from "react";
 import { CartItem } from "../../context/cart.context";
 import { User } from "../../context/user.context";
 import { NavLink } from "react-router-dom";
-import { Button } from "@mui/material";
-import { CheckCircleOutline } from "@mui/icons-material";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  Button,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from "@mui/material";
+import { CheckCircleOutline, DeleteForever } from "@mui/icons-material";
+import { formatCurrency } from "../../utilities/formatCurrency";
 
 // Define the structure of a shipped order
 interface ShippedOrder {
@@ -72,70 +85,116 @@ export default function AdminOrders() {
 
   // Render the component
   return (
-    <div
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-    >
-      <div style={{ width: "80vw" }}>
-        {/* Heading */}
-        <p className="title-list">List of Orders</p>
+    <>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          paddingTop: "30px",
+          paddingBottom: "30px",
+        }}
+      >
         {orders.length === 0 ? (
           <p>There are no orders at the moment.</p>
         ) : (
-          <p>Here you can visualize all orders and mark them as shipped.</p>
+          <p style={{ fontSize: "larger" }}>Here you can manage your orders.</p>
         )}
+      </div>
 
-        {/* Display orders */}
-        {orders.map((order) => (
-          <div
-            key={order.orderNumber}
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              borderBottom: "2px solid  lightgrey",
-            }}
-          >
-            <div>
-              <div style={{ paddingBottom: 20, paddingTop: 20 }}>
-                {/* Order details */}
-                <p style={{ fontWeight: "bold", paddingBottom: 7 }}>
-                  Ordernumber: {order.orderNumber}
-                </p>
-                <p>Name: {order.customer.username}</p>
-              </div>
-            </div>
-
-            <div
-              style={{
-                textAlign: "center",
-                display: "flex",
-                alignItems: "center",
-              }}
+      {/* Display orders */}
+      {orders.map((order) => (
+        <Accordion key={order.orderNumber}>
+          <AccordionSummary aria-controls="panel1a-content" id="panel1a-header">
+            <Stack
+              direction={{ xs: "column", sm: "row" }}
+              spacing={1}
+              alignItems="center"
+              marginLeft={"10%"}
+              width={"80%"}
+              justifyContent={"space-between"}
             >
-              {/* Display shipping status */}
-              {order.shipped ? (
-                <Button variant="contained" color="secondary">
-                  <CheckCircleOutline />
-                  <p>Order is shipped</p>
-                </Button>
-              ) : (
-                <div>
-                  {/* Button to mark an order as shipped */}
+              <Box style={{ width: "300px" }}>
+                <p style={{ fontWeight: "bold", paddingBottom: 7 }}>
+                  Order Number: {order.orderNumber}
+                </p>
+              </Box>
+              <div
+                style={{
+                  textAlign: "center",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
+                {/* Display shipping status */}
+                {order.shipped ? (
                   <Button
                     variant="contained"
-                    color="primary"
-                    type="submit"
-                    onClick={(e) => handleSubmit(e, order._id)}
-                    style={{ paddingTop: 40 }}
+                    color="secondary"
+                    endIcon={<CheckCircleOutline />}
                   >
-                    Mark as shipped
+                    <p>Successfully shipped</p>
                   </Button>
-                </div>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
+                ) : (
+                  <div>
+                    {/* Button to mark an order as shipped */}
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      type="submit"
+                      onClick={(e) => handleSubmit(e, order._id)}
+                    >
+                      Mark as shipped
+                    </Button>
+                  </div>
+                )}
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  endIcon={<DeleteForever />}
+                  style={{ marginLeft: "10px" }}
+                >
+                  <p>Delete</p>
+                </Button>
+              </div>
+            </Stack>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Customer</TableCell>
+                  <TableCell>Email</TableCell>
+                  <TableCell>Order Items</TableCell>
+                  <TableCell>Total</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <TableRow>
+                  <TableCell>{order.customer.username}</TableCell>
+                  <TableCell>{order.customer.email}</TableCell>
+                  <TableCell>
+                    {order.orderItems.map((item) => (
+                      <p key={item.id}>
+                        {item.title} x {item.quantity} x {item.price}
+                      </p>
+                    ))}
+                  </TableCell>
+                  <TableCell>
+                    {formatCurrency(
+                      order.orderItems.reduce(
+                        (total, item) => total + item.quantity * item.price,
+                        0
+                      )
+                    )}
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </AccordionDetails>
+        </Accordion>
+      ))}
 
       {/* Back button to navigate to the admin page */}
       <NavLink
@@ -146,6 +205,6 @@ export default function AdminOrders() {
           Back to Admin Panel
         </Button>
       </NavLink>
-    </div>
+    </>
   );
 }

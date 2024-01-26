@@ -9,30 +9,25 @@
   position: relative;
 }
 
-.close-drawer {
+.drawer-close {
   position: absolute;
   top: 1rem;
   right: 1rem;
 }
 
-.close-drawer:hover {
+.drawer-close:hover {
   cursor: pointer;
   transform: scale(1.1);
 }
 
-.total-price {
-  font-weight: bold;
-}
-
-.cart-info {
-  color: rgba(34, 48, 48, 1);
-  font-size: larger;
-  font-weight: 200;
-}
-
-.info-container {
+.drawer-info-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 50px;
+}
+
+.drawer-info {
+  font-size: larger;
+  font-weight: 200;
 }

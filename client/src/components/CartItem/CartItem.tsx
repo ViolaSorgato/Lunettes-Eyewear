@@ -1,12 +1,8 @@
+import "../CartItem/CartItem.css";
 import { useShoppingCart } from "../../context/cart.context";
 import { useProductContext } from "../../context/product.context";
-import "../CartItem/CartItem.css";
-import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
-import { Box } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
-import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
+import { Box, Button, Stack } from "@mui/material";
+import { Add, Remove, DeleteForeverOutlined } from "@mui/icons-material";
 import { formatCurrency } from "../../utilities/formatCurrency";
 
 type CartItemProps = {
@@ -14,17 +10,27 @@ type CartItemProps = {
   quantity: number;
 };
 
-export default function CartItem({ id, quantity }: CartItemProps) {
+//Renders the products when they are added to the cart (Drawer.tsx) and the logic to manage their quantity
+
+const CartItem = ({ id, quantity }: CartItemProps) => {
+  // Access shopping cart functions from the context
   const { increaseCartQuantity, decreaseCartQuantity, removeFromCart } =
     useShoppingCart();
+
+  // Access product data from the context
   const { products } = useProductContext();
 
+  // Find the product with the given id
   const item = products.find((i) => i._id === id);
-  if (item === null) return null;
+
+  // If the product is not found, return null
+  if (item === null || item === undefined) return null;
 
   return (
     <>
+      {/* Stack to arrange components in a horizontal row */}
       <Stack direction="row" spacing={2} alignItems="start">
+        {/* Box for displaying product image */}
         <Box>
           <img
             src={item?.image}
@@ -32,55 +38,67 @@ export default function CartItem({ id, quantity }: CartItemProps) {
           />
         </Box>
 
+        {/* Box for displaying product title and price */}
         <Box>
+          {/* Display product title */}
           <span className="cartitem-title">{item?.title} </span>
           <br />
 
-          <span className="cartitem-price ">
+          {/* Display total price for the quantity */}
+          <span className="cartitem-price">
             {item && formatCurrency(item?.price * quantity)}
           </span>
         </Box>
 
+        {/* Stack for quantity-related buttons */}
         <Stack
           direction="row"
           spacing={0.5}
           justifyContent="center"
           alignItems="center"
         >
+          {/* Button to decrease quantity in the cart */}
           {quantity > 1 ? (
             <Button
-              className="cartitem-qty-btn"
+              className="cartitem-quantity"
               onClick={() =>
                 item && decreaseCartQuantity(item?._id, item.title, item.price)
               }
             >
-              <RemoveIcon className="icon" />
+              <Remove className="cartitem-icon" />
             </Button>
           ) : (
-            <Button className="cartitem-qty-btn">
-              <RemoveIcon className="icon" />
+            <Button className="cartitem-quantity">
+              <Remove className="cartitem-icon" />
             </Button>
           )}
-          <Box className="cartitem-qty-btn">
-            <div className="qty-div">x {quantity}</div>
+
+          {/* Box to display the quantity */}
+          <Box className="cartitem-quantity">
+            <div className="cartitem-quantity-number">x {quantity}</div>
           </Box>
+
+          {/* Button to increase quantity in the cart */}
           <Button
-            className="cartitem-qty-btn"
+            className="cartitem-quantity"
             onClick={() =>
               item && increaseCartQuantity(item?._id, item.title, item.price)
             }
           >
-            <AddIcon className="icon" />
+            <Add className="cartitem-icon" />
           </Button>
 
+          {/* Button to remove the product from the cart */}
           <Button
-            className="cartitem-qty-btn"
+            className="cartitem-quantity"
             onClick={() => item && removeFromCart(item?._id)}
           >
-            <DeleteForeverOutlinedIcon className="icon" />
+            <DeleteForeverOutlined className="cartitem-icon" />
           </Button>
         </Stack>
       </Stack>
     </>
   );
-}
+};
+
+export default CartItem;
