@@ -14,6 +14,7 @@ import {
 import { useContext, useEffect, useState } from "react";
 import { Order, useOrderContext } from "../../context/order.context";
 import { UserContextType } from "../../context/user.context";
+import { useShoppingCart } from "../../context/cart.context";
 import { formatCurrency } from "../../utilities/formatCurrency";
 import "./Confirmation.css";
 
@@ -21,6 +22,7 @@ const ConfirmationPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { order, setOrder } = useOrderContext();
   const { loggedInUser } = useContext(UserContextType);
+  const { emptyCart } = useShoppingCart();
 
   useEffect(() => {
     // Fetch data when the component mounts
@@ -71,6 +73,7 @@ const ConfirmationPage = () => {
           orderItems: order.orderItems,
         }));
         setIsLoading(false);
+        emptyCart();
         console.log("Order response from server:", order);
         console.log("ORDER.NUMBER", order.orderNumber);
       } else {
