@@ -33,6 +33,7 @@ const ConfirmationPage = () => {
     // Map order items to the required format for the backend
     const newOrderItems = orderItems.map((item) => ({
       product: item.id,
+      title: item.title,
       quantity: item.quantity,
     }));
 
