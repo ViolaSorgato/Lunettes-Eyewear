@@ -1,8 +1,21 @@
-import { Box, CircularProgress, Container, Typography } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  Grid,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import { Order, useOrderContext } from "../../context/order.context";
 import { UserContextType } from "../../context/user.context";
 import { formatCurrency } from "../../utilities/formatCurrency";
+import "./Confirmation.css";
 
 const ConfirmationPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -87,76 +100,61 @@ const ConfirmationPage = () => {
     );
   }
 
-  console.log("Order details:", order);
-
   return (
-    <Container
-      style={{
-        textAlign: "center",
-        marginTop: "2rem",
-        minWidth: "50%",
-        padding: "3rem",
-        display: "flex",
-        flexDirection: "column",
-        gap: "30px",
-      }}
-    >
-      <p className="title-list">Thank you! Your order is ready.</p>
-      <p>You will soon receive a confirmation email.</p>
-      <p>Order Number: {order.orderNumber}</p>
-      <p>
-        Total:{" "}
-        {formatCurrency(
-          order.orderItems.reduce(
-            (total, item) => total + item.quantity * item.price,
-            0
-          )
-        )}
-      </p>
-      <br />
-      <Container>
-        <Typography variant="h5">Order Details</Typography>
-        <br />
-        <p>
-          Email: {loggedInUser?.email}
-          <br />
-          Username: {loggedInUser?.username}
-          <br />
-          Ordernumber: {order.orderNumber}
-        </p>
-      </Container>
-      <br />
+    <div className="confirmation-container">
+      <p className="title-list">Thank you! Your order is ready.</p>{" "}
+      <Grid container spacing={2} alignItems="stretch">
+        {/* Order Details Section */}
+        <Grid item xs={12} sm={12} md={6}>
+          <Paper elevation={3} style={{ padding: "20px", height: "100%" }}>
+            <Typography variant="h5" align="center">
+              Order Details
+            </Typography>
+            <p className="order-info">Email: {loggedInUser?.email}</p>
 
-      <Container
-        style={{ borderTop: "3px solid #E9D5EF", marginBottom: "3rem" }}
-      >
-        <br />
-        <Typography variant="h5" style={{ textAlign: "center" }}>
-          Order Items
-        </Typography>
-        <br />
-        <ul style={{ listStyleType: "none" }}>
-          {order.orderItems.map((item) => (
-            <li key={item.title}>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  borderBottom: "2px solid #E9D5EF",
-                  padding: "1rem",
-                  margin: "0.5rem",
-                  marginLeft: "0",
-                }}
-              >
-                Product: {item.title}, Quantity: {item.quantity}, Price:
-                {item.price}
-              </Box>
-            </li>
-          ))}
-        </ul>
-      </Container>
-    </Container>
+            <p className="order-info">Order Number: {order.orderNumber}</p>
+            <p className="order-info">
+              Total:{" "}
+              {formatCurrency(
+                order.orderItems.reduce(
+                  (total, item) => total + item.quantity * item.price,
+                  0
+                )
+              )}
+            </p>
+          </Paper>
+        </Grid>
+
+        {/* Order Items Section */}
+        <Grid item xs={12} sm={12} md={6}>
+          <Paper elevation={3} style={{ padding: "20px", height: "100%" }}>
+            <Typography variant="h5" align="center">
+              Order Items
+            </Typography>
+            <TableContainer style={{ maxHeight: "100%", overflowY: "auto" }}>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Product</TableCell>
+                    <TableCell>Quantity</TableCell>
+                    <TableCell>Price</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {order.orderItems.map((item) => (
+                    <TableRow key={item.title}>
+                      <TableCell>{item.title}</TableCell>
+                      <TableCell>{item.quantity}</TableCell>
+                      <TableCell>{item.price}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Paper>
+        </Grid>
+      </Grid>
+    </div>
   );
 };
 
