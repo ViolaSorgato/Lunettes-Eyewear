@@ -1,3 +1,4 @@
+import { useState, useContext } from "react";
 import {
   Container,
   Drawer,
@@ -9,13 +10,11 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { NavLink } from "react-router-dom";
-import { Search } from "@mui/icons-material";
 import "./Navbar.css";
-import MenuIcon from "@mui/icons-material/Menu";
-import { useState, useContext } from "react";
-import ShoppingCartIcon from "../ShoppingCartIcon/ShoppingCartIcon";
+import { NavLink } from "react-router-dom";
+import { Search, Menu } from "@mui/icons-material";
 import { UserContextType } from "../../context/user.context";
+import ShoppingCartIcon from "../ShoppingCartIcon/ShoppingCartIcon";
 
 /*Handles the logic for the navigation bar/menu. The Logo always leads to the Homepage and the SHOP
 always leads to products page. The rest of the content is rendered differently depending on
@@ -53,7 +52,7 @@ const Navbar = () => {
             </NavLink>
 
             <IconButton onClick={toggleDrawer}>
-              <MenuIcon />
+              <Menu />
             </IconButton>
           </div>
 

@@ -79,6 +79,20 @@ async function markAsShipped(req, res) {
   res.status(200).json(order);
 }
 
+//Delete specific order
+async function deleteOrder(req, res) {
+  try {
+    const orderId = req.params.id;
+    console.log("Deleting order with ID:", orderId);
+
+    await OrderModel.findOneAndDelete({ _id: orderId });
+    res.status(204).json(null);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}
+
 // Delete all orders
 async function deleteAllOrders(req, res) {
   try {
@@ -97,5 +111,6 @@ module.exports = {
   getOrder,
   addOrder,
   markAsShipped,
+  deleteOrder,
   deleteAllOrders,
 };

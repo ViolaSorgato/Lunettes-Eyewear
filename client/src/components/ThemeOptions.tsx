@@ -1,7 +1,7 @@
 import { ThemeOptions } from "@mui/material/styles";
 
-//primary: beige tones
-//secondary: paste green tones
+//primary: beige/terracotta tones
+//secondary: pastel green tones
 
 export const themeOptions: ThemeOptions = {
   typography: {

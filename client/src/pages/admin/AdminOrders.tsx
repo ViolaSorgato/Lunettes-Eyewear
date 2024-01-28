@@ -8,6 +8,7 @@ import {
   AccordionSummary,
   Box,
   Button,
+  Pagination,
   Stack,
   Table,
   TableBody,
@@ -15,7 +16,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { CheckCircleOutline, DeleteForever } from "@mui/icons-material";
+import { CheckCircleOutline } from "@mui/icons-material";
 import { formatCurrency } from "../../utilities/formatCurrency";
 
 // Define the structure of a shipped order
@@ -50,6 +51,8 @@ export default function AdminOrders() {
 
   // State to handle the response of marking an order as shipped
   const [newOrder, setNewOrder] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const ordersPerPage = 10;
 
   // Function to mark an order as shipped
   const markAsShipped = async (id: string) => {
@@ -83,7 +86,19 @@ export default function AdminOrders() {
     markAsShipped(id);
   };
 
-  // Render the component
+  //Handles Pagination
+  const indexOfLastOrder = currentPage * ordersPerPage;
+  const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
+  const currentOrders = orders.slice(indexOfFirstOrder, indexOfLastOrder);
+
+  const handlePageChange = (
+    _event: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
+    setCurrentPage(value);
+  };
+
+  // Renders the component
   return (
     <>
       <div
@@ -103,7 +118,7 @@ export default function AdminOrders() {
       </div>
 
       {/* Display orders */}
-      {orders.map((order) => (
+      {currentOrders.map((order) => (
         <Accordion key={order.orderNumber}>
           <AccordionSummary aria-controls="panel1a-content" id="panel1a-header">
             <Stack
@@ -149,14 +164,6 @@ export default function AdminOrders() {
                     </Button>
                   </div>
                 )}
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  endIcon={<DeleteForever />}
-                  style={{ marginLeft: "10px" }}
-                >
-                  <p>Delete</p>
-                </Button>
               </div>
             </Stack>
           </AccordionSummary>
@@ -176,7 +183,7 @@ export default function AdminOrders() {
                   <TableCell>{order.customer.email}</TableCell>
                   <TableCell>
                     {order.orderItems.map((item) => (
-                      <p key={item.id}>
+                      <p key={item.title}>
                         {item.title} x {item.quantity} x {item.price}
                       </p>
                     ))}
@@ -195,16 +202,32 @@ export default function AdminOrders() {
           </AccordionDetails>
         </Accordion>
       ))}
-
-      {/* Back button to navigate to the admin page */}
-      <NavLink
-        to="/admin"
-        style={{ textDecoration: "none", marginTop: "20px" }}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          paddingTop: "30px",
+          paddingBottom: "30px",
+        }}
       >
-        <Button variant="contained" color="primary">
-          Back to Admin Panel
-        </Button>
-      </NavLink>
+        <Pagination
+          count={Math.ceil(orders.length / ordersPerPage)}
+          page={currentPage}
+          onChange={handlePageChange}
+          color="secondary"
+        />
+        {/* Back button to navigate to the admin page */}
+        <NavLink
+          to="/admin"
+          style={{ textDecoration: "none", marginTop: "20px" }}
+        >
+          <Button variant="contained" color="primary">
+            Back to Admin Panel
+          </Button>
+        </NavLink>
+      </div>
     </>
   );
 }
