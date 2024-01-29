@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { FormEvent, useState } from "react";
+import "./Admin.css";
 import { TextField, Button, Grid, Alert, Typography } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { NewProduct } from "../../context/product.context";
-import "./Admin.css";
 
 export default function AddNewProduct() {
   const [title, setTitle] = useState("");
@@ -67,7 +67,7 @@ export default function AddNewProduct() {
 
   //Handle submit button
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const newProduct: NewProduct = {
