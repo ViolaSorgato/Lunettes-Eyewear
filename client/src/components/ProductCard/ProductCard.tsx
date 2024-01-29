@@ -1,18 +1,22 @@
-import { Product } from "../../context/product.context";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
+import {
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Typography,
+} from "@mui/material";
 import "./ProductCard.css";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { Product } from "../../context/product.context";
 import AddToCartBtn from "../AddToCartBtn/AddToCartBtn";
 
 type Props = {
   product: Product;
 };
 
-export default function ProductCard({ product }: Props) {
+//Render the Product Cards that are displayed in the ProductList.
+//When the imagem title or price are clicked, the user is redirected to the Product Details page.
+const ProductCard = ({ product }: Props) => {
   return (
     <Card
       variant="outlined"
@@ -24,29 +28,37 @@ export default function ProductCard({ product }: Props) {
         justifyContent: "space-between",
       }}
     >
-      <Link to={`/${product._id}`} key={product._id}>
+      <NavLink
+        to={`/${product._id}`}
+        key={product._id}
+        className="nav-link"
+        style={{ textDecoration: "none" }}
+      >
         <CardMedia
           component="img"
           alt={product.title}
           image={product.image}
           height="300"
         />
-      </Link>
+      </NavLink>
 
       <CardContent>
-        <Typography
-          gutterBottom
-          variant="h6"
-          component="div"
-          fontSize="13px"
-          fontWeight="bold"
-          textAlign="center"
+        <NavLink
+          to={`/${product._id}`}
+          key={product._id}
+          className="nav-link"
+          style={{ textDecoration: "none" }}
         >
-          {product.title}
-        </Typography>
-        <Typography variant="body2" color="text.secondary" fontSize="12px">
-          {product.price + " SEK"}
-        </Typography>
+          <Typography variant="h5">{product.title}</Typography>
+        </NavLink>
+        <NavLink
+          to={`/${product._id}`}
+          key={product._id}
+          className="nav-link"
+          style={{ textDecoration: "none" }}
+        >
+          <Typography variant="body2">{product.price + " SEK"}</Typography>
+        </NavLink>
       </CardContent>
 
       <CardActions>
@@ -54,4 +66,6 @@ export default function ProductCard({ product }: Props) {
       </CardActions>
     </Card>
   );
-}
+};
+
+export default ProductCard;

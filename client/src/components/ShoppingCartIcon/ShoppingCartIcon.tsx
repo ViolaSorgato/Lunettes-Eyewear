@@ -1,18 +1,24 @@
 import { useState } from "react";
-import ShoppingCart from "@mui/icons-material/ShoppingCart";
+import { ShoppingCart } from "@mui/icons-material";
 import { Badge } from "@mui/material";
 import ShoppingDrawer from "../Drawer/Drawer";
 import { useShoppingCart } from "../../context/cart.context";
 import "./ShoppingCartIcon.css";
 
-export default function MyShoppingCart() {
+//Render the Shopping Cart Icon with correct number of items
+const ShoppingCartIcon = () => {
+  // State to control the visibility of the shopping cart drawer
   const [open, setOpen] = useState(false);
+
+  // Access cartQuantity from the shopping cart context
   const { cartQuantity } = useShoppingCart();
 
+  // Open the shopping cart drawer
   const handleOpen = () => {
     setOpen(true);
   };
 
+  // Close the shopping cart drawer
   const handleClose = () => {
     setOpen(false);
   };
@@ -27,4 +33,6 @@ export default function MyShoppingCart() {
       <ShoppingDrawer open={open} setOpen={setOpen} />
     </div>
   );
-}
+};
+
+export default ShoppingCartIcon;

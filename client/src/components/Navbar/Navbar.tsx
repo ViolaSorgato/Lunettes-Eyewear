@@ -1,3 +1,4 @@
+import { useState, useContext } from "react";
 import {
   Container,
   Drawer,
@@ -9,13 +10,11 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { NavLink } from "react-router-dom";
-import { Search } from "@mui/icons-material";
 import "./Navbar.css";
-import MenuIcon from "@mui/icons-material/Menu";
-import { useState, useContext } from "react";
-import ShoppingCartIcon from "../ShoppingCartIcon/ShoppingCartIcon";
+import { NavLink } from "react-router-dom";
+import { Search, Menu } from "@mui/icons-material";
 import { UserContextType } from "../../context/user.context";
+import ShoppingCartIcon from "../ShoppingCartIcon/ShoppingCartIcon";
 
 /*Handles the logic for the navigation bar/menu. The Logo always leads to the Homepage and the SHOP
 always leads to products page. The rest of the content is rendered differently depending on
@@ -39,8 +38,8 @@ const Navbar = () => {
       {/* If it is mobileview, it shows a burger menu icon and drawer opens */}
       {isMobile ? (
         <>
-          <div className="wrapper">
-            <div className="search-container">
+          <div className="nav-wrapper">
+            <div className="nav-search-container">
               <Search style={{ color: "gray", fontSize: 16 }} />
             </div>
             <NavLink
@@ -49,11 +48,11 @@ const Navbar = () => {
               style={{ textDecoration: "none" }}
               onClick={toggleDrawer}
             >
-              <div className="logo">Lunettes Eyewear</div>
+              <div className="nav-logo">Lunettes Eyewear</div>
             </NavLink>
 
             <IconButton onClick={toggleDrawer}>
-              <MenuIcon />
+              <Menu />
             </IconButton>
           </div>
 
@@ -67,7 +66,7 @@ const Navbar = () => {
                 onClick={toggleDrawer}
               >
                 <ListItem>
-                  <div className="menu-item">SHOP</div>
+                  <div className="nav-menu-item">SHOP</div>
                 </ListItem>
               </NavLink>
               {/* If user is logged in, it shows My account and Sign out options */}
@@ -79,9 +78,9 @@ const Navbar = () => {
                     style={{ textDecoration: "none" }}
                     onClick={toggleDrawer}
                   >
-                    <div className="menu-item">MY ACCOUNT</div>
+                    <div className="nav-menu-item">MY ACCOUNT</div>
                   </NavLink>
-                  <div className="menu-item" onClick={logout}>
+                  <div className="nav-menu-item" onClick={logout}>
                     SIGN OUT
                   </div>
                 </>
@@ -95,7 +94,7 @@ const Navbar = () => {
                     onClick={toggleDrawer}
                   >
                     <ListItem>
-                      <div className="menu-item">REGISTER</div>
+                      <div className="nav-menu-item">REGISTER</div>
                     </ListItem>
                   </NavLink>
 
@@ -106,7 +105,7 @@ const Navbar = () => {
                     onClick={toggleDrawer}
                   >
                     <ListItem>
-                      <div className="menu-item">SIGN IN</div>
+                      <div className="nav-menu-item">SIGN IN</div>
                     </ListItem>
                   </NavLink>
                 </>
@@ -121,32 +120,32 @@ const Navbar = () => {
       ) : (
         <>
           {/* This part handles the widescreen (not burger menu) */}
-          <Container style={{ maxWidth: "100%" }}>
-            <div className="wrapper">
-              <div className="left">
-                <div className="search-container">
+          <Container style={{ maxWidth: "100%", backgroundColor: "white" }}>
+            <div className="nav-wrapper">
+              <div className="nav-left">
+                <div className="nav-search-container">
                   <Input placeholder="Search" />
                   <Search style={{ color: "gray", fontSize: 16 }} />
                 </div>
               </div>
-              <div className="center">
+              <div className="nav-center">
                 <NavLink
                   to="/"
                   className="nav-link"
                   style={{ textDecoration: "none" }}
                   onClick={toggleDrawer}
                 >
-                  <div className="logo">Lunettes Eyewear</div>
+                  <div className="nav-logo">LUNETTES EYEWEAR</div>
                 </NavLink>
               </div>
-              <div className="right">
+              <div className="nav-right">
                 <NavLink
                   to="/shop"
                   className="nav-link"
                   style={{ textDecoration: "none" }}
                   onClick={toggleDrawer}
                 >
-                  <div className="menu-item">SHOP</div>
+                  <div className="nav-menu-item">SHOP</div>
                 </NavLink>
                 {loggedInUser ? (
                   <>
@@ -157,9 +156,9 @@ const Navbar = () => {
                       style={{ textDecoration: "none" }}
                       onClick={toggleDrawer}
                     >
-                      <div className="menu-item">MY ACCOUNT</div>
+                      <div className="nav-menu-item">MY ACCOUNT</div>
                     </NavLink>
-                    <div className="menu-item" onClick={logout}>
+                    <div className="nav-menu-item" onClick={logout}>
                       SIGN OUT
                     </div>
                   </>
@@ -172,7 +171,7 @@ const Navbar = () => {
                       style={{ textDecoration: "none" }}
                       onClick={toggleDrawer}
                     >
-                      <div className="menu-item">REGISTER</div>
+                      <div className="nav-menu-item">REGISTER</div>
                     </NavLink>
                     <NavLink
                       to="/login"
@@ -180,11 +179,13 @@ const Navbar = () => {
                       style={{ textDecoration: "none" }}
                       onClick={toggleDrawer}
                     >
-                      <div className="menu-item">SIGN IN</div>
+                      <div className="nav-menu-item">SIGN IN</div>
                     </NavLink>
                   </>
                 )}
-                <ShoppingCartIcon />
+                <div style={{ marginLeft: "15px" }}>
+                  <ShoppingCartIcon />
+                </div>
               </div>
             </div>
           </Container>

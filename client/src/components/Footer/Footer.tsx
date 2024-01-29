@@ -7,33 +7,32 @@ import {
   Room,
   Twitter,
 } from "@mui/icons-material";
-import { Stack, List, ListItem, Container } from "@mui/material";
+import { List, ListItem, Grid } from "@mui/material";
 import "./Footer.css";
 import { NavLink } from "react-router-dom";
 
+//The footer is divided into three columns but adjusts into one with small screens.
+//The content was made mostly for the aesthetic purposes, so I did not add pages for all the links or socials.
 const Footer = () => {
   return (
     <div className="footer-container">
-      <Stack
-        direction={{ sm: "column", md: "row" }}
-        spacing={{ xs: 1, sm: 2, md: 4 }}
-        justifyContent="space-around"
-        alignItems="center"
-      >
-        <Container className="column">
-          <div className="logo">Welcome to Lunettes</div>
-          <p className="desc">
+      <Grid container spacing={3} alignItems="stretch">
+        {/* Section for general information */}
+        <Grid item xs={12} sm={4} md={4}>
+          <div className="footer-title">Welcome to Lunettes</div>
+          <p className="footer-desc">
             Step into a world of timeless elegance at Lunettes Eyewear, your
             premier destination for exquisitely crafted Italian eyewear. Our
             curated collection captures the essence of Italy's artistic legacy,
             offering a range of frames that seamlessly blend sophistication,
             style, and unparalleled craftsmanship.
           </p>
-        </Container>
-        <Container className="column">
-          <div className="logo">Useful Links</div>
+        </Grid>
+
+        {/* Section for useful links */}
+        <Grid item xs={12} sm={4} md={4}>
+          <div className="footer-title">Useful Links</div>
           <div className="list-container">
-            {" "}
             <List className="list">
               <ListItem className="list-item">New Collection</ListItem>
               <ListItem className="list-item">Man Fashion</ListItem>
@@ -55,9 +54,11 @@ const Footer = () => {
               <ListItem className="list-item">Terms</ListItem>
             </List>
           </div>
-        </Container>
-        <Container className="column">
-          <div className="logo">Contact</div>
+        </Grid>
+
+        {/* Section for contact information */}
+        <Grid item xs={12} sm={4} md={4}>
+          <div className="footer-title">Contact</div>
           <div className="contact-item">
             <Room /> Via Modigliani 15 Milan Italy
           </div>
@@ -81,9 +82,8 @@ const Footer = () => {
               <Pinterest />
             </div>
           </div>
-          {/* <Payment src="https://i.ibb.co/Qfvn4z6/payment.png" /> */}
-        </Container>
-      </Stack>
+        </Grid>
+      </Grid>
     </div>
   );
 };
