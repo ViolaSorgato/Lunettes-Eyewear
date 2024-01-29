@@ -128,7 +128,7 @@ const Navbar = () => {
             <div className="nav-wrapper">
               <div className="nav-left">
                 <div className="nav-search-container">
-                  <Input placeholder="Search" />
+                  <Input id="search-input" placeholder="Search" />
                   <Search style={{ color: "gray", fontSize: 16 }} />
                 </div>
               </div>

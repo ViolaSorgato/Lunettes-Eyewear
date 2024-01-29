@@ -100,7 +100,7 @@ const RegisterPage = () => {
             <TextField
               required
               color="secondary"
-              id="username"
+              id="register-username"
               fullWidth={true}
               label="Username"
               value={username}
@@ -110,7 +110,7 @@ const RegisterPage = () => {
             <TextField
               required
               color="secondary"
-              id="email"
+              id="register-email"
               fullWidth={true}
               label="Email address"
               value={email}
@@ -120,7 +120,7 @@ const RegisterPage = () => {
             <TextField
               required
               color="secondary"
-              id="password"
+              id="register-password"
               fullWidth={true}
               type="password"
               label="Password"

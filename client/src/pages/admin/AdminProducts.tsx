@@ -296,7 +296,7 @@ export default function AdminProducts() {
 
               <Grid item xs={6} md={2}>
                 <TextField
-                  id="outlined"
+                  id="product-title"
                   label="Title"
                   variant="outlined"
                   value={title}
@@ -306,7 +306,7 @@ export default function AdminProducts() {
 
               <Grid item xs={6} md={2}>
                 <TextField
-                  id="outlined"
+                  id="product-desc"
                   label="Description"
                   variant="outlined"
                   value={description}
@@ -316,7 +316,7 @@ export default function AdminProducts() {
 
               <Grid item xs={6} md={2}>
                 <TextField
-                  id="outlined"
+                  id="product-price"
                   label="Price"
                   variant="outlined"
                   value={price}
@@ -326,7 +326,7 @@ export default function AdminProducts() {
 
               <Grid item xs={6} md={2}>
                 <TextField
-                  id="outlined"
+                  id="product-image"
                   label="Image URL"
                   variant="outlined"
                   value={image}
@@ -336,7 +336,7 @@ export default function AdminProducts() {
 
               <Grid item xs={6} md={2}>
                 <TextField
-                  id="outlined"
+                  id="product-instock"
                   label="In Stock"
                   variant="outlined"
                   value={inStock}
