@@ -55,7 +55,10 @@ const LoginPage = () => {
           <div>
             <p className="account-title">Welcome to your Admin page.</p>
           </div>
-          <Stack direction="row" spacing={2}>
+          <Stack
+            direction={{ xs: "column", sm: "row" }}
+            spacing={{ xs: 1, sm: 2, md: 4 }}
+          >
             <NavLink to="/addnewproduct" style={{ textDecoration: "none" }}>
               <Button
                 variant="contained"

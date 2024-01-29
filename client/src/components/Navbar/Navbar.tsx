@@ -78,11 +78,15 @@ const Navbar = () => {
                     style={{ textDecoration: "none" }}
                     onClick={toggleDrawer}
                   >
-                    <div className="nav-menu-item">MY ACCOUNT</div>
+                    <ListItem>
+                      <div className="nav-menu-item">MY ACCOUNT</div>
+                    </ListItem>
                   </NavLink>
-                  <div className="nav-menu-item" onClick={logout}>
-                    SIGN OUT
-                  </div>
+                  <ListItem>
+                    <div className="nav-menu-item" onClick={logout}>
+                      SIGN OUT
+                    </div>
+                  </ListItem>
                 </>
               ) : (
                 <>
