@@ -1,6 +1,6 @@
+import "./ProductPage.css";
 import { Container } from "@mui/material";
 import ProductList from "../../components/ProductList/ProductList";
-import "./ProductPage.css";
 
 const ProductPage = () => {
   return (
