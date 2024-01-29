@@ -1,16 +1,15 @@
 import {
   TextField,
   Button,
-  Box,
   Typography,
   Snackbar,
   AlertTitle,
   Alert,
+  Stack,
 } from "@mui/material";
 import "./LoginPage.css";
 import { UserType, UserContextType } from "../../context/user.context";
 import { useContext, useState } from "react";
-import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import { NavLink } from "react-router-dom";
 
 const LoginPage = () => {
@@ -33,7 +32,7 @@ const LoginPage = () => {
     setPassword("");
     setUsername("");
 
-    const isAdminUser = isAdmin(user);
+    isAdmin(user);
     setOpen(true);
     await login(user);
   };
@@ -54,17 +53,39 @@ const LoginPage = () => {
       {loggedInUser?.isAdmin == true ? (
         <div className="account-container">
           <div>
-            <p className="account-title">You are logged in as an Admin.</p>
+            <p className="account-title">Welcome to your Admin page.</p>
           </div>
-          <NavLink to="/admin">
-            <Button
-              variant="contained"
-              color="primary"
-              startIcon={<AdminPanelSettingsIcon />}
-            >
-              Go to Admin Panel
-            </Button>
-          </NavLink>
+          <Stack direction="row" spacing={2}>
+            <NavLink to="/addnewproduct" style={{ textDecoration: "none" }}>
+              <Button
+                variant="contained"
+                color="primary"
+                style={{ width: "150px", height: "100px" }}
+              >
+                Add product
+              </Button>
+            </NavLink>
+
+            <NavLink to="/adminproducts" style={{ textDecoration: "none" }}>
+              <Button
+                variant="contained"
+                color="primary"
+                style={{ width: "150px", height: "100px" }}
+              >
+                Edit products
+              </Button>
+            </NavLink>
+
+            <NavLink to="/adminorders" style={{ textDecoration: "none" }}>
+              <Button
+                variant="contained"
+                color="primary"
+                style={{ width: "150px", height: "100px" }}
+              >
+                Admin orders
+              </Button>
+            </NavLink>
+          </Stack>
         </div>
       ) : loggedInUser ? (
         <div className="account-container">
@@ -73,22 +94,8 @@ const LoginPage = () => {
           </div>
         </div>
       ) : (
-        <form onSubmit={handleLogin}>
-          <Box
-            sx={{
-              width: ["95%", "80%", "50%"],
-              height: 480,
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginTop: 5,
-              boxShadow: 3,
-              borderRadius: 2,
-              px: 4,
-              py: 6,
-            }}
-          >
+        <div className="account-container">
+          <form className="login-form" onSubmit={handleLogin}>
             <Typography
               variant="h4"
               component="h1"
@@ -134,8 +141,8 @@ const LoginPage = () => {
             >
               <p className="title-list">New User? Register here.</p>
             </NavLink>
-          </Box>
-        </form>
+          </form>
+        </div>
       )}
 
       {alert && (

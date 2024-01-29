@@ -18,7 +18,7 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
-import { ExpandMore, DeleteForever } from "@mui/icons-material";
+import { ExpandMore } from "@mui/icons-material";
 import { NavLink } from "react-router-dom";
 
 export default function AdminProducts() {
@@ -213,7 +213,6 @@ export default function AdminProducts() {
                 variant="contained"
                 color="primary"
                 type="submit"
-                endIcon={<DeleteForever />}
                 onClick={handleClickOpen}
               >
                 Delete

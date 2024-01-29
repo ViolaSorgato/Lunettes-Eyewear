@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./ProductList.css";
 import { Product } from "../../context/product.context";
 import ProductCard from "../ProductCard/ProductCard";
-import { Container, Grid, Pagination } from "@mui/material";
+import { Grid, Pagination } from "@mui/material";
 
 const ProductList = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -38,15 +38,10 @@ const ProductList = () => {
   };
 
   return (
-    <Container
-      sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-    >
-      <p className="title-list">Our Products</p>
+    <>
       <Grid
         container
-        columns={{ xs: 1, sm: 1, md: 2, lg: 2, xl: 2 }}
-        gap={2}
-        direction="row"
+        gap={3}
         justifyContent="center"
         alignItems="center"
         marginTop="50px"
@@ -60,9 +55,10 @@ const ProductList = () => {
         count={Math.ceil(products.length / productsPerPage)}
         page={currentPage}
         onChange={handlePageChange}
-        color="secondary"
+        color="primary"
+        style={{ marginBottom: "20px" }}
       />
-    </Container>
+    </>
   );
 };
 

@@ -3,7 +3,6 @@ import { UserContextType } from "../../context/user.context";
 import {
   TextField,
   Button,
-  Box,
   Typography,
   Snackbar,
   AlertTitle,
@@ -58,48 +57,38 @@ const RegisterPage = () => {
           width="80%"
           justifyContent={"space-between"}
         >
-          <div className="message-container">
-            <p className="title-list">
-              Welcome to Lunettes Eyewear! Congratulations on becoming a part of
-              our stylish eyewear community. Feel free to browse our collection
-              and discover the eyewear that suits your lifestyle. If you have
-              any questions or need assistance, our team is here to help.
+          <div className="register-message-container">
+            <p className="register-message-title">
+              Welcome to Lunettes Eyewear!
             </p>
-            <p className="title-list"></p>
+            <p>
+              Congratulations on becoming a part of our stylish eyewear
+              community. Feel free to browse our collection and discover the
+              eyewear that suits your lifestyle. If you have any questions or
+              need assistance, our team is here to help.
+            </p>
             <NavLink
               to="/login"
               className="nav-link"
               style={{ textDecoration: "none" }}
             >
-              <p>Log in here to access your account.</p>
+              <p className="register-message-sub">Log in here.</p>
             </NavLink>
             <div
               style={{ cursor: "pointer" }}
               onClick={() => setRegisteredUser(null)}
             >
-              Click here to register with a different account.
+              <p className="register-message-sub">
+                Register with a different account.
+              </p>
             </div>
           </div>
 
-          <div className="picture"></div>
+          <div className="register-picture"></div>
         </Stack>
       ) : (
-        <form onSubmit={handleRegister}>
-          <Box
-            sx={{
-              width: ["95%", "80%", "50%"],
-              height: 480,
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginTop: 5,
-              boxShadow: 3,
-              borderRadius: 2,
-              px: 4,
-              py: 6,
-            }}
-          >
+        <div className="register-container">
+          <form className="register-form" onSubmit={handleRegister}>
             <Typography
               variant="h4"
               component="h1"
@@ -156,8 +145,8 @@ const RegisterPage = () => {
             >
               <p className="title-list">Already have an account? Login here.</p>
             </NavLink>
-          </Box>
-        </form>
+          </form>
+        </div>
       )}
 
       {alert && (

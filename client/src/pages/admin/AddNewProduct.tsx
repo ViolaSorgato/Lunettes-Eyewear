@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { TextField, Button, Grid, Box, Alert } from "@mui/material";
+import { TextField, Button, Grid, Alert, Typography } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import { NewProduct } from "../../context/product.context";
+import "./Admin.css";
 
 export default function AddNewProduct() {
   const [title, setTitle] = useState("");
@@ -21,7 +22,7 @@ export default function AddNewProduct() {
     setInStock(0);
   };
 
-  //----------------------------START - Add/send new product to database-------------------------------------//
+  //Add/send new product to database
 
   const sendNewProductToDataBase = async (productData: NewProduct) => {
     const { title, description, price, image, inStock } = productData;
@@ -58,17 +59,13 @@ export default function AddNewProduct() {
     }
   };
 
-  //----------------------------END - Add/send new product to database-------------------------------------//
-
-  //----------------------------START - Handle Alert visibility-------------------------------------//
+  //Handle Alert visibility
 
   function handleShow() {
     setShow(!show);
   }
 
-  //----------------------------END - Handle Alert visibility-------------------------------------//
-
-  //----------------------------START - Handle submit / button-------------------------------------//
+  //Handle submit button
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -88,129 +85,100 @@ export default function AddNewProduct() {
     }, 300);
   };
 
-  //----------------------------END - Handle submit / button-------------------------------------//
-
   return (
-    <div style={{ padding: "50px" }}>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          paddingTop: "30px",
-          paddingBottom: "30px",
-        }}
-      >
-        <p style={{ fontSize: "larger" }}>
-          Complete the following form to add a new product to the database.
-        </p>
-      </div>
-
-      <Box
-        sx={{
-          width: ["95%", "80%", "60%"],
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          alignItems: "center",
-          margin: "auto",
-          paddingBottom: 0,
-          boxShadow: 3,
-          borderRadius: 2,
-          px: 4,
-          py: 6,
-        }}
-      >
-        <form onSubmit={handleSubmit} style={{ marginBottom: 0 }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                label="Product Title"
-                name="title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                required
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Product Description"
-                name="description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                required
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Price"
-                name="price"
-                value={price}
-                onChange={(e) => setPrice(Number(e.target.value))}
-                required
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Image URL"
-                name="image"
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
-                required
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Stock Quantity"
-                name="inStock"
-                value={inStock}
-                onChange={(e) => setInStock(Number(e.target.value))}
-                required
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12}>
-              {show && !success ? (
-                <Alert
-                  onClose={handleShow}
-                  severity="error"
-                  style={{ marginBottom: "2rem" }}
-                >
-                  ERROR - Error adding new product to the database.<br></br>{" "}
-                  Please try again
-                </Alert>
-              ) : (
-                <Alert severity="error" style={{ display: "none" }}></Alert>
-              )}
-
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                fullWidth
-              >
-                Add Product
-              </Button>
-
-              {show && success ? (
-                <Alert
-                  onClose={handleShow}
-                  severity="success"
-                  style={{ marginTop: "2rem" }}
-                >
-                  SUCCESS - New product add to the database
-                </Alert>
-              ) : (
-                <Alert severity="success" style={{ display: "none" }}></Alert>
-              )}
-            </Grid>
+    <div className="add-product-container">
+      <form onSubmit={handleSubmit} className="add-product-form">
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <Typography
+              variant="h5"
+              component="h1"
+              gutterBottom
+              style={{ marginTop: "10px" }}
+            >
+              Add a new product to the database
+            </Typography>
+            <TextField
+              label="Product Title"
+              name="title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+              fullWidth
+            />
           </Grid>
-        </form>
-      </Box>
+          <Grid item xs={12}>
+            <TextField
+              label="Product Description"
+              name="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              required
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Price"
+              name="price"
+              value={price}
+              onChange={(e) => setPrice(Number(e.target.value))}
+              required
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Image URL"
+              name="image"
+              value={image}
+              onChange={(e) => setImage(e.target.value)}
+              required
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="Stock Quantity"
+              name="inStock"
+              value={inStock}
+              onChange={(e) => setInStock(Number(e.target.value))}
+              required
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            {show && !success ? (
+              <Alert
+                onClose={handleShow}
+                severity="error"
+                style={{ marginBottom: "2rem" }}
+              >
+                ERROR - Error adding new product to the database.<br></br>{" "}
+                Please try again
+              </Alert>
+            ) : (
+              <Alert severity="error" style={{ display: "none" }}></Alert>
+            )}
+
+            <Button type="submit" variant="contained" color="primary" fullWidth>
+              Add Product
+            </Button>
+            {show && success ? (
+              <Alert
+                onClose={handleShow}
+                severity="success"
+                style={{ marginTop: "2rem" }}
+              >
+                SUCCESS - New product add to the database
+              </Alert>
+            ) : (
+              <Alert severity="success" style={{ display: "none" }}></Alert>
+            )}
+          </Grid>
+        </Grid>
+      </form>
+
       <div
         style={{
           display: "flex",
