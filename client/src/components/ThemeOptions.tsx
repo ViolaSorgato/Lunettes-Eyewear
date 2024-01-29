@@ -1,6 +1,6 @@
 import { ThemeOptions } from "@mui/material/styles";
 
-//primary: beige/terracotta tones
+//primary: beige/pinkish tones
 //secondary: pastel green tones
 export const themeOptions: ThemeOptions = {
   typography: {
@@ -27,7 +27,7 @@ export const themeOptions: ThemeOptions = {
     MuiContainer: {
       styleOverrides: {
         root: {
-          backgroundColor: "	rgba(243,226,175)",
+          backgroundColor: "rgba(243,226,175)",
         },
       },
     },

@@ -100,7 +100,7 @@ export default function AddNewProduct() {
             </Typography>
             <TextField
               label="Product Title"
-              name="title"
+              name="add-title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
@@ -110,7 +110,7 @@ export default function AddNewProduct() {
           <Grid item xs={12}>
             <TextField
               label="Product Description"
-              name="description"
+              name="add-description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               required
@@ -120,7 +120,7 @@ export default function AddNewProduct() {
           <Grid item xs={12}>
             <TextField
               label="Price"
-              name="price"
+              name="add-price"
               value={price}
               onChange={(e) => setPrice(Number(e.target.value))}
               required
@@ -130,7 +130,7 @@ export default function AddNewProduct() {
           <Grid item xs={12}>
             <TextField
               label="Image URL"
-              name="image"
+              name="add-image"
               value={image}
               onChange={(e) => setImage(e.target.value)}
               required
@@ -140,7 +140,7 @@ export default function AddNewProduct() {
           <Grid item xs={12}>
             <TextField
               label="Stock Quantity"
-              name="inStock"
+              name="add-inStock"
               value={inStock}
               onChange={(e) => setInStock(Number(e.target.value))}
               required

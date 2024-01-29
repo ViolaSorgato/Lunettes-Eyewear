@@ -78,11 +78,15 @@ const Navbar = () => {
                     style={{ textDecoration: "none" }}
                     onClick={toggleDrawer}
                   >
-                    <div className="nav-menu-item">MY ACCOUNT</div>
+                    <ListItem>
+                      <div className="nav-menu-item">MY ACCOUNT</div>
+                    </ListItem>
                   </NavLink>
-                  <div className="nav-menu-item" onClick={logout}>
-                    SIGN OUT
-                  </div>
+                  <ListItem>
+                    <div className="nav-menu-item" onClick={logout}>
+                      SIGN OUT
+                    </div>
+                  </ListItem>
                 </>
               ) : (
                 <>
@@ -124,7 +128,7 @@ const Navbar = () => {
             <div className="nav-wrapper">
               <div className="nav-left">
                 <div className="nav-search-container">
-                  <Input placeholder="Search" />
+                  <Input id="search-input" placeholder="Search" />
                   <Search style={{ color: "gray", fontSize: 16 }} />
                 </div>
               </div>

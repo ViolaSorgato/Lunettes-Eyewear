@@ -21,7 +21,7 @@ async function checkout(req, res) {
   try {
     const session = await stripe.checkout.sessions.create({
       line_items: lineItems,
-      // customer: req.session.id,
+      customer: req.session.id,
       mode: "payment",
       success_url: `${CLIENT_URL}/confirmation`,
       cancel_url: CLIENT_URL,
