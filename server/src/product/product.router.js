@@ -18,20 +18,16 @@ const {
 
 const { CategoryModel } = require("../category/category.model");
 
+// Creating an Express router for handling product-related routes
 const productRouter = Router()
   .get("/products", getProducts)
-  .delete(
-    "/products/deleteAll",
-    // auth,
-    // adminOnly,
-    deleteAllProducts
-  )
+  .delete("/products/deleteAll", auth, adminOnly, deleteAllProducts)
   .get("/products/:id", exists(ProductModel), getProductById)
   .get("/products/byCategory/:id", exists(CategoryModel), getProductsByCategory)
   .post(
     "/products",
-    // auth,
-    // adminOnly,
+    auth,
+    adminOnly,
     validate(ProductCreateValidationSchema),
     addProduct
   )

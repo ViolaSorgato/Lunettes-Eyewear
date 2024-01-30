@@ -19,7 +19,12 @@ import {
   TextField,
 } from "@mui/material";
 import { ExpandMore } from "@mui/icons-material";
-import { NavLink } from "react-router-dom";
+import {
+  AddProductButton,
+  AdminOrdersButton,
+  BackToAdminButton,
+  ScrollToTop,
+} from "../../components/AdminBtn/AdminBtn";
 
 export default function AdminProducts() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -169,6 +174,7 @@ export default function AdminProducts() {
       <div
         style={{
           display: "flex",
+          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
           paddingTop: "30px",
@@ -179,10 +185,23 @@ export default function AdminProducts() {
           Here you can manage your products. Click on a product to edit its
           properties.
         </p>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "20px",
+            paddingTop: "30px",
+          }}
+        >
+          <BackToAdminButton />
+          <AddProductButton />
+          <AdminOrdersButton />
+        </div>
       </div>
 
       {products.map((product) => (
-        <Accordion key={product._id}>
+        <Accordion key={product.title}>
           <AccordionSummary aria-controls="panel1a-content" id="panel1a-header">
             <Stack
               direction={{ xs: "column", sm: "row" }}
@@ -363,15 +382,12 @@ export default function AdminProducts() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          gap: "20px",
           paddingTop: "30px",
           paddingBottom: "30px",
         }}
       >
-        <NavLink to="/admin" style={{ textDecoration: "none" }}>
-          <Button variant="contained" color="secondary">
-            Back to Admin Panel
-          </Button>
-        </NavLink>
+        <ScrollToTop />
       </div>
     </>
   );

@@ -1,6 +1,7 @@
 const { model, Schema, models } = require("mongoose");
 const Joi = require("joi");
 
+//Defining the Schema for the Product Model
 const ProductSchema = new Schema(
   {
     title: { type: String, required: true },
@@ -18,8 +19,10 @@ const ProductSchema = new Schema(
   { versionKey: false }
 );
 
+// Creating the Product model or using an existing one if available
 const ProductModel = models.product || model("product", ProductSchema);
 
+// Validation schema for creating a new product
 const ProductCreateValidationSchema = Joi.object({
   title: Joi.string().strict().required(),
   description: Joi.string().strict().required(),
@@ -29,6 +32,7 @@ const ProductCreateValidationSchema = Joi.object({
   category: Joi.array().min(1),
 });
 
+// Validation schema for updating a product (includes _id and deleted flag)
 const ProductUpdateValidationSchema = ProductCreateValidationSchema.keys({
   _id: Joi.string().strict().required(),
   deleted: Joi.boolean().strict().required(),

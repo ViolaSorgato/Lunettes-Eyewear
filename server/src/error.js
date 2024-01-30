@@ -30,7 +30,8 @@ const errorRequestHandler = (error, req, res, next) => {
   }
 
   // Unknown server error
-  return res.status(500).json("Unknown server error");
+  console.error("Unknown server error:", error);
+  return res.status(500).json("Internal Server Error");
 };
 
 /** Can be used to throw http errors with a specified status code */

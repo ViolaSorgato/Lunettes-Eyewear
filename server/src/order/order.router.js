@@ -12,28 +12,10 @@ const { OrderModel, OrderValidationSchema } = require("./order.model");
 
 // Create an instance of Express Router
 const orderRouter = Router()
-  .get(
-    "/orders",
-    // auth, adminOnly,
-    getAllOrders
-  ) // Get all orders (admin access required)
-  .get(
-    "/orders/:id",
-    // auth,
-    exists(OrderModel),
-    getOrder
-  ) // Get a specific order by ID (user authentication required)
-  .post(
-    "/orders",
-    // auth,
-    validate(OrderValidationSchema),
-    addOrder
-  ) // Add a new order (user authentication required, request validation)
-  .put(
-    "/orders/:id",
-    // auth,
-    markAsShipped
-  ) // Mark an order as shipped (user authentication required)
+  .get("/orders", auth, adminOnly, getAllOrders) // Get all orders (admin access required)
+  .get("/orders/:id", auth, exists(OrderModel), getOrder) // Get a specific order by ID (user authentication required)
+  .post("/orders", auth, validate(OrderValidationSchema), addOrder) // Add a new order (user authentication required, request validation)
+  .put("/orders/:id", auth, markAsShipped) // Mark an order as shipped (user authentication required)
   .delete("/orders/", deleteAllOrders)
   .delete("/orders/:id", auth, adminOnly, exists(OrderModel), deleteOrder);
 

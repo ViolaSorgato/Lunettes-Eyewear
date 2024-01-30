@@ -1,9 +1,15 @@
+// Importing the initStripe function from the stripe module
 const { initStripe } = require("../stripe");
+
+// Initializing the Stripe client
 const stripe = initStripe();
+
+// Client URL for redirecting after payment confirmation
 const CLIENT_URL = "http://localhost:5173";
 
+// Function to handle the checkout process
 async function checkout(req, res) {
-  console.log("REQ.BODY.ITEMS", req.body.items);
+  // Mapping the received items to create line items for Stripe checkout
   const lineItems = req.body.items.map((item) => {
     return {
       price_data: {
@@ -16,9 +22,9 @@ async function checkout(req, res) {
       quantity: 1,
     };
   });
-  console.log("LINEITEMS", lineItems);
 
   try {
+    // Creating a checkout session using the Stripe API
     const session = await stripe.checkout.sessions.create({
       line_items: lineItems,
       customer: req.session.id,
@@ -27,6 +33,7 @@ async function checkout(req, res) {
       cancel_url: CLIENT_URL,
     });
 
+    // Responding with the generated checkout URL
     res.status(200).json({ url: session.url });
   } catch (error) {
     res.status(400).json("Something went wrong...");

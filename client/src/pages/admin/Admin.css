@@ -2,7 +2,7 @@
   background-image: url("../../assets/bg3.jpg");
   background-size: cover;
   background-position: center;
-  height: 100vh;
+  height: 120vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,7 +12,7 @@
 }
 
 .add-product-form {
-  height: 480px;
+  height: fit-content;
   width: 500px;
   display: flex;
   flex-direction: column;
