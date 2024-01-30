@@ -1,28 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./ProductList.css";
-import { Product } from "../../context/product.context";
 import ProductCard from "../ProductCard/ProductCard";
 import { Grid, Pagination } from "@mui/material";
+import { useProductContext } from "../../context/product.context";
 
 const ProductList = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+  // Retrieve products from the product context
+  const { products } = useProductContext();
+
+  // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 6;
 
-  const getAllProducts = async () => {
-    try {
-      const response = await fetch("api/products");
-      const data = await response.json();
-      setProducts(data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    getAllProducts();
-  }, []);
-
+  // Calculate the range of products to display based on pagination
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
   const currentProducts = products.slice(
@@ -30,6 +20,7 @@ const ProductList = () => {
     indexOfLastProduct
   );
 
+  // Handle page change event for pagination
   const handlePageChange = (
     _event: React.ChangeEvent<unknown>,
     value: number
@@ -39,6 +30,7 @@ const ProductList = () => {
 
   return (
     <>
+      {/* Display the grid of product cards */}
       <Grid
         container
         gap={3}
@@ -51,6 +43,8 @@ const ProductList = () => {
           <ProductCard product={product} key={product._id} />
         ))}
       </Grid>
+
+      {/* Pagination component for navigating through product pages */}
       <Pagination
         count={Math.ceil(products.length / productsPerPage)}
         page={currentPage}

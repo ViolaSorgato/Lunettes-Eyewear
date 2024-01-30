@@ -27,7 +27,7 @@ export default function AddNewProduct() {
     setInStock(0);
   };
 
-  //Add/send new product to database
+  //Add new product to database
 
   const sendNewProductToDataBase = async (productData: NewProduct) => {
     const { title, description, price, image, inStock } = productData;
@@ -188,7 +188,8 @@ export default function AddNewProduct() {
                 severity="success"
                 style={{ marginTop: "2rem" }}
               >
-                SUCCESS - New product add to the database
+                SUCCESS - New product add to the database. You might need to
+                refresh the page.
               </Alert>
             ) : (
               <Alert severity="success" style={{ display: "none" }}></Alert>

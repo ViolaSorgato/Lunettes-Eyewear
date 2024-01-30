@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { Product } from "../../context/product.context";
+import { Product, useProductContext } from "../../context/product.context";
 import { useParams } from "react-router-dom";
 import { Container, Grid } from "@mui/material";
 import AddToCartBtn from "../AddToCartBtn/AddToCartBtn";
 import "./ProductDetails.css";
 
 const ProductDetails = () => {
+  const { getProductById } = useProductContext();
   function inStockProduct(inStock: number) {
     if (inStock == 0) {
       return "Not in stock";
@@ -22,17 +23,17 @@ const ProductDetails = () => {
   useEffect(() => {
     const fetchDetails = async () => {
       try {
-        const apiUrl = `http://localhost:3000/api/products/${id}`;
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-        setProduct(data);
+        if (id) {
+          const productData = await getProductById(id);
+          setProduct(productData);
+        }
       } catch (error) {
         console.log(error);
       }
     };
 
     fetchDetails();
-  }, [id]);
+  }, [getProductById, id]);
 
   return product ? (
     <Container
