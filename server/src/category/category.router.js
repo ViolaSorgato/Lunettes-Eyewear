@@ -4,10 +4,10 @@ const {
   getAllCategories,
   getCategoryById,
 } = require("./category.controller");
-
 const { exists } = require("../middlewares");
 const { CategoryModel } = require("./category.model");
 
+// Creating an Express router for handling category-related routes
 const categoryRouter = Router()
   .post("/categories", createCategory)
   .get("/categories", getAllCategories)

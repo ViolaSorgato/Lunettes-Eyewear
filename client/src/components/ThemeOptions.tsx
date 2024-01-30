@@ -24,17 +24,9 @@ export const themeOptions: ThemeOptions = {
     },
   },
   components: {
-    MuiContainer: {
-      styleOverrides: {
-        root: {
-          backgroundColor: "rgba(243,226,175)",
-        },
-      },
-    },
     MuiPaper: {
       styleOverrides: {
         root: {
-          border: "none",
           borderRadius: "0",
           boxShadow: "none",
         },

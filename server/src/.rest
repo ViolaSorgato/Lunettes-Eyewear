@@ -23,7 +23,7 @@ Content-Type: application/json
 
 {
     "username": "Admin Admin",
-    "email": "admino@example.com",
+    "email": "admin@example.com",
     "password": "adminpassword",
     "isAdmin": true
 }
@@ -120,20 +120,19 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:3000/api/products/deleteAll
-
-###
-
 //ORDERS
 
+//Get all orders
 GET http://localhost:3000/api/orders
 
 ###
 
+//Get specific order
 GET http://localhost:3000/api/orders/65afbfeea43a68bcf85a6818
 
 ###
 
+//Create order
 POST http://localhost:3000/api/orders
 Content-Type: application/json
 
@@ -152,9 +151,12 @@ Content-Type: application/json
 
 ###
 
+//Mark order as shipped
 PUT http://localhost:3000/api/orders/65afbfeea43a68bcf85a6818
 ###
 
+
+//Delete specific order
 DELETE http://localhost:3000/api/orders/65b3a7234a0a3efc74e4a3a7
 
 ###

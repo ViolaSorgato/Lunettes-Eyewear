@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { CartItem } from "../../context/cart.context";
 import { User } from "../../context/user.context";
-import { NavLink } from "react-router-dom";
 import {
   Accordion,
   AccordionDetails,
@@ -18,6 +17,12 @@ import {
 } from "@mui/material";
 import { CheckCircleOutline } from "@mui/icons-material";
 import { formatCurrency } from "../../utilities/formatCurrency";
+import {
+  AddProductButton,
+  BackToAdminButton,
+  EditProductsButton,
+  ScrollToTop,
+} from "../../components/AdminBtn/AdminBtn";
 
 // Define the structure of a shipped order
 interface ShippedOrder {
@@ -104,6 +109,7 @@ export default function AdminOrders() {
       <div
         style={{
           display: "flex",
+          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
           paddingTop: "30px",
@@ -115,6 +121,19 @@ export default function AdminOrders() {
         ) : (
           <p style={{ fontSize: "larger" }}>Here you can manage your orders.</p>
         )}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "20px",
+            paddingTop: "30px",
+          }}
+        >
+          <BackToAdminButton />
+          <AddProductButton />
+          <EditProductsButton />
+        </div>
       </div>
 
       {/* Display orders */}
@@ -218,15 +237,7 @@ export default function AdminOrders() {
           onChange={handlePageChange}
           color="secondary"
         />
-        {/* Back button to navigate to the admin page */}
-        <NavLink
-          to="/admin"
-          style={{ textDecoration: "none", marginTop: "20px" }}
-        >
-          <Button variant="contained" color="primary">
-            Back to Admin Panel
-          </Button>
-        </NavLink>
+        <ScrollToTop />
       </div>
     </>
   );

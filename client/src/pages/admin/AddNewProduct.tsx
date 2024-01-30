@@ -1,8 +1,13 @@
 import { FormEvent, useState } from "react";
 import "./Admin.css";
 import { TextField, Button, Grid, Alert, Typography } from "@mui/material";
-import { NavLink } from "react-router-dom";
 import { NewProduct } from "../../context/product.context";
+import {
+  AdminOrdersButton,
+  BackToAdminButton,
+  EditProductsButton,
+  ScrollToTop,
+} from "../../components/AdminBtn/AdminBtn";
 
 export default function AddNewProduct() {
   const [title, setTitle] = useState("");
@@ -88,16 +93,29 @@ export default function AddNewProduct() {
   return (
     <div className="add-product-container">
       <form onSubmit={handleSubmit} className="add-product-form">
+        <Typography
+          variant="h5"
+          component="h1"
+          gutterBottom
+          style={{ marginTop: "10px" }}
+        >
+          Add a new product to the database
+        </Typography>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "20px",
+            paddingBottom: "20px",
+          }}
+        >
+          <BackToAdminButton />
+          <EditProductsButton />
+          <AdminOrdersButton />
+        </div>
         <Grid container spacing={2}>
           <Grid item xs={12}>
-            <Typography
-              variant="h5"
-              component="h1"
-              gutterBottom
-              style={{ marginTop: "10px" }}
-            >
-              Add a new product to the database
-            </Typography>
             <TextField
               label="Product Title"
               name="add-title"
@@ -177,29 +195,18 @@ export default function AddNewProduct() {
             )}
           </Grid>
         </Grid>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            paddingTop: "5px",
+            gap: "30px",
+          }}
+        >
+          <ScrollToTop />
+        </div>
       </form>
-
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          paddingTop: "30px",
-          paddingBottom: "30px",
-          gap: "30px",
-        }}
-      >
-        <NavLink to="/admin" style={{ textDecoration: "none" }}>
-          <Button variant="contained" color="secondary">
-            Back to Admin Panel
-          </Button>
-        </NavLink>
-        <NavLink to="/adminproducts" style={{ textDecoration: "none" }}>
-          <Button variant="contained" color="secondary">
-            Edit Products
-          </Button>
-        </NavLink>
-      </div>
     </div>
   );
 }

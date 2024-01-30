@@ -10,7 +10,7 @@ const Categories = () => {
       <Stack
         direction={{ xs: "column", sm: "row" }}
         spacing={{ xs: 1, sm: 2, md: 4 }}
-        className="categories-container"
+        className="category-container"
       >
         <Paper
           elevation={3}
