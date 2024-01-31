@@ -2,26 +2,29 @@
 
 **Goals**
 
-- [ ] Solve isAdmin problem when logging in 8 SP
-- [ ] Solve Orders not getting created 8 SP
-- [ ] Test the whole page fpr bugs 5 SP
-- [ ] Refine styling and coherence 3 SP
-- [ ] Comment and clean the code 3 Sp
+- [x] Solve isAdmin problem when logging in 8 SP
+- [x] Solve Orders not getting created 8 SP
+- [x] Test the whole page fpr bugs 5 SP
+- [x] Refine styling and coherence 3 SP
+- [x] Comment and clean the code 3 Sp
 
 **Tasks added later**
 
-- [ ] Optional! Add pages for categories and other extra pages 3 SP
-- [ ] Optional! Move some code to the context instead 1 SP
+- [x] Optional! Add pages for categories and other extra pages 3 SP
+- [x] Optional! Move some code to the context instead 1 SP
 
 **Story Points**
 
 - Expected: 27
-- Achieved:
+- Achieved: 31 and more
 
 # Retrospective
 
 **Plus**
 
+- I achieved much more than I expected this last sprint
+- The project is done and I'm happy with the results
+
 **Delta**
 
-**Actions**
+- Less structure in the end of the porject

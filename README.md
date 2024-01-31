@@ -1,81 +1,81 @@
 # Lunettes-Eyewear
 
-# Beskrivning
+## Description
 
-En e-commerce sida som säljer glasögon.
+An e-commerce website that sells eyewear.
 
-Servern är byggd med NodeJS / Express. För client är projektet byggt med React och TypeScript. När det gäller design valde jag att avända mig av Material UI i kombination med egen CSS. Applikationen är responsiv.
+The server is built with NodeJS/Express. For the client, the project is developed using React and TypeScript.
+The database is built with MongoDB and the application uses Stripe as a payment solution.
+Regarding design, I chose to use Material UI in combination with custom CSS. The application is responsive.
 
-# Installation
+## Installation
 
-För att få igång detta projekt gör du följande:
+To set up this project, follow these steps:
 
-- Börja med att se till att ha NodeJS installerat. Börja annars med att installera det enligt NodeJS dokumentation https://nodejs.org/en
+- Start by ensuring you have NodeJS installed. If not, install it following NodeJS documentation: https://nodejs.org/en
 
-- Kopiera sedan repot från GitHub https://github.com/ViolaSorgato/Lunettes-Eyewear.git
+- Copy the repository from GitHub https://github.com/ViolaSorgato/Lunettes-Eyewear.git
 
-- Klona ner repot på din dator med följande kommando i Terminalen. Navigera först till den mapp där du vill spara projektet:
+- Clone the repository to your computer with the following command in the terminal. First, navigate to the folder where you want to save the project:
 
         git clone https://github.com/ViolaSorgato/Lunettes-Eyewear.git
 
-- Öppna upp projektet i editor Visual Studio Code för att direkt härifrån nå Terminalen.
+- Open the project in Visual Studio Code to access the terminal directly from there.
 
-**Nycklar**
+### Keys
 
-- Samtliga nycklar är hemliga och finns inte med i projektet eller repot. Applikationen kommer inte att fungera utan nycklarna. Kontakta mig för att få dem.
+All keys are secret and are not included in the project or repository. The application will not work without the keys. Please contact me to retrieve them.
 
-**Server**
+### Server
 
-- Öppna en Terminal
+- After having opened the project in VSCode, open a new terminal
 
-- Navigera till server-mappen genom kommandot:
+- Navigate to the server folder using the command:
 
         cd server
 
-- Kör kommandot:
+- Run the command:
 
           npm install
 
-- Starta sedan servern genom något av följande kommandon:
+- Then start the server with one of the following commands:
 
         npm start för att dra igång servern mot node server.js
 
-                eller:
+                or:
 
         npm run dev för att köra med nodemon server.js
 
-- Servern är nu igång
+- The server is now running
 
-**Client**
+### Client
 
-- Öppna en till Terminal
+- Open another terminal
 
-- Navigera till client-mappen genom kommandot:
+- Navigate to the client folder using the command:
 
         cd client
 
-- Kör kommandot:
+- Run the command:
 
           npm install
 
-- När installationen är klar, kör kommandot:
+- When the installation is complete, run the command:
 
-        npm run dev
+          npm run dev
 
-Projektet är nu uppe och snurrar på localhost och du kan se applikationen i din webbläsare.
+The project is now up and running on localhost, and you can view the application in your browser.
 
-**Inloggning som kund**
+### Customer Login
 
-- MAn behöver vara inloggad för att slutföra köp. Man kan registrera en ny kund och logga in därefter. Annars kan man använda följande inloggning:
+You need to be logged in to complete a purchase. You can register a new customer and log in afterward. Alternatively, you can use the following credentials to view orders:
 
-Email:
+- Email: Viola Sorgato
+- Password: testpassword
 
-Password:
+### Admin Login
 
-**Inloggning som Admin**
+Admin users have additional permissions as well as access to admin pages. To log in as an admin, use the following credentials:
 
-- Admin-användare har fler behörigheter och tillgång till Adminssidor. För att logga in som Admin kan man välja förljande inloggning:
-
-Email: admin@example.com
-
-Password: adminpassword
+- Email: admin@example.com
+- Password: adminpassword
