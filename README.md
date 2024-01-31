@@ -70,7 +70,7 @@ The project is now up and running on localhost, and you can view the application
 
 You need to be logged in to complete a purchase. You can register a new customer and log in afterward. Alternatively, you can use the following credentials to view orders:
 
-- Email: Viola Sorgato
+- Email: violasorgato@example.com
 - Password: testpassword
 
 ### Admin Login
