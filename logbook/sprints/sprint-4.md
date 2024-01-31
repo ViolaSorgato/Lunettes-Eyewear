@@ -1,4 +1,4 @@
-# Week 4 (22/1/24-28/1/24): Fourth sprint
+# Week 4 (22/1/24- Ops! Extended until 31/1/24): Fourth sprint
 
 **Goals**
 
@@ -10,7 +10,8 @@
 
 **Tasks added later**
 
-- [ ] Optional! Add pages for categories and other extra pages
+- [ ] Optional! Add pages for categories and other extra pages 3 SP
+- [ ] Optional! Move some code to the context instead 1 SP
 
 **Story Points**
 

@@ -12,11 +12,11 @@ För att få igång detta projekt gör du följande:
 
 - Börja med att se till att ha NodeJS installerat. Börja annars med att installera det enligt NodeJS dokumentation https://nodejs.org/en
 
-- Kopiera sedan repot från GitHub https://github.com/ViolaSorgato/Checkout-Session.git
+- Kopiera sedan repot från GitHub https://github.com/ViolaSorgato/Lunettes-Eyewear.git
 
 - Klona ner repot på din dator med följande kommando i Terminalen. Navigera först till den mapp där du vill spara projektet:
 
-        git clone https://github.com/ViolaSorgato/Checkout-Session.git
+        git clone https://github.com/ViolaSorgato/Lunettes-Eyewear.git
 
 - Öppna upp projektet i editor Visual Studio Code för att direkt härifrån nå Terminalen.
 
@@ -69,6 +69,7 @@ Projektet är nu uppe och snurrar på localhost och du kan se applikationen i di
 - MAn behöver vara inloggad för att slutföra köp. Man kan registrera en ny kund och logga in därefter. Annars kan man använda följande inloggning:
 
 Email:
+
 Password:
 
 **Inloggning som Admin**
@@ -76,4 +77,5 @@ Password:
 - Admin-användare har fler behörigheter och tillgång till Adminssidor. För att logga in som Admin kan man välja förljande inloggning:
 
 Email: admin@example.com
+
 Password: adminpassword

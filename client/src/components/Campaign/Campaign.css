@@ -16,7 +16,7 @@
 /* Positions the info in the right part of the screen */
 @media (min-width: 1225px) {
   .campaign-info {
-    padding-top: 100px;
-    padding-left: 300px;
+    padding-top: 80px;
+    padding-left: 270px;
   }
 }
