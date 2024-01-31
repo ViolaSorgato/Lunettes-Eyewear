@@ -92,8 +92,17 @@ const LoginPage = () => {
         </div>
       ) : loggedInUser ? (
         <div className="account-container">
+          <p className="account-title">Welcome {loggedInUser.username}.</p>
           <div>
-            <p className="account-title">You are logged in as a member.</p>
+            <NavLink to="/myorders" style={{ textDecoration: "none" }}>
+              <Button
+                variant="contained"
+                color="primary"
+                style={{ width: "150px", height: "100px" }}
+              >
+                My Orders
+              </Button>
+            </NavLink>
           </div>
         </div>
       ) : (

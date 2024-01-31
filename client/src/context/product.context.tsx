@@ -47,7 +47,7 @@ const ProductProvider = ({ children }: PropsWithChildren) => {
     try {
       const response = await fetch("api/products");
       const data = await response.json();
-      setProducts(data);
+      setProducts(data.reverse());
     } catch (err) {
       console.log(err);
     }

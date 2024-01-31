@@ -1,0 +1,13 @@
+.myorders-container {
+  background-color: white;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-top: 50px;
+  padding-left: 50px;
+  gap: 20px;
+}
+
+.myorders-title {
+  font-size: xx-large;
+}

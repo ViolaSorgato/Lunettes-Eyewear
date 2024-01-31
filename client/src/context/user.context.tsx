@@ -8,6 +8,7 @@ import {
 } from "react";
 
 export type User = {
+  _id: string;
   username: string;
   email: string;
   password: string;
@@ -36,6 +37,7 @@ interface UserContextType {
   isAdmin: (user: UserType) => void;
   alert: AlertType | null;
   setAlert: Dispatch<SetStateAction<AlertType | null>>;
+  userID: string | null;
 }
 
 type Props = {
@@ -52,12 +54,14 @@ export const UserContextType = createContext<UserContextType>({
   alert: null,
   setAlert: () => {},
   setRegisteredUser: () => {},
+  userID: null,
 });
 
 const UserProvider = ({ children }: Props) => {
   const [registeredUser, setRegisteredUser] = useState<User | null>(null);
   const [loggedInUser, setloggedInUser] = useState<User | null>(null);
   const [alert, setAlert] = useState<AlertType | null>(null);
+  const [userID, setUserID] = useState<string | null>(null);
 
   useEffect(() => {
     const authorization = async () => {
@@ -123,9 +127,13 @@ const UserProvider = ({ children }: Props) => {
           body: JSON.stringify(user),
         });
         const data = await response.json();
+        console.log("DATA", data);
 
         if (response.status === 200) {
           setloggedInUser(data);
+          console.log("DATA._ID", data._id);
+          setUserID(data._id);
+          console.log("LOGGEDINUSER", loggedInUser);
           setRegisteredUser(null);
           setAlert({
             type: "success",
@@ -176,6 +184,7 @@ const UserProvider = ({ children }: Props) => {
         alert,
         setAlert,
         setRegisteredUser,
+        userID,
       }}
     >
       {children}

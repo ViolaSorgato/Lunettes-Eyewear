@@ -30,6 +30,18 @@ Content-Type: application/json
 
 ###
 
+//Login as a customer
+
+POST http://localhost:3000/api/users/login
+Content-Type: application/json
+
+{
+  "email": "violasorgato@example.com",
+  "password": "testpassword"
+}
+
+###
+
 //Login as an admin
 POST http://localhost:3000/api/users/login
 Content-Type: application/json
@@ -127,8 +139,8 @@ GET http://localhost:3000/api/orders
 
 ###
 
-//Get specific order
-GET http://localhost:3000/api/orders/65afbfeea43a68bcf85a6818
+//Get specific order for customer
+GET http://localhost:3000/api/orders/customer/659d3938e3ee525712aa53b5
 
 ###
 
