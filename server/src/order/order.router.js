@@ -18,8 +18,8 @@ const orderRouter = Router()
   .get("/orders/customer/:customerId", getOrdersForCustomer) // Get all orders for a specific customer (user authentication required)
   .post("/orders", auth, validate(OrderValidationSchema), addOrder) // Add a new order (user authentication required, request validation)
   .put("/orders/:id", auth, markAsShipped) // Mark an order as shipped (user authentication required)
-  .delete("/orders/", deleteAllOrders)
-  .delete("/orders/:id", auth, adminOnly, exists(OrderModel), deleteOrder);
+  .delete("/orders/deleteAll", deleteAllOrders)
+  .delete("/orders", auth, adminOnly, exists(OrderModel), deleteOrder);
 
 // Export the order router
 module.exports = { orderRouter };

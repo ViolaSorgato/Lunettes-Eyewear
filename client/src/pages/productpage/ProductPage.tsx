@@ -10,6 +10,7 @@ const ProductPage = () => {
         flexDirection: "column",
         alignItems: "center",
         minWidth: "100%",
+        backgroundColor: "white",
       }}
     >
       <p className="product-title">Our Products</p>

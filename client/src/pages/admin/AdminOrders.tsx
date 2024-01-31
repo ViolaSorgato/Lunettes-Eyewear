@@ -43,7 +43,7 @@ export default function AdminOrders() {
     try {
       const response = await fetch("api/orders");
       const data = await response.json();
-      setOrders(data);
+      setOrders(data.reverse());
     } catch (err) {
       console.log(err);
     }
@@ -231,13 +231,17 @@ export default function AdminOrders() {
           paddingBottom: "30px",
         }}
       >
-        <Pagination
-          count={Math.ceil(orders.length / ordersPerPage)}
-          page={currentPage}
-          onChange={handlePageChange}
-          color="secondary"
-        />
-        <ScrollToTop />
+        {orders.length > 6 && (
+          <>
+            <Pagination
+              count={Math.ceil(orders.length / ordersPerPage)}
+              page={currentPage}
+              onChange={handlePageChange}
+              color="secondary"
+            />
+            <ScrollToTop />
+          </>
+        )}
       </div>
     </>
   );
