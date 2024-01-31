@@ -1,10 +1,4 @@
-import {
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Typography,
-} from "@mui/material";
+import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import "./ProductCard.css";
 import { NavLink } from "react-router-dom";
 import { Product } from "../../context/product.context";
@@ -19,13 +13,11 @@ type Props = {
 const ProductCard = ({ product }: Props) => {
   return (
     <Card
-      variant="outlined"
       sx={{
-        width: 500,
-        height: 500,
+        width: 300,
+        height: 400,
         display: "flex",
         flexDirection: "column",
-        justifyContent: "space-between",
       }}
     >
       <NavLink
@@ -38,7 +30,7 @@ const ProductCard = ({ product }: Props) => {
           component="img"
           alt={product.title}
           image={product.image}
-          height="300"
+          height="280px"
         />
       </NavLink>
 
@@ -49,7 +41,9 @@ const ProductCard = ({ product }: Props) => {
           className="nav-link"
           style={{ textDecoration: "none" }}
         >
-          <Typography variant="h5">{product.title}</Typography>
+          <Typography variant="h5" style={{ paddingTop: "0px" }}>
+            {product.title}
+          </Typography>
         </NavLink>
         <NavLink
           to={`/${product._id}`}
@@ -58,12 +52,9 @@ const ProductCard = ({ product }: Props) => {
           style={{ textDecoration: "none" }}
         >
           <Typography variant="body2">{product.price + " SEK"}</Typography>
-        </NavLink>
-      </CardContent>
-
-      <CardActions>
+        </NavLink>{" "}
         <AddToCartBtn product={product} />
-      </CardActions>
+      </CardContent>
     </Card>
   );
 };
