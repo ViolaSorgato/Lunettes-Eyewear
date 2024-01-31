@@ -19,6 +19,8 @@ import AddNewProduct from "./pages/admin/AddNewProduct";
 import AdminOrders from "./pages/admin/AdminOrders";
 import { OrderProvider } from "./context/order.context";
 import MyOrders from "./pages/myorderspage/MyOrders";
+import GlassesPage from "./pages/glassespage/GlassesPage";
+import SunglassesPage from "./pages/sunglassespage/SunglassesPage";
 
 const theme = createTheme(themeOptions);
 
@@ -44,6 +46,11 @@ const App = () => {
                     <Route path="/addnewproduct" element={<AddNewProduct />} />
                     <Route path="/adminorders" element={<AdminOrders />} />
                     <Route path="/myorders" element={<MyOrders />} />
+                    <Route path="/shop/glasses" element={<GlassesPage />} />
+                    <Route
+                      path="/shop/sunglasses"
+                      element={<SunglassesPage />}
+                    />
                   </Routes>
                   <Footer />
                 </BrowserRouter>
