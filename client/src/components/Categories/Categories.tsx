@@ -1,12 +1,17 @@
 import { Grid, Paper } from "@mui/material";
 import { motion } from "framer-motion";
 import "./Categories.css";
+import { NavLink } from "react-router-dom";
 
 const Categories = () => {
   //Animation on hover
   const hoverEffect = {
     scale: 1.05, // Adjust the scale factor as per your preference
     transition: { duration: 0.3 }, // Adjust the duration of the transition
+  };
+
+  const handleClick = () => {
+    window.scrollTo(0, 0);
   };
 
   return (
@@ -24,21 +29,34 @@ const Categories = () => {
       >
         <Grid item xs={12} sm={6}>
           <motion.div whileHover={hoverEffect}>
-            <Paper
-              elevation={3}
-              className="category category-left"
-              sx={{ width: "100%" }}
+            <NavLink
+              to="/shop/glasses"
+              style={{ textDecoration: "none" }}
+              onClick={handleClick}
             >
-              <h1 className="text">Glasses</h1>
-            </Paper>
+              <Paper
+                elevation={3}
+                className="category category-left"
+                sx={{ width: "100%" }}
+              >
+                <h1 className="text">Glasses</h1>
+              </Paper>
+            </NavLink>
           </motion.div>
         </Grid>
 
         <Grid item xs={12} sm={6}>
           <motion.div whileHover={hoverEffect}>
-            <Paper elevation={3} className="category category-right">
-              <h1 className="category-text">Sunglasses</h1>
-            </Paper>
+            <NavLink
+              to="/shop/sunglasses"
+              className="nav-link"
+              style={{ textDecoration: "none" }}
+              onClick={handleClick}
+            >
+              <Paper elevation={3} className="category category-right">
+                <h1 className="category-text">Sunglasses</h1>
+              </Paper>
+            </NavLink>
           </motion.div>
         </Grid>
       </Grid>
