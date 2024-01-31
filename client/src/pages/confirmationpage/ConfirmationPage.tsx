@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   CircularProgress,
   Grid,
   Paper,
@@ -17,6 +18,7 @@ import { UserContextType } from "../../context/user.context";
 import { useShoppingCart } from "../../context/cart.context";
 import { formatCurrency } from "../../utilities/formatCurrency";
 import "./Confirmation.css";
+import { NavLink } from "react-router-dom";
 
 const ConfirmationPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -105,7 +107,7 @@ const ConfirmationPage = () => {
 
   return (
     <div className="confirmation-container">
-      <p className="title-list">Thank you! Your order is ready.</p>{" "}
+      <p className="confirmation-title">Thank you! Your order is ready.</p>{" "}
       <Grid container spacing={2} alignItems="stretch">
         {/* Order Details Section */}
         <Grid item xs={12} sm={12} md={6}>
@@ -157,6 +159,14 @@ const ConfirmationPage = () => {
           </Paper>
         </Grid>
       </Grid>
+      <NavLink
+        to="/myorders"
+        style={{ textDecoration: "none", paddingTop: "10px" }}
+      >
+        <Button variant="contained" color="secondary">
+          Go to my orders
+        </Button>
+      </NavLink>
     </div>
   );
 };
