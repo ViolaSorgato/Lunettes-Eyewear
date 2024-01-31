@@ -34,6 +34,29 @@ const getOrder = async (req, res) => {
   res.status(200).json(order);
 };
 
+// Get all orders for a specific customer
+const getOrdersForCustomer = async (req, res) => {
+  // Check if the user has permission to access orders for the specified customer
+  if (!req.session.isAdmin && req.params.customerId !== req.session._id) {
+    return res
+      .status(403)
+      .json("You do not have permissions to perform this request");
+  }
+
+  try {
+    // Find all orders for the specified customer, populating "orderItems.product" field
+    const orders = await OrderModel.find({ customer: req.params.customerId })
+      .populate("orderItems.product")
+      .exec();
+
+    // Send the orders in the response
+    res.status(200).json(orders);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
 // Add a new order
 const addOrder = async (req, res, next) => {
   try {
@@ -109,6 +132,7 @@ async function deleteAllOrders(req, res) {
 module.exports = {
   getAllOrders,
   getOrder,
+  getOrdersForCustomer,
   addOrder,
   markAsShipped,
   deleteOrder,
