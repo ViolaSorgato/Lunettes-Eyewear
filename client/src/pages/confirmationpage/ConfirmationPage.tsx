@@ -20,6 +20,7 @@ import { formatCurrency } from "../../utilities/formatCurrency";
 import "./Confirmation.css";
 import { NavLink } from "react-router-dom";
 
+//Renders the confirmation page when the Stripe checkout is successful
 const ConfirmationPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const { order, setOrder } = useOrderContext();

@@ -63,6 +63,7 @@ export const AdminOrdersButton = () => (
   </NavLink>
 );
 
+//Button to scroll to top (just displays an arrow)
 export const ScrollToTop = () => (
   <Button variant="contained" color="secondary" onClick={handleClick}>
     <ArrowUpwardOutlined />

@@ -7,6 +7,7 @@ import {
   useState,
 } from "react";
 
+// Define the structure of a User
 export type User = {
   _id: string;
   username: string;
@@ -15,6 +16,7 @@ export type User = {
   isAdmin?: boolean;
 };
 
+// Define the structure of a User for registration/login
 export type UserType = {
   username: string;
   email: string;
@@ -22,11 +24,13 @@ export type UserType = {
   isAdmin?: boolean;
 };
 
+// Define the structure of an alert
 interface AlertType {
   type: "success" | "info" | "warning" | "error";
   message: string;
 }
 
+// Define the context for user-related operations
 interface UserContextType {
   registeredUser?: User | null;
   setRegisteredUser: Dispatch<SetStateAction<User | null>>;
@@ -44,6 +48,7 @@ type Props = {
   children: ReactNode;
 };
 
+//Default values
 export const UserContextType = createContext<UserContextType>({
   loggedInUser: null,
   registeredUser: null,
@@ -57,12 +62,14 @@ export const UserContextType = createContext<UserContextType>({
   userID: null,
 });
 
+// UserProvider component responsible for managing user-related state
 const UserProvider = ({ children }: Props) => {
   const [registeredUser, setRegisteredUser] = useState<User | null>(null);
   const [loggedInUser, setloggedInUser] = useState<User | null>(null);
   const [alert, setAlert] = useState<AlertType | null>(null);
   const [userID, setUserID] = useState<string | null>(null);
 
+  //The folowing functions are pretty self-explanatory
   useEffect(() => {
     const authorization = async () => {
       try {
@@ -78,7 +85,6 @@ const UserProvider = ({ children }: Props) => {
     authorization();
   }, []);
 
-  // Check if user is an admin
   const isAdmin = (user: UserType) => {
     return user.isAdmin;
   };

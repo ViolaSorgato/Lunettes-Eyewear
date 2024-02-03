@@ -9,7 +9,7 @@ type Props = {
 };
 
 //Render the Product Cards that are displayed in the ProductList.
-//When the imagem title or price are clicked, the user is redirected to the Product Details page.
+//When the image title or price are clicked, the user is redirected to the Product Details.
 const ProductCard = ({ product }: Props) => {
   return (
     <Card
@@ -41,7 +41,7 @@ const ProductCard = ({ product }: Props) => {
           className="nav-link"
           style={{ textDecoration: "none" }}
         >
-          <Typography variant="h5" style={{ paddingTop: "0px" }}>
+          <Typography variant="h6" style={{ paddingTop: "0px" }}>
             {product.title}
           </Typography>
         </NavLink>

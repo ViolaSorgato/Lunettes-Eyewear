@@ -1,10 +1,11 @@
 import { useState } from "react";
-import "./ProductList.css";
 import ProductCard from "../ProductCard/ProductCard";
 import { Grid, Pagination } from "@mui/material";
 import { useProductContext } from "../../context/product.context";
 import { motion } from "framer-motion";
 
+//Renders the list of products displayed in Product Page.
+//The list maps through the products array and displays Product Cards.
 const ProductList = () => {
   // Retrieve products from the product context
   const { products } = useProductContext();
@@ -36,7 +37,7 @@ const ProductList = () => {
     transition: { duration: 0.3 }, // Adjust the duration of the transition
   };
 
-  // Function to scroll to the top of the page
+  //Scrolls to the top of the page when changing page
   const handleClick = () => {
     window.scrollTo(0, 0);
   };

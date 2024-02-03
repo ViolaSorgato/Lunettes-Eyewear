@@ -1,5 +1,6 @@
 import "./AboutUsPage.css";
 
+//This page is just there for content
 const AboutUsPage = () => {
   return (
     <div className="about-content">

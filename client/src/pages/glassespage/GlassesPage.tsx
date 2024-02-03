@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import { NavLink } from "react-router-dom";
 
+//Renders the page for this category
 const GlassesPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
   // Pagination state
@@ -30,8 +31,8 @@ const GlassesPage = () => {
 
   //Animation on hover
   const hoverEffect = {
-    scale: 1.05, // Adjust the scale factor as per your preference
-    transition: { duration: 0.3 }, // Adjust the duration of the transition
+    scale: 1.05,
+    transition: { duration: 0.3 },
   };
 
   // Function to scroll to the top of the page
@@ -39,6 +40,7 @@ const GlassesPage = () => {
     window.scrollTo(0, 0);
   };
 
+  //Fetches the right category
   useEffect(() => {
     const fetchData = async () => {
       try {

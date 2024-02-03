@@ -9,13 +9,13 @@ import {
   ScrollToTop,
 } from "../../components/AdminBtn/AdminBtn";
 
+//This is where an Admin can add a new product to the database
 export default function AddNewProduct() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState<number>(0);
   const [image, setImage] = useState("");
   const [inStock, setInStock] = useState<number>(0);
-
   const [show, setShow] = useState<boolean>();
   const [success, setSuccess] = useState(false);
 
@@ -28,7 +28,6 @@ export default function AddNewProduct() {
   };
 
   //Add new product to database
-
   const sendNewProductToDataBase = async (productData: NewProduct) => {
     const { title, description, price, image, inStock } = productData;
 
@@ -65,13 +64,11 @@ export default function AddNewProduct() {
   };
 
   //Handle Alert visibility
-
   function handleShow() {
     setShow(!show);
   }
 
   //Handle submit button
-
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 

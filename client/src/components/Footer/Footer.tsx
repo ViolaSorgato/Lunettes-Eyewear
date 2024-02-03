@@ -12,7 +12,8 @@ import "./Footer.css";
 import { NavLink } from "react-router-dom";
 
 //The footer is divided into three columns but adjusts into one with small screens.
-//The content was made mostly for the aesthetic purposes, so I did not add pages for all the links or socials.
+//The content was made mostly for the aesthetic purposes,
+// so I did not add pages for all the links or socials.
 const Footer = () => {
   return (
     <div className="footer-container">

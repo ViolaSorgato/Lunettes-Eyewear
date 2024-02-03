@@ -16,10 +16,12 @@ import { Search, Menu } from "@mui/icons-material";
 import { UserContextType } from "../../context/user.context";
 import ShoppingCartIcon from "../ShoppingCartIcon/ShoppingCartIcon";
 
-/*Handles the logic for the navigation bar/menu. The Logo always leads to the Homepage and the SHOP
-always leads to products page. The rest of the content is rendered differently depending on
+/*Handles the logic for the navigation bar/menu. The Logo always leads
+ to the Homepage and the SHOP always leads to products page. 
+ The rest of the content is rendered differently depending on
 A) The screen size
-B) Whether the user is logged in or not.*/
+B) Whether the user is logged in or not.
+!!OPS!! The searchbar does not have a function*/
 const Navbar = () => {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const { loggedInUser, logout } = useContext(UserContextType);

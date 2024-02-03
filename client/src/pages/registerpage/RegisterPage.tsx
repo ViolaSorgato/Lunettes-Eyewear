@@ -12,6 +12,8 @@ import {
 import { NavLink } from "react-router-dom";
 import "./RegisterPage.css";
 
+//Renders both registration form and welcome message when registation is successful
+//An alert will tell if the email is already registered.
 const RegisterPage = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -36,6 +38,7 @@ const RegisterPage = () => {
     await register(user);
   };
 
+  //Handles alert message
   const handleClose = (
     _event?: React.SyntheticEvent | Event,
     reason?: string

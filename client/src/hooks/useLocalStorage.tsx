@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 
+// Custom hook for managing state in local storage
 export default function useLocalStorage<T>(
   key: string,
   initialValue: T | (() => T)
@@ -15,6 +16,7 @@ export default function useLocalStorage<T>(
     }
   });
 
+  // Effect to update local storage whenever the key or value changes
   useEffect(() => {
     localStorage.setItem(key, JSON.stringify(value));
   }, [key, value]);

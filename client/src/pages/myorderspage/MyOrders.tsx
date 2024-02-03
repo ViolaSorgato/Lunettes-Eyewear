@@ -24,6 +24,8 @@ interface Order {
   _id: string;
 }
 
+//Renders the list of orders for the logged in customer
+//If the customer logs out while on this page, it will show a message "please log in"
 const MyOrders = () => {
   const { loggedInUser } = useContext(UserContextType); // Use the UserContextType
 

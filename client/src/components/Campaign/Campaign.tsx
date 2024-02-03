@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import "./Campaign.css";
 
-//Renders the main campaign banner, title leads to Product page
+//Renders the main campaign banner, title leads to shop
 
 const Campaign = () => {
   return (

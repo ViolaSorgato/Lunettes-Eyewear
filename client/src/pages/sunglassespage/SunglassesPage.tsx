@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import { NavLink } from "react-router-dom";
 
+//Renders the page for this category
 const SunglassesPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
   // Pagination state
@@ -39,6 +40,7 @@ const SunglassesPage = () => {
     window.scrollTo(0, 0);
   };
 
+  //Fetches the right category
   useEffect(() => {
     const fetchData = async () => {
       try {

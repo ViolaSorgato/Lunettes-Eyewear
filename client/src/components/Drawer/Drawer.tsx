@@ -15,7 +15,7 @@ interface ShoppingDrawerProps {
   setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-/*Renders the Drawer with the Shopping Cart.
+/*Renders the Drawer which is also the Shopping Cart.
 The content is rendered depending on whether the cart is empty or not,
 and whether the user is logged in or not.*/
 

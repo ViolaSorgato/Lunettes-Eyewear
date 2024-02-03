@@ -1,5 +1,7 @@
 import { ThemeOptions } from "@mui/material/styles";
 
+//This is a custom Theme for the application
+
 //primary: beige/pinkish tones
 //secondary: pastel green tones
 export const themeOptions: ThemeOptions = {

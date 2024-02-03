@@ -3,13 +3,15 @@ import { motion } from "framer-motion";
 import "./Categories.css";
 import { NavLink } from "react-router-dom";
 
+//Renders the two categories in the Homepage.
 const Categories = () => {
   //Animation on hover
   const hoverEffect = {
-    scale: 1.05, // Adjust the scale factor as per your preference
-    transition: { duration: 0.3 }, // Adjust the duration of the transition
+    scale: 1.05,
+    transition: { duration: 0.3 },
   };
 
+  //Scrolls to top
   const handleClick = () => {
     window.scrollTo(0, 0);
   };

@@ -12,6 +12,10 @@ import { UserType, UserContextType } from "../../context/user.context";
 import { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 
+//Renders either the login form, or the account page.
+//If customer, the account page shows button to orders.
+//if Admin, the account page shows admin panel.
+//If wrong credentials, an alert will show up.
 const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -37,6 +41,7 @@ const LoginPage = () => {
     await login(user);
   };
 
+  //Handles the alert when loggin in
   const handleClose = (
     _event?: React.SyntheticEvent | Event,
     reason?: string

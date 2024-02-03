@@ -26,6 +26,7 @@ import {
   ScrollToTop,
 } from "../../components/AdminBtn/AdminBtn";
 
+//This is the page where Admin can manage the product list
 export default function AdminProducts() {
   const [products, setProducts] = useState<Product[]>([]);
   const [title, setTitle] = useState("");
@@ -48,8 +49,7 @@ export default function AdminProducts() {
     getAllProducts();
   }, []);
 
-  //----------------------------Alert to confirm before delete-------------------------------------//
-
+  //Alert to confirm before delete
   const [open, setOpen] = React.useState(false);
   const [isDeleteConfirmation, setIsDeleteConfirmation] = useState(false);
 
@@ -62,8 +62,7 @@ export default function AdminProducts() {
     setIsDeleteConfirmation(false);
   };
 
-  //----------------------------START - Deleting product from database-------------------------------------//
-
+  //Deletes product from database
   const deleteProductFromDatabase = (id: string) => {
     const url = "api/products/" + id;
     fetch(url, { method: "DELETE" })
@@ -93,10 +92,7 @@ export default function AdminProducts() {
     setIsDeleteConfirmation(true);
   };
 
-  //----------------------------END - Deleting product from database-------------------------------------//
-
-  //----------------------------START - Update a product in database-------------------------------------//
-
+  //Updates a product in database
   const updateProductInDatabase = (id: string) => {
     const url = "api/products/" + id;
 
@@ -160,8 +156,7 @@ export default function AdminProducts() {
     }, 400);
   };
 
-  //----------------------------END - Update a product in database-------------------------------------//
-
+  //Handles the success message when a product is updated
   const [show, setShow] = useState<boolean>();
   const [success, setSuccess] = useState(false);
 

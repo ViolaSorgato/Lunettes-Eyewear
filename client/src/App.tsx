@@ -10,7 +10,7 @@ import ProductPage from "./pages/productpage/ProductPage";
 import ProductProvider from "./context/product.context";
 import AboutUsPage from "./pages/aboutuspage/AboutUsPage";
 import ShoppingCartProvider from "./context/cart.context";
-import ProductDetails from "./components/ProductDetails/Productsdetails";
+import ProductDetails from "./components/ProductDetails/ProductDetails";
 import LoginPage from "./pages/loginpage/LoginPage";
 import UserProvider from "./context/user.context";
 import RegisterPage from "./pages/registerpage/RegisterPage";
@@ -24,6 +24,7 @@ import SunglassesPage from "./pages/sunglassespage/SunglassesPage";
 
 const theme = createTheme(themeOptions);
 
+//This is where I handle both Providers and Routes
 const App = () => {
   return (
     <div>

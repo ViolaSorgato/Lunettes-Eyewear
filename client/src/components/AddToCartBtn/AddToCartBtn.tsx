@@ -12,6 +12,9 @@ type Props = {
   product: Product;
 };
 
+//This component handles the logic of Add to Cart button
+// and adjusts the quantity of the cart items.
+
 const AddToCartBtn = ({ product }: Props) => {
   // Access shopping cart functions from the context
   const {

@@ -33,7 +33,7 @@ interface ShippedOrder {
   _id: string;
 }
 
-// AdminOrders component
+// This is the page where Admin can manage the orders
 export default function AdminOrders() {
   // State to hold the list of shipped orders
   const [orders, setOrders] = useState<ShippedOrder[]>([]);

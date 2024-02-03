@@ -1,6 +1,9 @@
 import { createContext, useContext, ReactNode } from "react";
 import useLocalStorage from "../../src/hooks/useLocalStorage";
 
+//Handles the Cart logic
+
+// Define the structure of the Cart Item object
 export type CartItem = {
   id: string;
   title: string;
@@ -23,6 +26,7 @@ type ShoppingCartProviderProps = {
 };
 const ShoppingCartContext = createContext({} as ShoppingCartContext);
 
+// Custom hook to use the context
 export function useShoppingCart() {
   return useContext(ShoppingCartContext);
 }
@@ -40,6 +44,7 @@ export default function ShoppingCartProvider({
     0
   );
 
+  //The folowing functions are pretty self-explanatory
   function getItemQuantity(id: string) {
     return cartItems.find((item) => item.id === id)?.quantity || 0;
   }

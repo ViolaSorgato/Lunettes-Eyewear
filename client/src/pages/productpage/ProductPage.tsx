@@ -14,10 +14,10 @@ const ProductPage = () => {
       }}
     >
       <p className="product-title">Our Products</p>
-      <p className="product-desc">
+      {/* <p className="product-desc">
         From the sun-drenched landscapes of Sicily to the fashion-forward
         streets of Milan, each pair of eyeglasses is a masterpiece.
-      </p>
+      </p> */}
       <ProductList />
     </Container>
   );
