@@ -11,7 +11,7 @@ import {
 import { UserContextType } from "../../context/user.context";
 
 //This is where an Admin can add a new product to the database
-export default function AddNewProduct() {
+const AddNewProduct = () => {
   const { loggedInUser } = useContext(UserContextType);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -229,4 +229,6 @@ export default function AddNewProduct() {
       )}
     </>
   );
-}
+};
+
+export default AddNewProduct;

@@ -39,7 +39,7 @@ export const OrderContext = createContext<IOrderContext>({
 export const useOrderContext = () => useContext(OrderContext);
 
 // OrderProvider component responsible for managing the order state
-export const OrderProvider = ({ children }: PropsWithChildren<{}>) => {
+const OrderProvider = ({ children }: PropsWithChildren<{}>) => {
   // State to manage the order
   const [order, setOrder] = useState<Order>(defaultOrder);
 
@@ -134,3 +134,5 @@ export const OrderProvider = ({ children }: PropsWithChildren<{}>) => {
     </OrderContext.Provider>
   );
 };
+
+export default OrderProvider;

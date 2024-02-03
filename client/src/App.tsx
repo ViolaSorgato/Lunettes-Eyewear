@@ -17,7 +17,7 @@ import RegisterPage from "./pages/registerpage/RegisterPage";
 import AdminProducts from "./pages/admin/AdminProducts";
 import AddNewProduct from "./pages/admin/AddNewProduct";
 import AdminOrders from "./pages/admin/AdminOrders";
-import { OrderProvider } from "./context/order.context";
+import OrderProvider from "./context/order.context";
 import MyOrders from "./pages/myorderspage/MyOrders";
 import GlassesPage from "./pages/glassespage/GlassesPage";
 import SunglassesPage from "./pages/sunglassespage/SunglassesPage";

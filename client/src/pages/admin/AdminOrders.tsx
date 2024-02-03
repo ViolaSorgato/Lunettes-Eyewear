@@ -34,7 +34,7 @@ interface ShippedOrder {
 }
 
 // This is the page where Admin can manage the orders
-export default function AdminOrders() {
+const AdminOrders = () => {
   const { loggedInUser } = useContext(UserContextType);
   const [orders, setOrders] = useState<ShippedOrder[]>([]);
 
@@ -265,4 +265,6 @@ export default function AdminOrders() {
       </div>
     </>
   );
-}
+};
+
+export default AdminOrders;
