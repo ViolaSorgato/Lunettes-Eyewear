@@ -28,7 +28,7 @@ import {
 import { UserContextType } from "../../context/user.context";
 
 //This is the page where Admin can manage the product list
-export default function AdminProducts() {
+const AdminProducts = () => {
   const { loggedInUser } = React.useContext(UserContextType);
   const [products, setProducts] = useState<Product[]>([]);
   const [title, setTitle] = useState("");
@@ -411,4 +411,6 @@ export default function AdminProducts() {
       )}
     </>
   );
-}
+};
+
+export default AdminProducts;

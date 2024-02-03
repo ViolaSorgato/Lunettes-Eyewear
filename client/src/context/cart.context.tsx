@@ -31,9 +31,7 @@ export function useShoppingCart() {
   return useContext(ShoppingCartContext);
 }
 
-export default function ShoppingCartProvider({
-  children,
-}: ShoppingCartProviderProps) {
+const ShoppingCartProvider = ({ children }: ShoppingCartProviderProps) => {
   const [cartItems, setCartItems] = useLocalStorage<CartItem[]>(
     "shopping-cart",
     []
@@ -106,4 +104,6 @@ export default function ShoppingCartProvider({
       {children}
     </ShoppingCartContext.Provider>
   );
-}
+};
+
+export default ShoppingCartProvider;
