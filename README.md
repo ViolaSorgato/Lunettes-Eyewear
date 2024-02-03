@@ -6,7 +6,7 @@ An e-commerce website that sells eyewear.
 
 The server is built with NodeJS/Express. For the client, the project is developed using React and TypeScript.
 The database is built with MongoDB and the application uses Stripe as a payment solution.
-Regarding design, I chose to use Material UI in combination with custom CSS. The application is responsive.
+Regarding design, I chose to use Material UI in combination with custom CSS. Some effects are built with Framer Motion. The application is fully responsive.
 
 ## Installation
 
@@ -40,11 +40,11 @@ All keys are secret and are not included in the project or repository. The appli
 
 - Then start the server with one of the following commands:
 
-        npm start för att dra igång servern mot node server.js
+        npm start to start the server
 
                 or:
 
-        npm run dev för att köra med nodemon server.js
+        npm run dev to run dependencies
 
 - The server is now running
 

@@ -1,6 +1,6 @@
 .myorders-container {
   background-color: white;
-  height: 100vh;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   padding-top: 50px;
