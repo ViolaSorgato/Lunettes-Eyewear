@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 import "./Admin.css";
 import { TextField, Button, Grid, Alert, Typography } from "@mui/material";
 import { NewProduct } from "../../context/product.context";
@@ -8,9 +8,11 @@ import {
   EditProductsButton,
   ScrollToTop,
 } from "../../components/AdminBtn/AdminBtn";
+import { UserContextType } from "../../context/user.context";
 
 //This is where an Admin can add a new product to the database
 export default function AddNewProduct() {
+  const { loggedInUser } = useContext(UserContextType);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState<number>(0);
@@ -88,123 +90,143 @@ export default function AddNewProduct() {
   };
 
   return (
-    <div className="add-product-container">
-      <form onSubmit={handleSubmit} className="add-product-form">
-        <Typography
-          variant="h5"
-          component="h1"
-          gutterBottom
-          style={{ marginTop: "10px" }}
-        >
-          Add a new product to the database
-        </Typography>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "20px",
-            paddingBottom: "20px",
-          }}
-        >
-          <BackToAdminButton />
-          <EditProductsButton />
-          <AdminOrdersButton />
-        </div>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <TextField
-              label="Product Title"
-              name="add-title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              required
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Product Description"
-              name="add-description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              required
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Price"
-              name="add-price"
-              value={price}
-              onChange={(e) => setPrice(Number(e.target.value))}
-              required
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Image URL"
-              name="add-image"
-              value={image}
-              onChange={(e) => setImage(e.target.value)}
-              required
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              label="Stock Quantity"
-              name="add-inStock"
-              value={inStock}
-              onChange={(e) => setInStock(Number(e.target.value))}
-              required
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12}>
-            {show && !success ? (
-              <Alert
-                onClose={handleShow}
-                severity="error"
-                style={{ marginBottom: "2rem" }}
-              >
-                ERROR - Error adding new product to the database.<br></br>{" "}
-                Please try again
-              </Alert>
-            ) : (
-              <Alert severity="error" style={{ display: "none" }}></Alert>
-            )}
+    <>
+      {loggedInUser?.isAdmin == true ? (
+        <div className="add-product-container">
+          <form onSubmit={handleSubmit} className="add-product-form">
+            <Typography
+              variant="h5"
+              component="h1"
+              gutterBottom
+              style={{ marginTop: "10px" }}
+            >
+              Add a new product to the database
+            </Typography>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "20px",
+                paddingBottom: "20px",
+              }}
+            >
+              <BackToAdminButton />
+              <EditProductsButton />
+              <AdminOrdersButton />
+            </div>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  label="Product Title"
+                  name="add-title"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  required
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="Product Description"
+                  name="add-description"
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  required
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="Price"
+                  name="add-price"
+                  value={price}
+                  onChange={(e) => setPrice(Number(e.target.value))}
+                  required
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="Image URL"
+                  name="add-image"
+                  value={image}
+                  onChange={(e) => setImage(e.target.value)}
+                  required
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="Stock Quantity"
+                  name="add-inStock"
+                  value={inStock}
+                  onChange={(e) => setInStock(Number(e.target.value))}
+                  required
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12}>
+                {show && !success ? (
+                  <Alert
+                    onClose={handleShow}
+                    severity="error"
+                    style={{ marginBottom: "2rem" }}
+                  >
+                    ERROR - Error adding new product to the database.<br></br>{" "}
+                    Please try again
+                  </Alert>
+                ) : (
+                  <Alert severity="error" style={{ display: "none" }}></Alert>
+                )}
 
-            <Button type="submit" variant="contained" color="primary" fullWidth>
-              Add Product
-            </Button>
-            {show && success ? (
-              <Alert
-                onClose={handleShow}
-                severity="success"
-                style={{ marginTop: "2rem" }}
-              >
-                SUCCESS - New product add to the database. You might need to
-                refresh the page.
-              </Alert>
-            ) : (
-              <Alert severity="success" style={{ display: "none" }}></Alert>
-            )}
-          </Grid>
-        </Grid>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  fullWidth
+                >
+                  Add Product
+                </Button>
+                {show && success ? (
+                  <Alert
+                    onClose={handleShow}
+                    severity="success"
+                    style={{ marginTop: "2rem" }}
+                  >
+                    SUCCESS - New product add to the database. You might need to
+                    refresh the page.
+                  </Alert>
+                ) : (
+                  <Alert severity="success" style={{ display: "none" }}></Alert>
+                )}
+              </Grid>
+            </Grid>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                paddingTop: "5px",
+                gap: "30px",
+              }}
+            >
+              <ScrollToTop />
+            </div>
+          </form>
+        </div>
+      ) : (
         <div
           style={{
+            height: "50vh",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            paddingTop: "5px",
-            gap: "30px",
           }}
         >
-          <ScrollToTop />
+          You don't have access to this content.
         </div>
-      </form>
-    </div>
+      )}
+    </>
   );
 }
