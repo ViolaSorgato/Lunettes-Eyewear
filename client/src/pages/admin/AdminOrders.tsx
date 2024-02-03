@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CartItem } from "../../context/cart.context";
-import { User } from "../../context/user.context";
+import { User, UserContextType } from "../../context/user.context";
 import {
   Accordion,
   AccordionDetails,
@@ -35,7 +35,7 @@ interface ShippedOrder {
 
 // This is the page where Admin can manage the orders
 export default function AdminOrders() {
-  // State to hold the list of shipped orders
+  const { loggedInUser } = useContext(UserContextType);
   const [orders, setOrders] = useState<ShippedOrder[]>([]);
 
   // Fetch the list of shipped orders from the server
@@ -106,121 +106,141 @@ export default function AdminOrders() {
   // Renders the component
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          paddingTop: "30px",
-          paddingBottom: "30px",
-        }}
-      >
-        {orders.length === 0 ? (
-          <p>There are no orders at the moment.</p>
-        ) : (
-          <p style={{ fontSize: "larger" }}>Here you can manage your orders.</p>
-        )}
+      {loggedInUser?.isAdmin ? (
         <div
           style={{
             display: "flex",
+            flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            gap: "20px",
             paddingTop: "30px",
+            paddingBottom: "30px",
           }}
         >
-          <BackToAdminButton />
-          <AddProductButton />
-          <EditProductsButton />
+          {orders.length === 0 ? (
+            <p>There are no orders at the moment.</p>
+          ) : (
+            <p style={{ fontSize: "larger" }}>
+              Here you can manage your orders.
+            </p>
+          )}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "20px",
+              paddingTop: "30px",
+            }}
+          >
+            <BackToAdminButton />
+            <AddProductButton />
+            <EditProductsButton />
+          </div>
         </div>
-      </div>
+      ) : (
+        // Content for non-admin user
+        <div
+          style={{
+            height: "50vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          You don't have access to this content.
+        </div>
+      )}
 
       {/* Display orders */}
-      {currentOrders.map((order) => (
-        <Accordion key={order.orderNumber}>
-          <AccordionSummary aria-controls="panel1a-content" id="panel1a-header">
-            <Stack
-              direction={{ xs: "column", sm: "row" }}
-              spacing={1}
-              alignItems="center"
-              marginLeft={"10%"}
-              width={"80%"}
-              justifyContent={"space-between"}
+      {loggedInUser?.isAdmin &&
+        currentOrders.map((order) => (
+          <Accordion key={order.orderNumber}>
+            <AccordionSummary
+              aria-controls="panel1a-content"
+              id="panel1a-header"
             >
-              <Box style={{ width: "300px" }}>
-                <p style={{ fontWeight: "bold", paddingBottom: 7 }}>
-                  Order Number: {order.orderNumber}
-                </p>
-              </Box>
-              <div
-                style={{
-                  textAlign: "center",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
+              <Stack
+                direction={{ xs: "column", sm: "row" }}
+                spacing={1}
+                alignItems="center"
+                marginLeft={"10%"}
+                width={"80%"}
+                justifyContent={"space-between"}
               >
-                {/* Display shipping status */}
-                {order.shipped ? (
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    endIcon={<CheckCircleOutline />}
-                  >
-                    <p>Successfully shipped</p>
-                  </Button>
-                ) : (
-                  <div>
-                    {/* Button to mark an order as shipped */}
+                <Box style={{ width: "300px" }}>
+                  <p style={{ fontWeight: "bold", paddingBottom: 7 }}>
+                    Order Number: {order.orderNumber}
+                  </p>
+                </Box>
+                <div
+                  style={{
+                    textAlign: "center",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  {/* Display shipping status */}
+                  {order.shipped ? (
                     <Button
                       variant="contained"
-                      color="primary"
-                      type="submit"
-                      onClick={(e) => handleSubmit(e, order._id)}
+                      color="secondary"
+                      endIcon={<CheckCircleOutline />}
                     >
-                      Mark as shipped
+                      <p>Successfully shipped</p>
                     </Button>
-                  </div>
-                )}
-              </div>
-            </Stack>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Customer</TableCell>
-                  <TableCell>Email</TableCell>
-                  <TableCell>Order Items</TableCell>
-                  <TableCell>Total</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                <TableRow>
-                  <TableCell>{order.customer.username}</TableCell>
-                  <TableCell>{order.customer.email}</TableCell>
-                  <TableCell>
-                    {order.orderItems.map((item) => (
-                      <p key={item.title}>
-                        {item.title} x {item.quantity} x {item.price}
-                      </p>
-                    ))}
-                  </TableCell>
-                  <TableCell>
-                    {formatCurrency(
-                      order.orderItems.reduce(
-                        (total, item) => total + item.quantity * item.price,
-                        0
-                      )
-                    )}
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </AccordionDetails>
-        </Accordion>
-      ))}
+                  ) : (
+                    <div>
+                      {/* Button to mark an order as shipped */}
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        type="submit"
+                        onClick={(e) => handleSubmit(e, order._id)}
+                      >
+                        Mark as shipped
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              </Stack>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Customer</TableCell>
+                    <TableCell>Email</TableCell>
+                    <TableCell>Order Items</TableCell>
+                    <TableCell>Total</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  <TableRow>
+                    <TableCell>{order.customer.username}</TableCell>
+                    <TableCell>{order.customer.email}</TableCell>
+                    <TableCell>
+                      {order.orderItems.map((item) => (
+                        <p key={item.title}>
+                          {item.title} x {item.quantity} x {item.price}
+                        </p>
+                      ))}
+                    </TableCell>
+                    <TableCell>
+                      {formatCurrency(
+                        order.orderItems.reduce(
+                          (total, item) => total + item.quantity * item.price,
+                          0
+                        )
+                      )}
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </AccordionDetails>
+          </Accordion>
+        ))}
       <div
         style={{
           display: "flex",
