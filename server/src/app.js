@@ -4,7 +4,6 @@ const cookieSession = require("cookie-session");
 const secretKey = process.env.COOKIE_SECRET_KEY;
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const bodyParser = require("body-parser");
-// const { errorRequestHandler } = require("./error");
 
 const app = express();
 require("express-async-errors");
@@ -50,8 +49,5 @@ app.use("/api", checkoutRouter);
 app.use("/api", userRouter);
 app.use("/api", categoryRouter);
 app.use("/api", orderRouter);
-
-// // Using the error handler middleware
-// app.use(errorRequestHandler);
 
 module.exports = { app };

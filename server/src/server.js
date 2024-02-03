@@ -2,7 +2,7 @@ require("dotenv").config();
 const { app } = require("./app");
 const { connectToDatabase } = require("./db");
 
-//Function that handles the server
+//Function that handles the server connection
 async function startServer() {
   try {
     await connectToDatabase();

@@ -116,7 +116,7 @@ async function deleteOrder(req, res) {
   }
 }
 
-// Delete all orders
+// Delete all orders (mostly to clean DB)
 async function deleteAllOrders(req, res) {
   try {
     const result = await OrderModel.deleteMany({});
